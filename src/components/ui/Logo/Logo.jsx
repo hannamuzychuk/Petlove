@@ -15,8 +15,8 @@ export default function Logo({ variant = 'dark' }) {
             <span className={styles.text}>petl</span>
             <Icon
             name="heart"
-            size={23}
-            className={`${iconStyles.heart} ${styles.heart}`}
+            size={17}
+            className={`${styles.heart} ${isLight ? '' : iconStyles.heart}`}
             />
             <span className={`${styles.text}`}>ve</span>
         </Link>

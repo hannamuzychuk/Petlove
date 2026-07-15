@@ -1,0 +1,146 @@
+.page {
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+}
+
+.hero {
+  background-color: var(--accent);
+  border-radius: 30px;
+  padding: 18px 20px 32px;
+  min-height: 390px;
+}
+
+.heroHeader {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 60px;
+  max-width: 295px;
+}
+
+.title {
+  margin: 0;
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 96%;
+  letter-spacing: -0.04em;
+  color: var(--color-white);
+}
+
+.titleAccent {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: var(--color-white);
+}
+
+.media {
+  margin-top: 0;
+}
+
+.picture {
+  display: block;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 402px;
+  object-fit: cover;
+  border-radius: 30px;
+}
+
+@media (min-width: 768px) {
+    .page {
+      padding: 16px 32px;
+    }
+
+    .hero {
+      border-radius: 60px;
+      padding: 27px 32px 40px;
+      min-height: 496px;
+    }
+
+    .heroHeader {
+      height: 50px;
+    }
+
+    .heroContent {
+      max-width: none;
+      margin-top: 95px;
+      gap: 32px;
+   }
+
+   .title {
+     font-size: 77px;
+     letter-spacing: -0.03em;
+     max-width: 640px;
+   }
+
+   .description {
+     font-size: 18px;
+     line-height: 1.22;
+     max-width: 255px;
+     align-self: flex-end;
+     margin-left: auto;
+   }
+
+   .media {
+    margin-top: 0;
+   }
+
+   .image {
+    height: 496px;
+    border-radius: 60px;
+   }
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    padding: 27px 64px 40px;
+    min-height: 384px;
+  }
+
+  .heroContent {
+    margin-top: 101px;
+    display: grid;
+    grid-template-columns: 1fr 255px;
+    column-gap: 73px;
+    gap: 0;
+    align-items: start;
+  }
+
+  .title {
+    font-size: 90px;
+    line-height: 97%;
+    letter-spacing: -0.02em;
+    max-width: 760px;
+    grid-column: 1;
+  }
+
+  .description {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 86px;
+    margin-left: 0;
+    align-self: start;
+    letter-spacing: -0.02em;
+  }
+
+  .image {
+    min-height: 384px;
+    border-radius: 60px;
+  }
+}

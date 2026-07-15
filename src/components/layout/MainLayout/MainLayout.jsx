@@ -1,18 +1,19 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import styles from './MainLayout.module.css';
 import Header from '../Header/Header';
 
 export default function MainLayout() {
-    return (
-        <>
-        <Header />
-        <main className={styles.main}>
-            <Outlet />
-        </main>
+  const location = useLocation();
+  const isHome = location.pathname === '/home';
 
-            <Loader />
-        </>
-    );
+  return (
+    <>
+      {!isHome && <Header />}
+      <main className={styles.main}>
+        <Outlet />
+      </main>
+      <Loader />
+    </>
+  );
 }
-
