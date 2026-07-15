@@ -1,0 +1,41 @@
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+}
+
+.text {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--color-black);
+}
+
+.heart {
+    width: 17px;
+    height: 17px;
+}
+
+.light .text {
+    color: var(--color-white);
+}
+
+.light .heart {
+    fill: var(--color-white);
+}
+
+.light .logo {
+    color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+    .text {
+        font-size: 28px;
+    }
+
+    .heart {
+        width: 23px;
+        height: 23px;
+    }
+}
