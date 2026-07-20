@@ -2,17 +2,24 @@ import Logo from '../../components/ui/Logo/Logo';
 import styles from './HomePage.module.css';
 import Nav from '../../components/layout/Nav/Nav';
 import AuthNav from '../../components/layout/AuthNav/AuthNav';
-import UserNav from '../../components/layout/UserNav/UserNav';  
+import UserNav from '../../components/layout/UserNav/UserNav'; 
+import { useSelector } from 'react-redux';
 
 export default function HomePage() {
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroHeader}>
           <Logo variant="light" />
-          <Nav variant="light" />
-          <AuthNav variant="light" />
-          <UserNav variant="light" />
+          <div className={styles.heroNav}>
+            <Nav variant="light" />
+          </div>
+          {isAuthenticated
+            ? <UserNav variant="light" />
+            : <AuthNav variant="light" />}
         </div>
 
         <div className={styles.heroContent}>

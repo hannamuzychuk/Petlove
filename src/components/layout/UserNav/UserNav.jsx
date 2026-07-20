@@ -4,7 +4,7 @@ import LogOutBtn from '../LogOutBtn/LogOutBtn';
 import styles from './UserNav.module.css';
 
 export default function UserNav({ variant = 'dark' }) {
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
     if (!isAuthenticated) {
         return null;
@@ -12,8 +12,8 @@ export default function UserNav({ variant = 'dark' }) {
 
     return (
         <div className={styles.userNav}>
+            {variant !== 'light' && <LogOutBtn />}
             <UserBar variant={variant} />
-            <LogOutBtn />
         </div>
     );
 }

@@ -22,7 +22,6 @@ export default function UserBar({ variant = 'dark' }) {
              to="/profile" 
              className={`${styles.userLink} ${isLight ? styles.profileLinkLight : styles.profileLinkDark}`}
              >
-            {/* avatar */}
             <span className={styles.avatar}>
                 {hasAvatar ? (
                     <img

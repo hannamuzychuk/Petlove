@@ -1,5 +1,17 @@
 .userNav {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .userNav {
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .userNav {
     gap: 8px;
   }
+}

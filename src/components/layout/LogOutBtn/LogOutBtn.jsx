@@ -11,7 +11,7 @@ export default function LogOutBtn() {
 
     return (
         <button type="button" className={styles.btn} onClick={handleLogout}>
-            Log out
+            LOG OUT
         </button>
     );
 }

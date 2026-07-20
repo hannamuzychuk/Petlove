@@ -136,34 +136,7 @@
   display: none;
 }
 
-@media (min-width: 769px) {
-  .nav,
-  .desktopNav {
-    display: block;
-  }
-
-  .burger {
-    display: none;
-  }
-
-  .menuOverlay,
-  .menuPanel,
-  .closeBtn {
-    display: none;
-  }
-
-  .list {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .link {
-    width: auto;
-    height: 50px;
-    font-size: 16px;
-    line-height: 1.25;
-  }
-
+@media (min-width: 768px) {
   .menuPanel {
     width: 374px;
   }
@@ -192,6 +165,35 @@
 
   .menu .linkDark.active {
     border-color: var(--accent);
+  }
+}
+
+@media (min-width: 769px) {
+  .nav,
+  .desktopNav {
+    display: block;
+  }
+
+  .burger {
+    display: none;
+  }
+
+  .menuOverlay,
+  .menuPanel,
+  .closeBtn {
+    display: none;
+  }
+
+  .list {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .link {
+    width: auto;
+    height: 50px;
+    font-size: 16px;
+    line-height: 1.25;
   }
 }
 

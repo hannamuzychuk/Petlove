@@ -14,7 +14,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
+  height: 50px;
+}
+
+.heroNav {
+  display: flex;
+  align-items: center;
+  order: 3;
+}
+
+.heroHeader > :last-child {
+  order: 2;
+  margin-left: auto;
 }
 
 .heroContent {
@@ -64,48 +75,64 @@
 }
 
 @media (min-width: 768px) {
-    .page {
-      padding: 16px 32px;
-    }
+  .page {
+    padding: 16px 32px;
+  }
 
-    .hero {
-      border-radius: 60px;
-      padding: 27px 32px 40px;
-      min-height: 496px;
-    }
+  .hero {
+    border-radius: 60px;
+    padding: 27px 32px 40px;
+    min-height: 496px;
+  }
 
-    .heroHeader {
-      height: 50px;
-    }
+  .heroContent {
+    max-width: none;
+    margin-top: 95px;
+    gap: 32px;
+  }
 
-    .heroContent {
-      max-width: none;
-      margin-top: 95px;
-      gap: 32px;
-   }
+  .title {
+    font-size: 77px;
+    letter-spacing: -0.03em;
+    max-width: 640px;
+  }
 
-   .title {
-     font-size: 77px;
-     letter-spacing: -0.03em;
-     max-width: 640px;
-   }
+  .description {
+    font-size: 18px;
+    line-height: 1.22;
+    max-width: 255px;
+    align-self: flex-end;
+    margin-left: auto;
+  }
 
-   .description {
-     font-size: 18px;
-     line-height: 1.22;
-     max-width: 255px;
-     align-self: flex-end;
-     margin-left: auto;
-   }
-
-   .media {
+  .media {
     margin-top: 0;
-   }
+  }
 
-   .image {
+  .image {
     height: 496px;
     border-radius: 60px;
-   }
+  }
+}
+
+@media (min-width: 769px) {
+  .heroHeader {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 50px;
+  }
+
+  .heroNav {
+    order: initial;
+    justify-self: center;
+  }
+
+  .heroHeader > :last-child {
+    order: initial;
+    margin-left: 0;
+    justify-self: end;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -144,16 +171,4 @@
     min-height: 384px;
     border-radius: 60px;
   }
-
-  .heroHeader {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    height: 50px;
-  }
-
-  .heroHeader nav {
-    justify-self: center;
-  }
-  
 }

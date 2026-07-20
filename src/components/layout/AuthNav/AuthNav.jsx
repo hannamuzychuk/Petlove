@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import styles from './AuthNav.module.css';
 
 const AUTH_LINKS = [
-    { to: '/register', label: 'REGISTRATION' },
     { to: '/login', label: 'LOG IN' },
+    { to: '/register', label: 'REGISTRATION' },
 ];
 
 const DRAWER_AUTH_LINKS = [
