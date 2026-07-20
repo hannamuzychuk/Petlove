@@ -1,5 +1,8 @@
 import Logo from '../../components/ui/Logo/Logo';
 import styles from './HomePage.module.css';
+import Nav from '../../components/layout/Nav/Nav';
+import AuthNav from '../../components/layout/AuthNav/AuthNav';
+import UserNav from '../../components/layout/UserNav/UserNav';  
 
 export default function HomePage() {
   return (
@@ -7,6 +10,9 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className={styles.heroHeader}>
           <Logo variant="light" />
+          <Nav variant="light" />
+          <AuthNav variant="light" />
+          <UserNav variant="light" />
         </div>
 
         <div className={styles.heroContent}>

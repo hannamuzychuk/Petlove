@@ -1,0 +1,69 @@
+.userBar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .userLink {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  
+  .profileLinkDark {
+    color: var(--color-black);
+  }
+  
+  .profileLinkLight {
+    color: var(--color-white);
+  }
+  
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  
+  .avatarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .avatarFallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #fff4df;
+    border-radius: 50%;
+  }
+  
+  .avatarFallback :global(svg) {
+    color: var(--accent);
+  }
+  
+  .name {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.29;
+    letter-spacing: -0.02em;
+  }
+  
+  @media (min-width: 769px) {
+    .avatar {
+      width: 50px;
+      height: 50px;
+    }
+  
+    .name {
+      font-size: 16px;
+      line-height: 1.25;
+    }
+  }

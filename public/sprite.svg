@@ -35,5 +35,14 @@
 <symbol id="heart" viewBox="0 0 32 32">
 <path fill="currentColor" d="M15.484 5.026c-3.098-3.658-8.264-4.642-12.145-1.292s-4.428 8.949-1.38 12.911c1.952 2.537 6.952 7.242 10.295 10.297 1.111 1.015 1.666 1.523 2.332 1.726 0.572 0.175 1.225 0.175 1.797 0 0.665-0.204 1.221-0.711 2.331-1.726 3.343-3.055 8.343-7.76 10.295-10.297 3.048-3.961 2.568-9.597-1.38-12.911s-9.048-2.365-12.146 1.292z"></path>
 </symbol>
+<symbol id="burger-menu" viewBox="0 0 36 36">
+<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4.5 9h27"></path>
+<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4.5 18h27"></path>
+<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4.5 27h27"></path>
+</symbol>
+<symbol id="close-menu" viewBox="0 0 32 32">
+<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M8 8l16 16"></path>
+<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M24 8l-16 16"></path>
+</symbol>
 </defs>
 </svg>

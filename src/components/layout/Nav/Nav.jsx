@@ -1,0 +1,96 @@
+import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import styles from './Nav.module.css';
+import Icon from '../../ui/Icon/Icon';
+import AuthNav from '../AuthNav/AuthNav';
+
+const NAV_LINKS = [
+    { to: '/news', label: 'News' },
+    { to: '/notices', label: 'Find pet' },
+    { to: '/friends', label: 'Our friends' },
+];
+
+export default function Nav({ variant = 'dark' }) {
+    const isLight = variant === 'light';
+    const [isOpen, setIsOpen] = useState(false);
+
+    const closeMenu = () => setIsOpen(false);
+    const toggleMenu = () => setIsOpen((prev) => !prev);
+
+    const renderLinks = (isDrawerMenu) => (
+        NAV_LINKS.map(({ to, label }) => (
+            <li key={to} className={styles.item}>
+                <NavLink
+                    to={to}
+                    onClick={isDrawerMenu ? closeMenu : undefined}
+                    className={({ isActive }) =>
+                        [
+                            styles.link,
+                            isDrawerMenu || !isLight ? styles.linkDark : styles.linkLight,
+                            isActive ? styles.active : '',
+                        ]
+                            .filter(Boolean)
+                            .join(' ')
+                    }
+                >
+                    {label}
+                </NavLink>
+            </li>
+        ))
+    );
+
+    return (
+        <>
+            <button
+                type="button"
+                className={`${styles.burger} ${isLight ? styles.burgerLight : styles.burgerDark} ${isOpen ? styles.burgerHidden : ''}`}
+                onClick={toggleMenu}
+                aria-expanded={isOpen}
+                aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            >
+                <Icon name="burger-menu" size={36} />
+            </button>
+
+            {isOpen && (
+                <>
+                    <div
+                        className={styles.menuOverlay}
+                        onClick={closeMenu}
+                        aria-hidden="true"
+                    />
+                    <div
+                        className={styles.menuPanel}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Menu"
+                    >
+                        <button
+                            type="button"
+                            className={styles.closeBtn}
+                            onClick={closeMenu}
+                            aria-label="Close menu"
+                        >
+                            <Icon name="close-menu" size={32} />
+                        </button>
+
+                        <nav
+                            className={`${styles.nav} ${styles.menu}`}
+                            aria-label="Main navigation"
+                        >
+                            <ul className={styles.list}>{renderLinks(true)}</ul>
+                        </nav>
+
+                        <AuthNav inDrawer onClose={closeMenu} />
+                    </div>
+                </>
+            )}
+
+            <nav
+                className={`${styles.nav} ${styles.desktopNav}`}
+                aria-label="Main navigation"
+            >
+                <ul className={styles.list}>{renderLinks(false)}</ul>
+            </nav>
+        </>
+    );
+}
