@@ -8,6 +8,8 @@ import NewsPage from '../pages/NewsPage/NewsPage';
 import FriendsPage from '../pages/FriendsPage/FriendsPage';
 import AddPetPage from '../pages/AddPetPage/AddPetPage';
 import MainLayout from '../components/layout/MainLayout/MainLayout';
+import PublicRestrictedRoute from '../routes/PublicRestrictedRoute';
+import PrivateRoute from '../routes/PrivateRoute';
 
 export default function AppRoutes() {
   return (
@@ -16,9 +18,9 @@ export default function AppRoutes() {
 
       <Route element={<MainLayout />}>
         <Route path="/home" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/login" element={<PublicRestrictedRoute><LoginPage /></PublicRestrictedRoute>} />
+        <Route path="/register" element={<PublicRestrictedRoute><RegisterPage /></PublicRestrictedRoute>} />
+        <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
         <Route path="/notices" element={<NoticesPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/friends" element={<FriendsPage />} />

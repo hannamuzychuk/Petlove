@@ -3,10 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const TOKEN_KEY = 'token';
 
+const savedToken  = localStorage.getItem(TOKEN_KEY);
+
 const initialState = {
-    token: null,
+    token: savedToken || null,
     user: null,
-    isAuthenticated: false,
+    isAuthenticated: Boolean(savedToken),
 };
 
 const authSlice = createSlice({
