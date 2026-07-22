@@ -48,7 +48,19 @@
 
   .list {
     flex-direction: row;
-    gap: 10px;
+    gap: 8px;
+  }
+
+  .headerLogin {
+    width: 119px;
+    height: 50px;
+    padding: 0;
+  }
+
+  .headerRegister {
+    width: 149px;
+    height: 50px;
+    padding: 0;
   }
 
   .drawerAuth {

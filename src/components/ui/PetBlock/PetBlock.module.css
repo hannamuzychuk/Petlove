@@ -1,5 +1,6 @@
 .block {
   width: 100%;
+  height: 280px;
   border-radius: 30px;
   overflow: hidden;
   background-color: #ffc531;
@@ -10,4 +11,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 768px) {
+  .block {
+    height: 302px;
+    border-radius: 60px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .block {
+    height: 100%;
+    min-height: 654px;
+    border-radius: 60px;
+  }
 }

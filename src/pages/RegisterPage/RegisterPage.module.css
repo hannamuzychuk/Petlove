@@ -1,0 +1,221 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px 20px;
+  background-color: #f9f9f9;
+}
+
+.petWrap {
+  position: relative;
+  width: 100%;
+}
+
+.petBlock {
+  height: 280px;
+  border-radius: 30px;
+  background-color: #f6b83d;
+}
+
+.petCard {
+  display: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 27px 20px 20px;
+  border-radius: 30px;
+  background-color: var(--color-white);
+}
+
+.formWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+  letter-spacing: -0.02em;
+  color: #262626;
+}
+
+@media (min-width: 768px) {
+  .page {
+    gap: 16px;
+    padding: 0 32px 32px;
+  }
+
+  .petBlock {
+    height: 302px;
+    border-radius: 60px;
+  }
+
+  .petCard {
+    position: absolute;
+    left: 32px;
+    top: 149px;
+    display: flex;
+    gap: 8px;
+    width: 294px;
+    min-height: 121px;
+    padding: 16px;
+    border-radius: 20px;
+    background-color: var(--color-white);
+    box-sizing: border-box;
+  }
+
+  .petAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--color-light);
+  }
+
+  .petEmoji {
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  .petInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .petMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .petName {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+  }
+
+  .petBirthday {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.17;
+    letter-spacing: -0.02em;
+    color: #262626;
+    white-space: nowrap;
+  }
+
+  .petBirthday span {
+    color: rgba(38, 38, 38, 0.5);
+  }
+
+  .petDesc {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.17;
+    letter-spacing: -0.02em;
+    color: rgba(38, 38, 38, 0.8);
+  }
+
+  .content {
+    align-items: center;
+    gap: 0;
+    min-height: 560px;
+    padding: 30px 32px 32px;
+    border-radius: 60px;
+  }
+
+  .formWrap {
+    width: 100%;
+    max-width: 424px;
+    gap: 32px;
+  }
+
+  .intro {
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 54px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .text {
+    font-size: 18px;
+    line-height: 1.22;
+  }
+}
+
+@media (min-width: 1280px) {
+  .page {
+    display: grid;
+    grid-template-columns: 592px 592px;
+    justify-content: center;
+    align-items: start;
+    column-gap: 32px;
+    padding: 0 32px 32px;
+  }
+
+  .petWrap,
+  .content {
+    width: 592px;
+    height: 654px;
+  }
+
+  .petBlock {
+    height: 654px;
+    min-height: 654px;
+    border-radius: 60px;
+  }
+
+  .petCard {
+    left: 61px;
+    top: auto;
+    bottom: 97px;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 654px;
+    padding: 77px 84px;
+    border-radius: 60px;
+    background-color: var(--color-white);
+  }
+
+  .formWrap {
+    width: 100%;
+    max-width: 424px;
+    gap: 32px;
+  }
+
+  .title {
+    font-size: 54px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+}

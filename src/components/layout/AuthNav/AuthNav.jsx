@@ -42,17 +42,19 @@ export default function AuthNav({ variant = 'dark', inDrawer = false, onClose })
         <li className={styles.item}>
           <Button
             to="/login"
-            variant={isLight ? 'outlineLight' : 'outline'}
+            variant={isLight ? 'outlineLight' : 'filled'}
+            className={styles.headerLogin}
           >
-            LOG IN
+            Log In
           </Button>
         </li>
         <li className={styles.item}>
           <Button
             to="/register"
-            variant={isLight ? 'filledLight' : 'filled'}
+            variant={isLight ? 'filledLight' : 'soft'}
+            className={styles.headerRegister}
           >
-            REGISTRATION
+            Registration
           </Button>
         </li>
       </ul>
