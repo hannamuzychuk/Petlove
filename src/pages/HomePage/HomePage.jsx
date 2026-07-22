@@ -4,15 +4,16 @@ import Nav from '../../components/layout/Nav/Nav';
 import AuthNav from '../../components/layout/AuthNav/AuthNav';
 import UserNav from '../../components/layout/UserNav/UserNav'; 
 import { useSelector } from 'react-redux';
+import Container from '../../components/ui/Container/Container';
 
 export default function HomePage() {
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   
   return (
-    <div className={styles.page}>
+    <Container className={styles.page}>
       <section className={styles.hero}>
-        <div className={styles.heroHeader}>
+        <header className={styles.heroHeader}>
           <Logo variant="light" />
           <div className={styles.heroNav}>
             <Nav variant="light" />
@@ -20,7 +21,7 @@ export default function HomePage() {
           {isAuthenticated
             ? <UserNav variant="light" />
             : <AuthNav variant="light" />}
-        </div>
+        </header>
 
         <div className={styles.heroContent}>
           <h1 className={styles.title}>
@@ -55,6 +56,6 @@ export default function HomePage() {
           />
         </picture>
       </section>
-    </div>
+    </Container>
   );
 }

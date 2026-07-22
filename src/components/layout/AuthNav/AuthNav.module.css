@@ -20,44 +20,6 @@
   margin: 0;
 }
 
-.link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 119px;
-  height: 48px;
-  padding: 0 20px;
-  border-radius: 30px;
-  border: 1px solid transparent;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.29;
-  text-decoration: none;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.linkDark {
-  color: var(--color-black);
-  border-color: rgba(38, 38, 38, 0.15);
-}
-
-.linkDark:hover,
-.linkDark.active {
-  border-color: var(--accent);
-}
-
-.linkLight {
-  color: var(--color-white);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.linkLight:hover,
-.linkLight.active {
-  border-color: var(--color-white);
-}
-
 .drawerAuth {
   position: absolute;
   left: 50%;
@@ -69,43 +31,14 @@
   width: 178px;
 }
 
-.authLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 42px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.29;
-  letter-spacing: -0.03em;
-}
-
 .loginBtn {
   width: 178px;
-  background: var(--accent);
-  color: var(--color-white);
+  padding: 0;
 }
 
 .registerBtn {
   width: 178px;
-  background: #fff4df;
-  color: var(--accent);
-}
-
-.loginLight {
-  color: var(--color-white);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: transparent;
-  font-weight: 700;
-}
-
-.registerLight {
-  color: var(--accent);
-  background: var(--color-white);
-  border: 1px solid transparent;
-  font-weight: 700;
+  padding: 0;
 }
 
 @media (min-width: 769px) {
@@ -118,22 +51,9 @@
     gap: 10px;
   }
 
-  .link {
-    width: auto;
-    height: 50px;
-    font-size: 16px;
-    line-height: 1.25;
-  }
-
   .drawerAuth {
     flex-direction: row;
     width: 276px;
-  }
-
-  .authLink {
-    height: 50px;
-    font-size: 16px;
-    line-height: 1.25;
   }
 
   .loginBtn {
@@ -153,11 +73,5 @@
   .list {
     flex-direction: row;
     gap: 10px;
-  }
-
-  .link {
-    width: auto;
-    height: 50px;
-    font-size: 16px;
   }
 }

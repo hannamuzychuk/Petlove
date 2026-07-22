@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Nav.module.css';
 import Icon from '../../ui/Icon/Icon';
 import AuthNav from '../AuthNav/AuthNav';
@@ -13,6 +13,33 @@ const NAV_LINKS = [
 export default function Nav({ variant = 'dark' }) {
     const isLight = variant === 'light';
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                closeMenu();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isOpen]);
 
     const closeMenu = () => setIsOpen(false);
     const toggleMenu = () => setIsOpen((prev) => !prev);

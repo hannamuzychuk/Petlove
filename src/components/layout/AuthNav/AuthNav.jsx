@@ -1,71 +1,61 @@
-import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Button from '../../ui/Button/Button';
 import styles from './AuthNav.module.css';
 
-const AUTH_LINKS = [
-    { to: '/login', label: 'LOG IN' },
-    { to: '/register', label: 'REGISTRATION' },
-];
-
-const DRAWER_AUTH_LINKS = [
-    { to: '/login', label: 'LOG IN', btnClass: styles.loginBtn },
-    { to: '/register', label: 'REGISTRATION', btnClass: styles.registerBtn },
-];
-
 export default function AuthNav({ variant = 'dark', inDrawer = false, onClose }) {
-    const isLight = variant === 'light';
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isLight = variant === 'light';
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    if (isAuthenticated) {
-        return null;
-    }
+  if (isAuthenticated) {
+    return null;
+  }
 
-    if (inDrawer) {
-        return (
-            <div className={styles.drawerAuth}>
-                {DRAWER_AUTH_LINKS.map(({ to, label, btnClass }) => (
-                    <NavLink
-                        key={to}
-                        to={to}
-                        onClick={onClose}
-                        className={({ isActive }) =>
-                            [styles.authLink, btnClass, isActive ? styles.active : '']
-                                .filter(Boolean)
-                                .join(' ')
-                        }
-                    >
-                        {label}
-                    </NavLink>
-                ))}
-            </div>
-        );
-    }
-
+  if (inDrawer) {
     return (
-        <nav
-            className={`${styles.nav} ${styles.headerOnly}`}
-            aria-label="Authentication navigation"
+      <div className={styles.drawerAuth}>
+        <Button
+          to="/login"
+          variant="filled"
+          onClick={onClose}
+          className={styles.loginBtn}
         >
-            <ul className={styles.list}>
-                {AUTH_LINKS.map(({ to, label }) => (
-                    <li key={to} className={styles.item}>
-                        <NavLink
-                            to={to}
-                            className={({ isActive }) =>
-                                [
-                                    styles.link,
-                                    isLight ? styles.linkLight : styles.linkDark,
-                                    isActive ? styles.active : '',
-                                ]
-                                    .filter(Boolean)
-                                    .join(' ')
-                            }
-                        >
-                            {label}
-                        </NavLink>
-                    </li>
-                ))}
-            </ul>
-        </nav>
+          LOG IN
+        </Button>
+        <Button
+          to="/register"
+          variant="soft"
+          onClick={onClose}
+          className={styles.registerBtn}
+        >
+          REGISTRATION
+        </Button>
+      </div>
     );
+  }
+
+  return (
+    <nav
+      className={`${styles.nav} ${styles.headerOnly}`}
+      aria-label="Authentication navigation"
+    >
+      <ul className={styles.list}>
+        <li className={styles.item}>
+          <Button
+            to="/login"
+            variant={isLight ? 'outlineLight' : 'outline'}
+          >
+            LOG IN
+          </Button>
+        </li>
+        <li className={styles.item}>
+          <Button
+            to="/register"
+            variant={isLight ? 'filledLight' : 'filled'}
+          >
+            REGISTRATION
+          </Button>
+        </li>
+      </ul>
+    </nav>
+  );
 }
