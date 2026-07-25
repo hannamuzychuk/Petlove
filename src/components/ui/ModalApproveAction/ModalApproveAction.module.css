@@ -1,0 +1,21 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+  }
+  
+  .title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-black);
+  }
+  
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }

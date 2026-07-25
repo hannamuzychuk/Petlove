@@ -1,0 +1,34 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(38, 38, 38, 0.3);
+    padding: 20px;
+  }
+  
+  .modal {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    padding: 40px 20px;
+    border-radius: 30px;
+    background-color: var(--color-white);
+    outline: none;
+  }
+  
+  .closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .closeBtn:hover {
+    opacity: 0.7;
+  }
