@@ -41,4 +41,13 @@ export const authPost = (url, data, config = {}) =>
     },
   });
 
+export const authDelete = (url, config = {}) =>
+  api.delete(url, {
+    ...config,
+    headers: {
+      ...config.headers,
+      ...authHeaders(),
+    },
+  });
+
 export default api;

@@ -1,6 +1,7 @@
 import Title from '../../components/ui/Title/Title';
 import PetBlock from '../../components/ui/PetBlock/PetBlock';
 import RegistrationForm from '../../components/auth/RegistrationForm/RegistrationForm';
+import Icon from '../../components/ui/Icon/Icon';
 import styles from './RegisterPage.module.css';
 
 export default function RegisterPage() {
@@ -19,9 +20,7 @@ export default function RegisterPage() {
         />
         <aside className={styles.petCard} aria-hidden="true">
           <div className={styles.petAvatar}>
-            <span className={styles.petEmoji} role="img" aria-label="cat">
-              🐈
-            </span>
+            <Icon name="cat" size={32} />
           </div>
           <div className={styles.petInfo}>
             <div className={styles.petMeta}>

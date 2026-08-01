@@ -1,9 +1,21 @@
+import { useEffect, useState } from 'react';
+
 import Icon from '../Icon/Icon';
 import styles from './Pagination.module.css';
 
-function getPageItems(page, totalPages) {
-  if (totalPages <= 4) {
+function getPageItems(page, totalPages, compact) {
+  const maxVisible = compact ? 3 : 4;
+
+  if (totalPages <= maxVisible) {
     return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  if (compact) {
+    if (page <= 2) return [1, 2, 'ellipsis'];
+    if (page >= totalPages - 1) {
+      return ['ellipsis', totalPages - 1, totalPages];
+    }
+    return ['ellipsis', page, 'ellipsis'];
   }
 
   if (page <= 2) return [1, 2, 3, 'ellipsis'];
@@ -15,11 +27,23 @@ function getPageItems(page, totalPages) {
 }
 
 export default function Pagination({ page, totalPages, onChange }) {
+  const [compact, setCompact] = useState(true);
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 767px)');
+    const update = () => setCompact(media.matches);
+
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+
   if (!totalPages || totalPages <= 1) return null;
 
   const isFirst = page <= 1;
   const isLast = page >= totalPages;
-  const items = getPageItems(page, totalPages);
+  const items = getPageItems(page, totalPages, compact);
+  const iconSize = compact ? 20 : 24;
 
   return (
     <nav className={styles.nav} aria-label="Pagination">
@@ -32,8 +56,8 @@ export default function Pagination({ page, totalPages, onChange }) {
           aria-label="First page"
         >
           <span className={styles.double}>
-            <Icon name="vector-left" size={24} />
-            <Icon name="left-second" size={24} />
+            <Icon name="vector-left" size={iconSize} />
+            <Icon name="left-second" size={iconSize} />
           </span>
         </button>
 
@@ -44,7 +68,7 @@ export default function Pagination({ page, totalPages, onChange }) {
           disabled={isFirst}
           aria-label="Previous page"
         >
-          <Icon name="vector-left" size={24} />
+          <Icon name="vector-left" size={iconSize} />
         </button>
       </div>
 
@@ -77,7 +101,7 @@ export default function Pagination({ page, totalPages, onChange }) {
           disabled={isLast}
           aria-label="Next page"
         >
-          <Icon name="vector-right" size={24} />
+          <Icon name="vector-right" size={iconSize} />
         </button>
 
         <button
@@ -88,8 +112,8 @@ export default function Pagination({ page, totalPages, onChange }) {
           aria-label="Last page"
         >
           <span className={styles.double}>
-            <Icon name="vector-right" size={24} />
-            <Icon name="vector-right-second" size={24} />
+            <Icon name="vector-right" size={iconSize} />
+            <Icon name="vector-right-second" size={iconSize} />
           </span>
         </button>
       </div>

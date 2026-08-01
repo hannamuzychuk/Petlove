@@ -88,11 +88,6 @@
     background-color: var(--color-light);
   }
 
-  .petEmoji {
-    font-size: 32px;
-    line-height: 1;
-  }
-
   .petInfo {
     display: flex;
     flex-direction: column;

@@ -12,8 +12,8 @@
   .modal {
     position: relative;
     width: 100%;
-    max-width: 480px;
-    padding: 40px 20px;
+    max-width: 473px;
+    padding: 40px 20px 32px;
     border-radius: 30px;
     background-color: var(--color-white);
     outline: none;
