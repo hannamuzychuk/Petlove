@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import Modal from '../../ui/Modal/Modal';
@@ -9,6 +9,7 @@ import {
   addNoticeToFavorites,
   removeNoticeFromFavorites,
 } from '../../../services/noticesApi';
+import { setNoticesFavorites } from '../../../redux/authSlice';
 import styles from './ModalNotice.module.css';
 
 function formatDate(dateString) {
@@ -33,17 +34,37 @@ function capitalize(value = '') {
   return value ? value.charAt(0).toUpperCase() + value.slice(1) : '';
 }
 
+function isNoticeFavorite(favorites = [], noticeId) {
+  return favorites.some((item) => {
+    const id = typeof item === 'string' ? item : item?._id;
+    return id === noticeId;
+  });
+}
+
+function getFavoritesFromResponse(data, fallback) {
+  if (Array.isArray(data?.noticesFavorites)) return data.noticesFavorites;
+  if (Array.isArray(data)) return data;
+  return fallback;
+}
+
+const EMPTY_FAVORITES = [];
+
 export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const favorites = useSelector(
+    (state) => state.auth.user?.noticesFavorites ?? EMPTY_FAVORITES,
+  );
   const [details, setDetails] = useState(notice);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+
+  const noticeId = details?._id || notice?._id;
+  const isFavorite = isNoticeFavorite(favorites, noticeId);
 
   useEffect(() => {
     if (!isOpen || !notice?._id) return;
 
     setDetails(notice);
-    setIsFavorite(Boolean(notice.isFavorite));
 
     if (!isAuthenticated) return;
 
@@ -80,17 +101,31 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
       return;
     }
 
-    if (favoriteLoading) return;
+    if (!noticeId || favoriteLoading) return;
     setFavoriteLoading(true);
 
     try {
       if (isFavorite) {
-        await removeNoticeFromFavorites(details._id);
-        setIsFavorite(false);
+        const data = await removeNoticeFromFavorites(noticeId);
+        dispatch(
+          setNoticesFavorites(
+            getFavoritesFromResponse(
+              data,
+              favorites.filter((fav) => {
+                const id = typeof fav === 'string' ? fav : fav?._id;
+                return id !== noticeId;
+              }),
+            ),
+          ),
+        );
         toast.success('Removed from favorites');
       } else {
-        await addNoticeToFavorites(details._id);
-        setIsFavorite(true);
+        const data = await addNoticeToFavorites(noticeId);
+        dispatch(
+          setNoticesFavorites(
+            getFavoritesFromResponse(data, [...favorites, noticeId]),
+          ),
+        );
         toast.success('Added to favorites');
       }
     } catch (error) {
@@ -127,7 +162,9 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.content}>
         <div className={styles.imageWrap}>
-          <img className={styles.image} src={image} alt={details?.title} />
+          {image ? (
+            <img className={styles.image} src={image} alt={details?.title} />
+          ) : null}
           {category ? <span className={styles.badge}>{category}</span> : null}
         </div>
 

@@ -1,7 +1,13 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import Icon from '../../ui/Icon/Icon';
+import {
+  addNoticeToFavorites,
+  removeNoticeFromFavorites,
+} from '../../../services/noticesApi';
+import { setNoticesFavorites } from '../../../redux/authSlice';
 import styles from './NoticesItem.module.css';
 
 function formatDate(dateString) {
@@ -22,18 +28,75 @@ function formatPrice(price) {
   return `$${num.toFixed(2)}`;
 }
 
+function isNoticeFavorite(favorites = [], noticeId) {
+  return favorites.some((item) => {
+    const id = typeof item === 'string' ? item : item?._id;
+    return id === noticeId;
+  });
+}
+
+function getFavoritesFromResponse(data, fallback) {
+  if (Array.isArray(data?.noticesFavorites)) return data.noticesFavorites;
+  if (Array.isArray(data)) return data;
+  return fallback;
+}
+
+const EMPTY_FAVORITES = [];
+
 export default function NoticesItem({ item, onLearnMore, onRequireAuth }) {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const favorites = useSelector(
+    (state) => state.auth.user?.noticesFavorites ?? EMPTY_FAVORITES,
+  );
+  const isFavorite = isNoticeFavorite(favorites, item._id);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
+
   const image = item.imgURL || item.imgUrl || '';
   const price = formatPrice(item.price);
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = async () => {
     if (!isAuthenticated) {
       onRequireAuth?.();
       return;
     }
-    setIsFavorite((prev) => !prev);
+
+    if (favoriteLoading) return;
+    setFavoriteLoading(true);
+
+    try {
+      if (isFavorite) {
+        const data = await removeNoticeFromFavorites(item._id);
+        dispatch(
+          setNoticesFavorites(
+            getFavoritesFromResponse(
+              data,
+              favorites.filter((fav) => {
+                const id = typeof fav === 'string' ? fav : fav?._id;
+                return id !== item._id;
+              }),
+            ),
+          ),
+        );
+        toast.success('Removed from favorites');
+      } else {
+        const data = await addNoticeToFavorites(item._id);
+        dispatch(
+          setNoticesFavorites(
+            getFavoritesFromResponse(data, [...favorites, item._id]),
+          ),
+        );
+        toast.success('Added to favorites');
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          'Failed to update favorites',
+      );
+    } finally {
+      setFavoriteLoading(false);
+    }
   };
 
   return (
@@ -93,6 +156,7 @@ export default function NoticesItem({ item, onLearnMore, onRequireAuth }) {
               className={`${styles.favorite} ${
                 isFavorite ? styles.favoriteActive : ''
               }`}
+              disabled={favoriteLoading}
               aria-label={
                 isFavorite ? 'Remove from favorites' : 'Add to favorites'
               }

@@ -11,6 +11,7 @@ import Pagination from '../../components/ui/Pagination/Pagination';
 import NoticesList from '../../components/notices/NoticesList/NoticesList';
 import NoticesFilters from '../../components/notices/NoticesFilters/NoticesFilters';
 import ModalNotice from '../../components/notices/ModalNotice/ModalNotice';
+import { useSelector } from 'react-redux';
 import ModalAttention from '../../components/ui/ModalAttention/ModalAttention';
 import styles from './NoticesPage.module.css';
 
@@ -113,7 +114,13 @@ export default function NoticesPage() {
     updateParams({ page: nextPage });
   };
 
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const handleLearnMore = (notice) => {
+    if (!isAuthenticated) {
+      setIsAttentionOpen(true);
+      return;
+    }
     setSelectedNotice(notice);
   };
 

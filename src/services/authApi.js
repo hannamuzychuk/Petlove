@@ -1,6 +1,25 @@
-import api from './api';
+import api, { authGet } from './api';
 import { startLoading, stopLoading } from '../redux/loadingSlice';
-import { setCredentials } from '../redux/authSlice';
+import { setCredentials, setUser, logOut } from '../redux/authSlice';
+
+const mapAuthUser = (data) =>
+  data.user ?? {
+    name: data.name,
+    email: data.email,
+    noticesFavorites: data.noticesFavorites ?? [],
+  };
+
+export const refreshUser = () => async (dispatch, getState) => {
+  const token = getState().auth.token;
+  if (!token) return;
+
+  try {
+    const { data } = await authGet('/users/current');
+    dispatch(setUser(data.user ?? data));
+  } catch {
+    dispatch(logOut());
+  }
+};
 
 export const registerUser = (formData) => async (dispatch) => {
   dispatch(startLoading());
@@ -11,9 +30,10 @@ export const registerUser = (formData) => async (dispatch) => {
     dispatch(
       setCredentials({
         token: data.token,
-        user: data.user ?? { name: data.name, email: data.email },
-      })
+        user: mapAuthUser(data),
+      }),
     );
+    await dispatch(refreshUser());
     return data;
   } finally {
     dispatch(stopLoading());
@@ -29,9 +49,10 @@ export const loginUser = (formData) => async (dispatch) => {
     dispatch(
       setCredentials({
         token: data.token,
-        user: data.user ?? { name: data.name, email: data.email },
-      })
+        user: mapAuthUser(data),
+      }),
     );
+    await dispatch(refreshUser());
     return data;
   } finally {
     dispatch(stopLoading());
