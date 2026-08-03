@@ -1,0 +1,92 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avatarBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatarWrap {
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff4df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.uploadLabel {
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--color-black);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.33;
+  color: var(--color-black);
+}
+
+.list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.item {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 16px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  color: var(--color-black);
+}
+
+.itemAccent {
+  border-color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .avatarWrap {
+    width: 110px;
+    height: 110px;
+  }
+}

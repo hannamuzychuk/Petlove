@@ -3,8 +3,9 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  min-width: 136px;
   height: 50px;
-  padding: 0 28px;
+  padding: 0 35px;
   border: 1px solid var(--accent);
   border-radius: 30px;
   background-color: transparent;
@@ -20,6 +21,19 @@
 }
 
 .btn:hover {
+  background-color: var(--accent);
+  color: var(--color-white);
+}
+
+.soft {
+  border: none;
+  background-color: #fff4df;
+  color: var(--accent);
+  text-transform: none;
+  font-weight: 700;
+}
+
+.soft:hover {
   background-color: var(--accent);
   color: var(--color-white);
 }

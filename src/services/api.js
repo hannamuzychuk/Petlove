@@ -50,4 +50,13 @@ export const authDelete = (url, config = {}) =>
     },
   });
 
+export const authPatch = (url, data, config = {}) =>
+  api.patch(url, data, {
+    ...config,
+    headers: {
+      ...config.headers,
+      ...authHeaders(),
+    },
+  });
+
 export default api;

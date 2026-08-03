@@ -1,0 +1,15 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.empty {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.29;
+  color: rgba(38, 38, 38, 0.5);
+}

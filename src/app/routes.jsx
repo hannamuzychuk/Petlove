@@ -24,7 +24,7 @@ export default function AppRoutes() {
         <Route path="/notices" element={<NoticesPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/friends" element={<FriendsPage />} />
-        <Route path="/add-pet" element={<AddPetPage />} />
+        <Route path="/add-pet" element={<PrivateRoute><AddPetPage /></PrivateRoute>} />
       </Route>
     </Routes>
   );

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 const TOKEN_KEY = 'token';
 
 const savedToken  = localStorage.getItem(TOKEN_KEY);
@@ -32,6 +31,18 @@ const authSlice = createSlice({
 
             state.user.noticesFavorites = action.payload;
         },
+
+        setUserPets: (state, action) => {
+            if (!state.user) return;
+
+            state.user.pets = action.payload;
+        },
+
+        setNoticesViewed: (state, action) => {
+            if (!state.user) return;
+
+            state.user.noticesViewed = action.payload;
+        },
      
         logOut: (state) => {
             state.token = null;
@@ -43,5 +54,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { setCredentials, logOut, setUser, setNoticesFavorites } = authSlice.actions;
+export const { setCredentials, logOut, setUser, setNoticesFavorites, setUserPets, setNoticesViewed } = authSlice.actions;
 export default authSlice.reducer;

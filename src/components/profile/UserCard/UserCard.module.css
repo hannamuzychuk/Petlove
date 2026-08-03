@@ -1,0 +1,52 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 54px 20px 40px;
+  border-radius: 30px;
+  background-color: var(--color-white);
+}
+
+.badge {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 30px;
+  background-color: var(--accent);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+  letter-spacing: -0.02em;
+}
+
+.logout {
+  margin-top: auto;
+}
+
+@media (max-width: 767px) {
+  .badge {
+    top: 20px;
+    left: 20px;
+  }
+
+  .card {
+    padding-top: 70px;
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 54px 40px 40px;
+    border-radius: 60px;
+  }
+}
