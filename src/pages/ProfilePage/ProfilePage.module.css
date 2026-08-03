@@ -2,12 +2,15 @@
   min-height: 100%;
   padding: 20px 0 60px;
   background-color: #f9f9f9;
+  overflow-x: clip;
 }
 
 .layout {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  width: 100%;
+  min-width: 0;
 }
 
 @media (min-width: 768px) {
@@ -20,16 +23,18 @@
   .layout {
     flex-direction: row;
     align-items: flex-start;
-    gap: 32px;
+    gap: 24px;
   }
 
   .layout > :first-child {
-    flex: 0 0 520px;
-    max-width: 520px;
+    flex: 0 1 480px;
+    width: 100%;
+    max-width: 480px;
+    min-width: 0;
   }
 
   .layout > :last-child {
-    flex: 1;
+    flex: 1 1 0;
     min-width: 0;
   }
 }

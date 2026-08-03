@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 432px;
+  min-width: 0;
 }
 
 .heading {
@@ -364,7 +366,7 @@
   }
 
   .row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .urlRow {
@@ -376,12 +378,25 @@
   }
 
   .actions {
+    width: 100%;
     max-width: 348px;
     margin-left: auto;
   }
 
   .backBtn,
   .submitBtn {
-    flex: 0 0 170px;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .actions {
+    margin-left: auto;
+  }
+
+  .backBtn,
+  .submitBtn {
+    flex: 0 1 170px;
   }
 }

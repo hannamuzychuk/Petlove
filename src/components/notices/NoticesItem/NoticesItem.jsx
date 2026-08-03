@@ -8,6 +8,10 @@ import {
   removeNoticeFromFavorites,
 } from '../../../services/noticesApi';
 import { setNoticesFavorites } from '../../../redux/authSlice';
+import {
+  getFavoriteId,
+  resolveNoticesFavorites,
+} from '../../../utils/favorites';
 import styles from './NoticesItem.module.css';
 
 function formatDate(dateString) {
@@ -29,21 +33,12 @@ function formatPrice(price) {
 }
 
 function isNoticeFavorite(favorites = [], noticeId) {
-  return favorites.some((item) => {
-    const id = typeof item === 'string' ? item : item?._id;
-    return id === noticeId;
-  });
-}
-
-function getFavoritesFromResponse(data, fallback) {
-  if (Array.isArray(data?.noticesFavorites)) return data.noticesFavorites;
-  if (Array.isArray(data)) return data;
-  return fallback;
+  return favorites.some((item) => getFavoriteId(item) === noticeId);
 }
 
 const EMPTY_FAVORITES = [];
 
-export default function NoticesItem({ item, onLearnMore, onRequireAuth }) {
+export default function NoticesItem({ item, onLearnMore, onRequireAuth, showRemoveFavorite = false }) {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const favorites = useSelector(
@@ -54,6 +49,28 @@ export default function NoticesItem({ item, onLearnMore, onRequireAuth }) {
 
   const image = item.imgURL || item.imgUrl || '';
   const price = formatPrice(item.price);
+
+  const handleRemoveFavorite = async () => {
+    if (favoriteLoading) return;
+    setFavoriteLoading(true);
+
+    try {
+      const data = await removeNoticeFromFavorites(item._id);
+      const nextFavorites = favorites.filter(
+        (fav) => getFavoriteId(fav) !== item._id,
+      );
+      dispatch(setNoticesFavorites(resolveNoticesFavorites(data, nextFavorites)));
+      toast.success('Removed from favorites');
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          'Failed to remove from favorites',
+      );
+    } finally {
+      setFavoriteLoading(false);
+    }
+  };
 
   const handleFavoriteClick = async () => {
     if (!isAuthenticated) {
@@ -67,23 +84,18 @@ export default function NoticesItem({ item, onLearnMore, onRequireAuth }) {
     try {
       if (isFavorite) {
         const data = await removeNoticeFromFavorites(item._id);
+        const nextFavorites = favorites.filter(
+          (fav) => getFavoriteId(fav) !== item._id,
+        );
         dispatch(
-          setNoticesFavorites(
-            getFavoritesFromResponse(
-              data,
-              favorites.filter((fav) => {
-                const id = typeof fav === 'string' ? fav : fav?._id;
-                return id !== item._id;
-              }),
-            ),
-          ),
+          setNoticesFavorites(resolveNoticesFavorites(data, nextFavorites)),
         );
         toast.success('Removed from favorites');
       } else {
         const data = await addNoticeToFavorites(item._id);
         dispatch(
           setNoticesFavorites(
-            getFavoritesFromResponse(data, [...favorites, item._id]),
+            resolveNoticesFavorites(data, [...favorites, item]),
           ),
         );
         toast.success('Added to favorites');
@@ -151,24 +163,36 @@ export default function NoticesItem({ item, onLearnMore, onRequireAuth }) {
             >
               Learn more
             </button>
-            <button
-              type="button"
-              className={`${styles.favorite} ${
-                isFavorite ? styles.favoriteActive : ''
-              }`}
-              disabled={favoriteLoading}
-              aria-label={
-                isFavorite ? 'Remove from favorites' : 'Add to favorites'
-              }
-              aria-pressed={isFavorite}
-              onClick={handleFavoriteClick}
-            >
-              <Icon
-                name={isFavorite ? 'heart' : 'heart-outline'}
-                size={18}
-                className={styles.heartIcon}
-              />
-            </button>
+            {showRemoveFavorite ? (
+              <button
+                type="button"
+                className={styles.favorite}
+                disabled={favoriteLoading}
+                aria-label="Remove from favorites"
+                onClick={handleRemoveFavorite}
+              >
+                <Icon name="trash" size={18} />
+              </button>
+            ) : (
+              <button
+                type="button"
+                className={`${styles.favorite} ${
+                  isFavorite ? styles.favoriteActive : ''
+                }`}
+                disabled={favoriteLoading}
+                aria-label={
+                  isFavorite ? 'Remove from favorites' : 'Add to favorites'
+                }
+                aria-pressed={isFavorite}
+                onClick={handleFavoriteClick}
+              >
+                <Icon
+                  name={isFavorite ? 'heart' : 'heart-outline'}
+                  size={18}
+                  className={styles.heartIcon}
+                />
+              </button>
+            )}
           </div>
         </div>
       </div>

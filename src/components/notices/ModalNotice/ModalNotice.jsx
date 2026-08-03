@@ -10,6 +10,10 @@ import {
   removeNoticeFromFavorites,
 } from '../../../services/noticesApi';
 import { setNoticesFavorites } from '../../../redux/authSlice';
+import {
+  getFavoriteId,
+  resolveNoticesFavorites,
+} from '../../../utils/favorites';
 import styles from './ModalNotice.module.css';
 
 function formatDate(dateString) {
@@ -35,16 +39,7 @@ function capitalize(value = '') {
 }
 
 function isNoticeFavorite(favorites = [], noticeId) {
-  return favorites.some((item) => {
-    const id = typeof item === 'string' ? item : item?._id;
-    return id === noticeId;
-  });
-}
-
-function getFavoritesFromResponse(data, fallback) {
-  if (Array.isArray(data?.noticesFavorites)) return data.noticesFavorites;
-  if (Array.isArray(data)) return data;
-  return fallback;
+  return favorites.some((item) => getFavoriteId(item) === noticeId);
 }
 
 const EMPTY_FAVORITES = [];
@@ -107,23 +102,19 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
     try {
       if (isFavorite) {
         const data = await removeNoticeFromFavorites(noticeId);
+        const nextFavorites = favorites.filter(
+          (fav) => getFavoriteId(fav) !== noticeId,
+        );
         dispatch(
-          setNoticesFavorites(
-            getFavoritesFromResponse(
-              data,
-              favorites.filter((fav) => {
-                const id = typeof fav === 'string' ? fav : fav?._id;
-                return id !== noticeId;
-              }),
-            ),
-          ),
+          setNoticesFavorites(resolveNoticesFavorites(data, nextFavorites)),
         );
         toast.success('Removed from favorites');
       } else {
         const data = await addNoticeToFavorites(noticeId);
+        const noticeToStore = details || notice;
         dispatch(
           setNoticesFavorites(
-            getFavoritesFromResponse(data, [...favorites, noticeId]),
+            resolveNoticesFavorites(data, [...favorites, noticeToStore]),
           ),
         );
         toast.success('Added to favorites');

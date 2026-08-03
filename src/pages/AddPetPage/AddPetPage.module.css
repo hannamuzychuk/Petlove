@@ -1,17 +1,21 @@
 .page {
+  min-height: 100%;
   padding: 0 0 20px;
   background-color: #f9f9f9;
+  overflow-x: clip;
 }
 
 .layout {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 0 20px;
+  width: 100%;
+  min-width: 0;
 }
 
 .petWrap {
   width: 100%;
+  min-width: 0;
 }
 
 .petBlock {
@@ -23,6 +27,7 @@
 .content {
   box-sizing: border-box;
   width: 100%;
+  min-width: 0;
   padding: 20px;
   border-radius: 30px;
   background-color: var(--color-white);
@@ -35,7 +40,6 @@
 
   .layout {
     gap: 16px;
-    padding: 0 32px;
   }
 
   .petBlock {
@@ -53,24 +57,28 @@
   .layout {
     flex-direction: row;
     align-items: stretch;
-    gap: 32px;
+    gap: 24px;
   }
 
   .petWrap,
   .content {
-    flex: 1 1 592px;
-    max-width: 592px;
+    flex: 1 1 0;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
   }
 
   .petBlock {
     height: 100%;
     min-height: 654px;
+    border-radius: 60px;
   }
 
   .content {
     display: flex;
     align-items: flex-start;
     min-height: 654px;
-    padding: 60px 80px;
+    padding: 60px clamp(24px, 5vw, 80px);
+    border-radius: 60px;
   }
 }

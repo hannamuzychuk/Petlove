@@ -7,6 +7,7 @@ import NoticesPage from '../pages/NoticesPage/NoticesPage';
 import NewsPage from '../pages/NewsPage/NewsPage';
 import FriendsPage from '../pages/FriendsPage/FriendsPage';
 import AddPetPage from '../pages/AddPetPage/AddPetPage';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import MainLayout from '../components/layout/MainLayout/MainLayout';
 import PublicRestrictedRoute from '../routes/PublicRestrictedRoute';
 import PrivateRoute from '../routes/PrivateRoute';
@@ -25,6 +26,7 @@ export default function AppRoutes() {
         <Route path="/news" element={<NewsPage />} />
         <Route path="/friends" element={<FriendsPage />} />
         <Route path="/add-pet" element={<PrivateRoute><AddPetPage /></PrivateRoute>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );
