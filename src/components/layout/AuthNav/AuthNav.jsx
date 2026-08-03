@@ -2,8 +2,14 @@ import { useSelector } from 'react-redux';
 import Button from '../../ui/Button/Button';
 import styles from './AuthNav.module.css';
 
-export default function AuthNav({ variant = 'dark', inDrawer = false, onClose }) {
+export default function AuthNav({
+  variant = 'dark',
+  inDrawer = false,
+  onClose,
+  menuTheme = 'default',
+}) {
   const isLight = variant === 'light';
+  const isAccentMenu = menuTheme === 'accent';
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   if (isAuthenticated) {
@@ -15,11 +21,11 @@ export default function AuthNav({ variant = 'dark', inDrawer = false, onClose })
       <div className={styles.drawerAuth}>
         <Button
           to="/login"
-          variant="filled"
+          variant={isAccentMenu ? 'outlineLight' : 'filled'}
           onClick={onClose}
-          className={styles.loginBtn}
+          className={`${styles.loginBtn} ${isAccentMenu ? styles.loginBtnAccent : ''}`}
         >
-          LOG IN
+          Log In
         </Button>
         <Button
           to="/register"
@@ -27,7 +33,7 @@ export default function AuthNav({ variant = 'dark', inDrawer = false, onClose })
           onClick={onClose}
           className={styles.registerBtn}
         >
-          REGISTRATION
+          Registration
         </Button>
       </div>
     );

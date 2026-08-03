@@ -1,7 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   width: 100%;
 }
 
@@ -56,6 +56,10 @@
   padding-right: 42px;
 }
 
+.inputWrap:has(.inputActionsWide) .input {
+  padding-right: 68px;
+}
+
 .input::placeholder {
   color: rgba(38, 38, 38, 0.5);
 }
@@ -64,11 +68,33 @@
   border-color: var(--accent);
 }
 
-.eyeBtn {
+.inputError {
+  border-color: var(--color-error);
+}
+
+.inputError:focus {
+  border-color: var(--color-error);
+}
+
+.inputSuccess {
+  border-color: var(--color-success);
+}
+
+.inputSuccess:focus {
+  border-color: var(--color-success);
+}
+
+.inputActions {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eyeBtn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,12 +111,33 @@
   color: var(--accent);
 }
 
+.checkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--color-success);
+}
+
+.checkIcon svg {
+  color: var(--color-success);
+}
+
 .error {
   padding-left: 12px;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: -0.03em;
   color: var(--color-error);
+}
+
+.success {
+  padding-left: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--color-success);
 }
 
 .actions {
@@ -144,13 +191,23 @@
     padding-right: 52px;
   }
 
-  .eyeBtn {
+  .inputWrap:has(.inputActionsWide) .input {
+    padding-right: 84px;
+  }
+
+  .inputActions {
     right: 16px;
+    gap: 10px;
+  }
+
+  .eyeBtn,
+  .checkIcon {
     width: 22px;
     height: 22px;
   }
 
-  .error {
+  .error,
+  .success {
     font-size: 12px;
   }
 

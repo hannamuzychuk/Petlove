@@ -31,14 +31,16 @@
   width: 178px;
 }
 
-.loginBtn {
-  width: 178px;
-  padding: 0;
-}
-
+.loginBtn,
 .registerBtn {
   width: 178px;
+  height: 42px;
   padding: 0;
+  text-transform: none;
+}
+
+.loginBtnAccent {
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 @media (min-width: 769px) {

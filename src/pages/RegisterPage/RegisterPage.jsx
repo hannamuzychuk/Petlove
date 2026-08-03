@@ -2,11 +2,18 @@ import Title from '../../components/ui/Title/Title';
 import PetBlock from '../../components/ui/PetBlock/PetBlock';
 import RegistrationForm from '../../components/auth/RegistrationForm/RegistrationForm';
 import Icon from '../../components/ui/Icon/Icon';
+import Logo from '../../components/ui/Logo/Logo';
+import Nav from '../../components/layout/Nav/Nav';
 import styles from './RegisterPage.module.css';
 
 export default function RegisterPage() {
   return (
     <div className={styles.page}>
+      <header className={styles.topBar}>
+        <Logo />
+        <Nav menuTheme="accent" />
+      </header>
+
       <div className={styles.petWrap}>
         <PetBlock
           className={styles.petBlock}

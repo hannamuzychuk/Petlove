@@ -13,7 +13,7 @@ export default function UserCard({ user, onEdit, onPetRemove }) {
         <Icon name="user" size={18} />
       </span>
       <EditUserBtn onClick={onEdit} />
-      <UserBlock user={user} />
+      <UserBlock user={user} onEdit={onEdit} />
       <PetsBlock pets={user?.pets ?? []} onRemove={onPetRemove} />
       <div className={styles.logout}>
         <LogOutBtn variant="soft" />

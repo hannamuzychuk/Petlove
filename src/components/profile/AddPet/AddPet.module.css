@@ -1,0 +1,20 @@
+.addBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 30px;
+  background-color: var(--accent);
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.addBtn:hover {
+  opacity: 0.9;
+}

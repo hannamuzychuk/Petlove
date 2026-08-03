@@ -5,12 +5,16 @@ import Header from '../Header/Header';
 
 export default function MainLayout() {
   const location = useLocation();
-  const isHome = location.pathname === '/home';
+  const pathname = location.pathname;
+  const hideHeader =
+    pathname === '/home' ||
+    pathname === '/login' ||
+    pathname === '/register';
 
   return (
     <>
-      {!isHome && <Header />}
-      <main className={styles.main}>
+      {!hideHeader && <Header />}
+      <main className={`${styles.main} ${hideHeader ? styles.mainFull : ''}`}>
         <Outlet />
       </main>
       <Loader />

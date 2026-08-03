@@ -19,11 +19,18 @@ export default function RegistrationForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(registerSchema),
     mode: 'onBlur',
   });
+
+  const passwordValue = watch('password', '');
+  const isPasswordSecure =
+    typeof passwordValue === 'string' &&
+    passwordValue.length >= 7 &&
+    !errors.password;
 
   const onSubmit = async (values) => {
     try {
@@ -82,23 +89,41 @@ export default function RegistrationForm() {
           <div className={styles.inputWrap}>
             <input
               id="register-password"
-              className={styles.input}
+              className={[
+                styles.input,
+                errors.password ? styles.inputError : '',
+                isPasswordSecure ? styles.inputSuccess : '',
+              ]
+                .filter(Boolean)
+                .join(' ')}
               type={showPassword ? 'text' : 'password'}
               placeholder="Password"
               autoComplete="new-password"
               {...register('password')}
             />
-            <button
-              type="button"
-              className={styles.eyeBtn}
-              onClick={() => setShowPassword((prev) => !prev)}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            <div
+              className={`${styles.inputActions} ${isPasswordSecure ? styles.inputActionsWide : ''}`}
             >
-              <Icon name={showPassword ? 'eye' : 'eye-off'} size={18} />
-            </button>
+              {isPasswordSecure && (
+                <span className={styles.checkIcon} aria-hidden="true">
+                  <Icon name="check" size={18} />
+                </span>
+              )}
+              <button
+                type="button"
+                className={styles.eyeBtn}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                <Icon name={showPassword ? 'eye' : 'eye-off'} size={18} />
+              </button>
+            </div>
           </div>
           {errors.password && (
             <span className={styles.error}>{errors.password.message}</span>
+          )}
+          {isPasswordSecure && (
+            <span className={styles.success}>Password is secure</span>
           )}
         </div>
 
@@ -112,24 +137,31 @@ export default function RegistrationForm() {
           <div className={styles.inputWrap}>
             <input
               id="register-confirm-password"
-              className={styles.input}
+              className={[
+                styles.input,
+                errors.confirmPassword ? styles.inputError : '',
+              ]
+                .filter(Boolean)
+                .join(' ')}
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirm password"
               autoComplete="new-password"
               {...register('confirmPassword')}
             />
-            <button
-              type="button"
-              className={styles.eyeBtn}
-              onClick={() => setShowConfirmPassword((prev) => !prev)}
-              aria-label={
-                showConfirmPassword
-                  ? 'Hide confirm password'
-                  : 'Show confirm password'
-              }
-            >
-              <Icon name={showConfirmPassword ? 'eye' : 'eye-off'} size={18} />
-            </button>
+            <div className={styles.inputActions}>
+              <button
+                type="button"
+                className={styles.eyeBtn}
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                aria-label={
+                  showConfirmPassword
+                    ? 'Hide confirm password'
+                    : 'Show confirm password'
+                }
+              >
+                <Icon name={showConfirmPassword ? 'eye' : 'eye-off'} size={18} />
+              </button>
+            </div>
           </div>
           {errors.confirmPassword && (
             <span className={styles.error}>

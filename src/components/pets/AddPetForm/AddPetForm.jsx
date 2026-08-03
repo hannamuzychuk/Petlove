@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Select, { components } from 'react-select';
@@ -21,11 +21,6 @@ const SEX_OPTIONS = [
 
 const capitalize = (value = '') =>
   value ? value.charAt(0).toUpperCase() + value.slice(1) : '';
-
-const toApiBirthday = (value) => {
-  const [day, month, year] = value.split('.');
-  return `${year}-${month}-${day}`;
-};
 
 const DropdownIndicator = (props) => (
   <components.DropdownIndicator {...props}>
@@ -61,6 +56,7 @@ export default function AddPetForm() {
 
   const sex = watch('sex');
   const imgURL = watch('imgURL');
+  const birthdayValue = watch('birthday');
 
   const typeOptions = useMemo(
     () =>
@@ -99,7 +95,7 @@ export default function AddPetForm() {
         name: values.name,
         imgURL: values.imgURL,
         species: values.species,
-        birthday: toApiBirthday(values.birthday),
+        birthday: values.birthday,
         sex: values.sex,
       });
 
@@ -146,7 +142,7 @@ export default function AddPetForm() {
               setValue('sex', option.value, { shouldValidate: true })
             }
           >
-            <Icon name={option.icon} size={option.value === 'female' ? 20 : 24} />
+            <Icon name={option.icon} size={20} />
           </button>
         ))}
       </div>
@@ -166,7 +162,7 @@ export default function AddPetForm() {
               }}
             />
           ) : (
-            <Icon name="paw" size={44} className={styles.pawIcon} />
+            <Icon name="paw" size={34} className={styles.pawIcon} />
           )}
         </div>
 
@@ -237,15 +233,17 @@ export default function AddPetForm() {
               Birthday
             </label>
             <div className={styles.inputWrap}>
+              {!birthdayValue ? (
+                <span className={styles.datePlaceholder}>00.00.0000</span>
+              ) : null}
               <input
                 id="pet-birthday"
-                className={styles.input}
-                type="text"
-                placeholder="00.00.0000"
+                className={`${styles.input} ${!birthdayValue ? styles.inputDateEmpty : ''}`}
+                type="date"
                 {...register('birthday')}
               />
               <span className={styles.inputIcon} aria-hidden="true">
-                <Icon name="calendar" size={20} />
+                <Icon name="calendar" size={18} />
               </span>
             </div>
             {errors.birthday ? (
@@ -286,9 +284,13 @@ export default function AddPetForm() {
       </div>
 
       <div className={styles.actions}>
-        <Link to="/profile" className={styles.backBtn}>
+        <button
+          type="button"
+          className={styles.backBtn}
+          onClick={() => navigate('/profile')}
+        >
           Back
-        </Link>
+        </button>
         <button
           type="submit"
           className={styles.submitBtn}

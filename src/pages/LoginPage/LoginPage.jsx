@@ -1,11 +1,18 @@
 import Title from '../../components/ui/Title/Title';
 import PetBlock from '../../components/ui/PetBlock/PetBlock';
 import LoginForm from '../../components/auth/LoginForm/LoginForm';
+import Logo from '../../components/ui/Logo/Logo';
+import Nav from '../../components/layout/Nav/Nav';
 import styles from './LoginPage.module.css';
 
 export default function LoginPage() {
   return (
     <div className={styles.page}>
+      <header className={styles.topBar}>
+        <Logo />
+        <Nav menuTheme="accent" />
+      </header>
+
       <div className={styles.petWrap}>
         <PetBlock
           className={styles.petBlock}

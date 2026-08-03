@@ -18,9 +18,11 @@ export default function HomePage() {
           <div className={styles.heroNav}>
             <Nav variant="light" />
           </div>
-          {isAuthenticated
-            ? <UserNav variant="light" />
-            : <AuthNav variant="light" />}
+          <div className={styles.heroActions}>
+            {isAuthenticated
+              ? <UserNav variant="light" />
+              : <AuthNav variant="light" />}
+          </div>
         </header>
 
         <div className={styles.heroContent}>

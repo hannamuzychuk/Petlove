@@ -38,6 +38,18 @@
   color: var(--color-white);
 }
 
+.filled {
+  border: none;
+  background-color: var(--accent);
+  color: var(--color-white);
+  text-transform: none;
+  font-weight: 700;
+}
+
+.filled:hover {
+  opacity: 0.9;
+}
+
 @media (max-width: 767px) {
   .btn {
     height: 42px;

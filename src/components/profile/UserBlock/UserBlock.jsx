@@ -1,30 +1,29 @@
-import Icon from '../../ui/Icon/Icon';
+import EditUserBtn from '../EditUserBtn/EditUserBtn';
 import styles from './UserBlock.module.css';
 
-export default function UserBlock({ user }) {
+export default function UserBlock({ user, onEdit }) {
   if (!user) return null;
 
   const hasPhone = Boolean(user.phone);
+  const hasAvatar = Boolean(user.avatar);
 
   return (
     <div className={styles.block}>
       <div className={styles.avatarBlock}>
-        <div className={styles.avatarWrap}>
-          {user.avatar ? (
+        {hasAvatar ? (
+          <div className={styles.avatarWrap}>
             <img
               className={styles.avatar}
               src={user.avatar}
               alt={`${user.name} avatar`}
             />
-          ) : (
-            <span className={styles.avatarFallback}>
-              <Icon name="user" size={50} />
-            </span>
-          )}
-        </div>
-        {!user.avatar ? (
-          <span className={styles.uploadLabel}>Upload photo</span>
-        ) : null}
+          </div>
+        ) : (
+          <>
+            <EditUserBtn variant="avatar" onClick={onEdit} />
+            <span className={styles.uploadLabel}>Upload photo</span>
+          </>
+        )}
       </div>
 
       <div className={styles.info}>

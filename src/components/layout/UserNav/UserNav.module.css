@@ -4,9 +4,46 @@
   gap: 8px;
 }
 
+.logout {
+  display: none;
+}
+
+.drawerUser {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 178px;
+}
+
+.drawerLogout {
+  width: 178px;
+  min-width: 0;
+  height: 42px;
+  padding: 0;
+}
+
 @media (min-width: 768px) {
   .userNav {
     gap: 16px;
+  }
+
+  .drawerUser {
+    width: 178px;
+  }
+
+  .drawerLogout {
+    width: 178px;
+    height: 48px;
+  }
+}
+
+@media (min-width: 769px) {
+  .logout {
+    display: contents;
   }
 }
 

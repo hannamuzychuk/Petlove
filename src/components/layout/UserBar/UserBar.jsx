@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import Icon from '../../ui/Icon/Icon';
 import styles from './UserBar.module.css';
 
-export default function UserBar({ variant = 'dark' }) {
+export default function UserBar({ variant = 'dark', onNavigate }) {
     const user = useSelector(state => state.auth.user);
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
@@ -20,6 +20,7 @@ export default function UserBar({ variant = 'dark' }) {
         <div className={styles.userBar}>
             <Link
              to="/profile" 
+             onClick={onNavigate}
              className={`${styles.userLink} ${isLight ? styles.profileLinkLight : styles.profileLinkDark}`}
              >
             <span className={styles.avatar}>

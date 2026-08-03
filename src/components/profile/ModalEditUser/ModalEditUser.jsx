@@ -55,22 +55,29 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
   const onSubmit = async (values) => {
     try {
       const payload = {
-        name: values.name,
-        email: values.email,
-        avatar: values.avatar || null,
-        phone: values.phone || null,
+        name: values.name.trim(),
+        email: values.email.trim(),
       };
+
+      const avatar = values.avatar?.trim();
+      const phone = values.phone?.trim();
+
+      if (avatar) payload.avatar = avatar;
+      if (phone) payload.phone = phone;
 
       const data = await editCurrentUser(payload);
       dispatch(setUser(data.user ?? data));
       toast.success('Profile updated');
       onClose();
     } catch (error) {
-      toast.error(
+      const apiMessage =
         error.response?.data?.message ||
-          error.message ||
-          'Failed to update profile',
-      );
+        (Array.isArray(error.response?.data?.errors)
+          ? error.response.data.errors.join(', ')
+          : null) ||
+        error.message ||
+        'Failed to update profile';
+      toast.error(apiMessage);
     }
   };
 

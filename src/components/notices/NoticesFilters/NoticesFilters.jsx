@@ -128,6 +128,20 @@ export default function NoticesFilters({ filters, onChange }) {
     onChange({ [key]: option?.value || '' });
   };
 
+  const handleReset = () => {
+    setQuery('');
+    setLocationValue(null);
+    onChange({
+      keyword: '',
+      category: '',
+      sex: '',
+      species: '',
+      locationId: '',
+      sort: '',
+      page: 1,
+    });
+  };
+
   return (
     <div className={styles.filters}>
       <div className={styles.row}>
@@ -241,6 +255,10 @@ export default function NoticesFilters({ filters, onChange }) {
               </button>
             );
           })}
+          <button type="button" className={styles.reset} onClick={handleReset}>
+            Reset
+            <Icon name="close-menu" size={18} />
+          </button>
         </div>
       </div>
     </div>

@@ -1,13 +1,25 @@
 .page {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 100dvh;
   padding: 0 20px 20px;
   background-color: #f9f9f9;
 }
 
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding-top: 28px;
+  padding-bottom: 20px;
+}
+
 .petWrap {
   position: relative;
+  flex-shrink: 0;
   width: 100%;
 }
 
@@ -24,8 +36,9 @@
 .content {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   gap: 24px;
-  padding: 60px 20px 20px;
+  padding: 40px 20px 40px;
   border-radius: 30px;
   background-color: var(--color-white);
 }
@@ -43,6 +56,12 @@
   gap: 12px;
 }
 
+.title {
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
 .text {
   margin: 0;
   font-size: 14px;
@@ -52,10 +71,26 @@
   color: #262626;
 }
 
+@media (max-width: 767px) {
+  .page {
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .content {
+    min-height: 0;
+  }
+}
+
 @media (min-width: 768px) {
   .page {
     gap: 16px;
     padding: 0 32px 32px;
+  }
+
+  .topBar {
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
   .petBlock {
@@ -177,6 +212,15 @@
     align-items: start;
     column-gap: 32px;
     padding: 0 32px 32px;
+  }
+
+  .topBar {
+    grid-column: 1 / -1;
+    max-width: 1216px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 16px 0;
+    box-sizing: border-box;
   }
 
   .petWrap,

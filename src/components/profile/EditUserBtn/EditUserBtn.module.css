@@ -1,7 +1,4 @@
 .btn {
-  position: absolute;
-  top: 40px;
-  right: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19,9 +16,33 @@
   opacity: 0.9;
 }
 
+.cornerBtn {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+.avatarBtn {
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  background-color: #fff4df;
+}
+
+.avatarBtn :global(svg) {
+  color: var(--accent);
+}
+
 @media (max-width: 767px) {
-  .btn {
+  .cornerBtn {
     top: 20px;
     right: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .avatarBtn {
+    width: 110px;
+    height: 110px;
   }
 }

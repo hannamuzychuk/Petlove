@@ -28,7 +28,7 @@ export default function NewsItem({ item}) {
                 </div>
 
                 <div className={styles.footer}>
-                    <time className={styles.data} datetime={item.date}>
+                    <time className={styles.data} dateTime={item.date}>
                         {formatData(item.date)}
                     </time>
 

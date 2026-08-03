@@ -1,8 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './Nav.module.css';
 import Icon from '../../ui/Icon/Icon';
 import AuthNav from '../AuthNav/AuthNav';
+import UserNav from '../UserNav/UserNav';
 
 const NAV_LINKS = [
     { to: '/news', label: 'News' },
@@ -10,8 +12,10 @@ const NAV_LINKS = [
     { to: '/friends', label: 'Our friends' },
 ];
 
-export default function Nav({ variant = 'dark' }) {
+export default function Nav({ variant = 'dark', menuTheme = 'default' }) {
     const isLight = variant === 'light';
+    const isAccentMenu = menuTheme === 'accent';
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -53,7 +57,11 @@ export default function Nav({ variant = 'dark' }) {
                     className={({ isActive }) =>
                         [
                             styles.link,
-                            isDrawerMenu || !isLight ? styles.linkDark : styles.linkLight,
+                            isDrawerMenu && isAccentMenu
+                                ? styles.linkAccent
+                                : isDrawerMenu || !isLight
+                                  ? styles.linkDark
+                                  : styles.linkLight,
                             isActive ? styles.active : '',
                         ]
                             .filter(Boolean)
@@ -75,7 +83,7 @@ export default function Nav({ variant = 'dark' }) {
                 aria-expanded={isOpen}
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
-                <Icon name="burger-menu" size={36} />
+                <Icon name="burger-menu" size={32} />
             </button>
 
             {isOpen && (
@@ -86,14 +94,14 @@ export default function Nav({ variant = 'dark' }) {
                         aria-hidden="true"
                     />
                     <div
-                        className={styles.menuPanel}
+                        className={`${styles.menuPanel} ${isAccentMenu ? styles.menuPanelAccent : ''}`}
                         role="dialog"
                         aria-modal="true"
                         aria-label="Menu"
                     >
                         <button
                             type="button"
-                            className={styles.closeBtn}
+                            className={`${styles.closeBtn} ${isAccentMenu ? styles.closeBtnAccent : ''}`}
                             onClick={closeMenu}
                             aria-label="Close menu"
                         >
@@ -107,7 +115,15 @@ export default function Nav({ variant = 'dark' }) {
                             <ul className={styles.list}>{renderLinks(true)}</ul>
                         </nav>
 
-                        <AuthNav inDrawer onClose={closeMenu} />
+                        {isAuthenticated ? (
+                            <UserNav inDrawer onClose={closeMenu} />
+                        ) : (
+                            <AuthNav
+                              inDrawer
+                              onClose={closeMenu}
+                              menuTheme={menuTheme}
+                            />
+                        )}
                     </div>
                 </>
             )}

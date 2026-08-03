@@ -14,17 +14,19 @@
 .heroHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 50px;
+  height: 40px;
 }
 
 .heroNav {
   display: flex;
   align-items: center;
   order: 3;
+  margin-left: 12px;
 }
 
-.heroHeader > :last-child {
+.heroActions {
+  display: flex;
+  align-items: center;
   order: 2;
   margin-left: auto;
 }
@@ -128,9 +130,10 @@
   .heroNav {
     order: initial;
     justify-self: center;
+    margin-left: 0;
   }
 
-  .heroHeader > :last-child {
+  .heroActions {
     order: initial;
     margin-left: 0;
     justify-self: end;

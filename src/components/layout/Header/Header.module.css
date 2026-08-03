@@ -1,7 +1,11 @@
 .header {
+  width: 100%;
+  background-color: #f9f9f9;
+}
+
+.inner {
   display: flex;
   align-items: center;
-  gap: 8px;
   height: 74px;
   padding: 28px 20px 20px;
 }
@@ -10,15 +14,18 @@
   display: flex;
   align-items: center;
   order: 3;
+  margin-left: 12px;
 }
 
-.header > :last-child {
+.actions {
+  display: flex;
+  align-items: center;
   order: 2;
   margin-left: auto;
 }
 
 @media (min-width: 769px) {
-  .header {
+  .inner {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
@@ -31,9 +38,10 @@
   .nav {
     order: initial;
     justify-self: center;
+    margin-left: 0;
   }
 
-  .header > :last-child {
+  .actions {
     order: initial;
     margin-left: 0;
     justify-self: end;
@@ -41,19 +49,11 @@
 }
 
 @media (min-width: 1280px) {
-  .header {
+  .inner {
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
     height: 82px;
     padding: 16px 64px;
-  }
-
-  .nav {
-    justify-self: center;
-  }
-
-  .header > :last-child {
-    justify-self: end;
   }
 }

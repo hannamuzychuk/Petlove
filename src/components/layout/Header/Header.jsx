@@ -10,11 +10,15 @@ export default function Header() {
 
     return (
         <header className={styles.header}>
-            <Logo />
-            <div className={styles.nav}>
-                <Nav />
+            <div className={styles.inner}>
+                <Logo />
+                <div className={styles.nav}>
+                    <Nav />
+                </div>
+                <div className={styles.actions}>
+                    {isAuthenticated ? <UserNav /> : <AuthNav />}
+                </div>
             </div>
-            {isAuthenticated ? <UserNav /> : <AuthNav />}
         </header>
     );
 }

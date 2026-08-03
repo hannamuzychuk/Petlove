@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .title {
@@ -38,15 +38,15 @@
 .sex {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .sexBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: none;
   border-radius: 30px;
@@ -88,15 +88,15 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .preview {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 86px;
-  height: 86px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   overflow: hidden;
   background-color: #fff4df;
@@ -115,7 +115,7 @@
 
 .urlRow {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
   width: 100%;
 }
@@ -159,14 +159,8 @@
 }
 
 .urlInput {
-  height: 42px;
-  padding: 12px;
-}
-
-.input {
-  height: 52px;
-  font-size: 16px;
-  line-height: 1.25;
+  height: 36px;
+  padding: 9px 12px;
 }
 
 .urlInput::placeholder,
@@ -183,17 +177,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 5px;
   flex-shrink: 0;
-  height: 42px;
-  padding: 0 16px;
+  height: 36px;
+  padding: 0 10px;
   border: none;
   border-radius: 30px;
   background-color: #fff4df;
   color: var(--color-black);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
-  line-height: 1.29;
+  line-height: 1.33;
   letter-spacing: -0.02em;
   cursor: pointer;
 }
@@ -209,14 +203,14 @@
 .inputs {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin-bottom: 40px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .row {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
 }
 
 .inputWrap {
@@ -224,12 +218,49 @@
 }
 
 .inputWrap .input {
-  padding-right: 44px;
+  padding-right: 40px;
+}
+
+.inputWrap .input[type='date'] {
+  color-scheme: light;
+}
+
+.inputDateEmpty:not(:focus)::-webkit-datetime-edit {
+  color: transparent;
+}
+
+.inputDateEmpty:not(:focus)::-webkit-datetime-edit-text,
+.inputDateEmpty:not(:focus)::-webkit-datetime-edit-month-field,
+.inputDateEmpty:not(:focus)::-webkit-datetime-edit-day-field,
+.inputDateEmpty:not(:focus)::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
+.inputWrap .input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.datePlaceholder {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.29;
+  color: rgba(38, 38, 38, 0.5);
+  pointer-events: none;
 }
 
 .inputIcon {
   position: absolute;
-  right: 16px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -242,8 +273,8 @@
 }
 
 .select :global(.petType__control) {
-  min-height: 52px;
-  height: 52px;
+  min-height: 42px;
+  height: 42px;
   border-radius: 30px;
   border: 1px solid rgba(38, 38, 38, 0.15);
   box-shadow: none;
@@ -262,7 +293,7 @@
 
 .select :global(.petType__placeholder),
 .select :global(.petType__single-value) {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.03em;
   color: rgba(38, 38, 38, 0.5);
@@ -279,10 +310,16 @@
 
 .select :global(.petType__menu) {
   margin-top: 4px;
+  max-height: 78px;
   border-radius: 15px;
   border: 1px solid rgba(38, 38, 38, 0.15);
   overflow: hidden;
   box-shadow: none;
+}
+
+.select :global(.petType__menu-list) {
+  max-height: 78px;
+  padding: 8px 0;
 }
 
 .select :global(.petType__option) {
@@ -318,11 +355,11 @@
   box-sizing: border-box;
   min-width: 0;
   flex: 1;
-  height: 48px;
+  height: 42px;
   border-radius: 30px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.29;
   letter-spacing: -0.03em;
   text-decoration: none;
   cursor: pointer;
@@ -365,8 +402,60 @@
     line-height: 1.25;
   }
 
+  .sex {
+    margin-bottom: 12px;
+  }
+
+  .sexBtn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .photoBlock {
+    margin-bottom: 18px;
+  }
+
+  .preview {
+    width: 86px;
+    height: 86px;
+  }
+
+  .urlInput {
+    height: 42px;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .input {
+    height: 52px;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  .uploadBtn {
+    height: 42px;
+    padding: 0 16px;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1.29;
+  }
+
+  .inputs {
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+
   .row {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .datePlaceholder {
+    left: 16px;
+    font-size: 16px;
+  }
+
+  .inputIcon {
+    right: 16px;
   }
 
   .urlRow {
@@ -375,6 +464,16 @@
 
   .urlInput {
     min-width: 0;
+  }
+
+  .select :global(.petType__control) {
+    min-height: 52px;
+    height: 52px;
+  }
+
+  .select :global(.petType__placeholder),
+  .select :global(.petType__single-value) {
+    font-size: 16px;
   }
 
   .actions {
@@ -387,6 +486,9 @@
   .submitBtn {
     flex: 1 1 0;
     min-width: 0;
+    height: 48px;
+    font-size: 16px;
+    line-height: 1.25;
   }
 }
 

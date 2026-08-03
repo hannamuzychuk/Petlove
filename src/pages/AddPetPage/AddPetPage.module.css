@@ -16,10 +16,11 @@
 .petWrap {
   width: 100%;
   min-width: 0;
+  flex-shrink: 0;
 }
 
 .petBlock {
-  height: 280px;
+  height: 213px;
   border-radius: 30px;
   background-color: #f6b83d;
 }
@@ -33,13 +34,35 @@
   background-color: var(--color-white);
 }
 
+@media (max-width: 767px) {
+  .page {
+    box-sizing: border-box;
+    max-height: calc(100dvh - 74px);
+    overflow: hidden;
+    padding-bottom: 10px;
+  }
+
+  .layout {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .content {
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+}
+
 @media (min-width: 768px) {
   .page {
+    max-height: none;
+    overflow: visible;
     padding-bottom: 32px;
   }
 
   .layout {
     gap: 16px;
+    height: auto;
   }
 
   .petBlock {

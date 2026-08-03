@@ -1,21 +1,122 @@
+.modal {
+  max-width: 335px;
+  padding: 40px 28px 40px;
+}
+
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #fff4df;
+  color: var(--accent);
+}
+
+.catIcon {
+  color: var(--accent);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-black);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.yesBtn,
+.cancelBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 42px;
+  border: none;
+  border-radius: 30px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.yesBtn {
+  flex: 1 1 137px;
+  min-width: 0;
+  background-color: var(--accent);
+  color: var(--color-white);
+}
+
+.cancelBtn {
+  flex: 1 1 134px;
+  min-width: 0;
+  background-color: rgba(38, 38, 38, 0.05);
+  color: var(--color-black);
+}
+
+.yesBtn:hover,
+.cancelBtn:hover {
+  opacity: 0.9;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    max-width: 448px;
+    padding: 80px 70px;
   }
-  
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .body {
+    margin-top: 20px;
+    gap: 40px;
+  }
+
   .title {
-    margin: 0;
     font-size: 24px;
-    font-weight: 700;
-    color: var(--color-black);
   }
-  
+
   .actions {
-    display: flex;
     gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
+    width: auto;
   }
+
+  .yesBtn,
+  .cancelBtn {
+    flex: 0 0 auto;
+    width: 140px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+}
