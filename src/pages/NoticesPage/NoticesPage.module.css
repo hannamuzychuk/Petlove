@@ -1,6 +1,6 @@
 .page {
   min-height: 100%;
-  padding: 20px 0 60px;
+  padding: 40px 0 60px;
   background-color: #f9f9f9;
 }
 
@@ -16,11 +16,12 @@
 
 @media (min-width: 768px) {
   .page {
-    padding: 32px 0 80px;
+    padding: 64px 0 80px;
   }
 
   .title {
     font-size: 54px;
+    line-height: 1;
   }
 
   .pagination {
@@ -30,7 +31,12 @@
 
 @media (min-width: 1280px) {
   .page {
-    padding: 64px 0 80px;
+    padding: 91px 0 80px;
+  }
+
+  .title {
+    font-size: 54px;
+    line-height: 1;
   }
 
   .pagination {

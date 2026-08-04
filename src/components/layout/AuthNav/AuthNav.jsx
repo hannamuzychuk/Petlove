@@ -7,6 +7,7 @@ export default function AuthNav({
   inDrawer = false,
   onClose,
   menuTheme = 'default',
+  showFromTablet = false,
 }) {
   const isLight = variant === 'light';
   const isAccentMenu = menuTheme === 'accent';
@@ -41,7 +42,7 @@ export default function AuthNav({
 
   return (
     <nav
-      className={`${styles.nav} ${styles.headerOnly}`}
+      className={`${styles.nav} ${showFromTablet ? styles.headerFromTablet : styles.headerOnly}`}
       aria-label="Authentication navigation"
     >
       <ul className={styles.list}>

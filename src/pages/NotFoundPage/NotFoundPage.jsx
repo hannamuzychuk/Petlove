@@ -10,12 +10,22 @@ export default function NotFoundPage() {
           <div className={styles.hero} aria-hidden="true">
             <span className={styles.digit}>4</span>
             <div className={styles.imageWrap}>
-              <img
-                className={styles.image}
-                src="/images/404.webp"
-                srcSet="/images/404.webp 1x, /images/404@2x.webp 2x"
-                alt=""
-              />
+              <picture>
+                <source
+                  media="(min-width: 1280px)"
+                  srcSet="/images/desktop_error.jpg 1x, /images/desktop_error@2x.jpg 2x"
+                />
+                <source
+                  media="(min-width: 768px)"
+                  srcSet="/images/tablet_error.jpg 1x, /images/tablet_error@2x.jpg 2x"
+                />
+                <img
+                  className={styles.image}
+                  src="/images/mobile_error.jpg"
+                  srcSet="/images/mobile_error.jpg 1x, /images/mobile_error@2x.jpg 2x"
+                  alt=""
+                />
+              </picture>
             </div>
             <span className={styles.digit}>4</span>
           </div>

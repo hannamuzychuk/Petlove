@@ -32,7 +32,7 @@ export default function UserBar({ variant = 'dark', onNavigate }) {
                     />
                 ) :  (
                <span className={styles.avatarFallback}>
-                <Icon name="user" size={24} className={styles.avatarIcon}/>
+                <Icon name="user" size={20} className={styles.avatarIcon} />
                </span>
                 )}
             </span>

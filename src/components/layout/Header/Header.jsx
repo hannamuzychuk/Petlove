@@ -16,7 +16,7 @@ export default function Header() {
                     <Nav />
                 </div>
                 <div className={styles.actions}>
-                    {isAuthenticated ? <UserNav /> : <AuthNav />}
+                    {isAuthenticated ? <UserNav /> : <AuthNav showFromTablet />}
                 </div>
             </div>
         </header>

@@ -3,6 +3,8 @@ import PetBlock from '../../components/ui/PetBlock/PetBlock';
 import LoginForm from '../../components/auth/LoginForm/LoginForm';
 import Logo from '../../components/ui/Logo/Logo';
 import Nav from '../../components/layout/Nav/Nav';
+import AuthNav from '../../components/layout/AuthNav/AuthNav';
+import Icon from '../../components/ui/Icon/Icon';
 import styles from './LoginPage.module.css';
 
 export default function LoginPage() {
@@ -10,7 +12,12 @@ export default function LoginPage() {
     <div className={styles.page}>
       <header className={styles.topBar}>
         <Logo />
-        <Nav menuTheme="accent" />
+        <div className={styles.topNav}>
+          <Nav menuTheme="accent" />
+        </div>
+        <div className={styles.topActions}>
+          <AuthNav showFromTablet />
+        </div>
       </header>
 
       <div className={styles.petWrap}>
@@ -18,17 +25,15 @@ export default function LoginPage() {
           className={styles.petBlock}
           mobile="/images/auth/mobile_login.webp"
           mobile2x="/images/auth/mobile_login@2x.webp"
-          tablet="/images/auth/tablet-login.webp"
-          tablet2x="/images/auth/tablet-login@2x.webp"
-          desktop="/images/auth/desktop-login.webp"
-          desktop2x="/images/auth/desktop-login@2x.webp"
+          tablet="/images/auth/tablet_login.webp"
+          tablet2x="/images/tablet_login@2x.webp"
+          desktop="/images/desktop_login.webp"
+          desktop2x="/images/desktop_login@2x.webp"
           alt="Dog photo for login page"
         />
         <aside className={styles.petCard} aria-hidden="true">
           <div className={styles.petAvatar}>
-            <span className={styles.petEmoji} role="img" aria-label="dog">
-              🐶
-            </span>
+            <Icon name="dog" size={32} />
           </div>
           <div className={styles.petInfo}>
             <div className={styles.petMeta}>

@@ -28,9 +28,9 @@ function formatDate(dateString) {
 }
 
 function formatPrice(price) {
-  if (price === undefined || price === null || price === '') return null;
+  if (price === undefined || price === null || price === '') return '$0.00';
   const num = Number(price);
-  if (Number.isNaN(num)) return null;
+  if (Number.isNaN(num)) return '$0.00';
   return `$${num.toFixed(2)}`;
 }
 
@@ -194,7 +194,7 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
 
         <p className={styles.comment}>{details?.comment}</p>
 
-        {price ? <p className={styles.price}>{price}</p> : null}
+        <p className={styles.price}>{price}</p>
 
         <div className={styles.actions}>
           <button

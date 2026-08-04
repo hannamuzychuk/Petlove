@@ -5,8 +5,7 @@ import ModalApproveAction from '../../ui/ModalApproveAction/ModalApproveAction';
 export default function LogOutBtn({ variant = 'default', className }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const label =
-    variant === 'soft' || variant === 'filled' ? 'Log out' : 'LOG OUT';
+  const label = 'Log out';
 
   return (
     <>

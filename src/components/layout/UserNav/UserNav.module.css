@@ -28,26 +28,20 @@
 
 @media (min-width: 768px) {
   .userNav {
-    gap: 16px;
-  }
-
-  .drawerUser {
-    width: 178px;
+    gap: 8px;
   }
 
   .drawerLogout {
     width: 178px;
-    height: 48px;
-  }
-}
-
-@media (min-width: 769px) {
-  .logout {
-    display: contents;
+    height: 50px;
   }
 }
 
 @media (min-width: 1280px) {
+  .logout {
+    display: contents;
+  }
+
   .userNav {
     gap: 8px;
   }

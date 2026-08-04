@@ -6,6 +6,10 @@
   display: none;
 }
 
+.headerFromTablet {
+  display: none;
+}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -36,14 +40,54 @@
   width: 178px;
   height: 42px;
   padding: 0;
-  text-transform: none;
 }
 
 .loginBtnAccent {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
+  .headerFromTablet {
+    display: block;
+  }
+
+  .headerFromTablet .list {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .headerFromTablet .headerLogin,
+  .headerOnly .headerLogin {
+    width: 119px;
+    height: 50px;
+    padding: 0;
+  }
+
+  .headerFromTablet .headerRegister,
+  .headerOnly .headerRegister {
+    width: 149px;
+    height: 50px;
+    padding: 0;
+  }
+
+  .drawerAuth {
+    flex-direction: row;
+    width: 276px;
+    bottom: 40px;
+  }
+
+  .loginBtn {
+    width: 119px;
+    height: 50px;
+  }
+
+  .registerBtn {
+    width: 149px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 1280px) {
   .headerOnly {
     display: block;
   }
@@ -63,29 +107,5 @@
     width: 149px;
     height: 50px;
     padding: 0;
-  }
-
-  .drawerAuth {
-    flex-direction: row;
-    width: 276px;
-  }
-
-  .loginBtn {
-    width: 119px;
-  }
-
-  .registerBtn {
-    width: 149px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .headerOnly {
-    display: block;
-  }
-
-  .list {
-    flex-direction: row;
-    gap: 10px;
   }
 }

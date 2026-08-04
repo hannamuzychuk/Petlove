@@ -64,6 +64,15 @@
   border-color: var(--accent);
 }
 
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #262626;
+  caret-color: #262626;
+  box-shadow: 0 0 0 1000px #fff inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 .eyeBtn {
   position: absolute;
   right: 12px;
@@ -120,8 +129,7 @@
 .hint a {
   color: var(--accent);
   font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration: none;
 }
 
 @media (min-width: 768px) {
@@ -146,6 +154,11 @@
 
   .eyeBtn {
     right: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .eyeBtn svg {
     width: 22px;
     height: 22px;
   }

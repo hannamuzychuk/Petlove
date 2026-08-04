@@ -26,9 +26,9 @@ function formatDate(dateString) {
 }
 
 function formatPrice(price) {
-  if (price === undefined || price === null || price === '') return null;
+  if (price === undefined || price === null || price === '') return '$0.00';
   const num = Number(price);
-  if (Number.isNaN(num)) return null;
+  if (Number.isNaN(num)) return '$0.00';
   return `$${num.toFixed(2)}`;
 }
 
@@ -121,40 +121,42 @@ export default function NoticesItem({ item, onLearnMore, onRequireAuth, showRemo
       />
       <div className={styles.body}>
         <div className={styles.content}>
-          <div className={styles.top}>
-            <h3 className={styles.title}>{item.title}</h3>
-            <p className={styles.popularity}>
-              <Icon name="star" size={16} />
-              <span>{item.popularity}</span>
-            </p>
+          <div className={styles.textBlock}>
+            <div className={styles.top}>
+              <h3 className={styles.title}>{item.title}</h3>
+              <p className={styles.popularity}>
+                <Icon name="star" size={16} className={styles.starIcon} />
+                <span>{item.popularity}</span>
+              </p>
+            </div>
+            <ul className={styles.meta}>
+              <li>
+                <span className={styles.label}>Name</span>
+                <span className={styles.value}>{item.name}</span>
+              </li>
+              <li>
+                <span className={styles.label}>Birthday</span>
+                <span className={styles.value}>{formatDate(item.birthday)}</span>
+              </li>
+              <li>
+                <span className={styles.label}>Sex</span>
+                <span className={styles.value}>{item.sex}</span>
+              </li>
+              <li>
+                <span className={styles.label}>Species</span>
+                <span className={styles.value}>{item.species}</span>
+              </li>
+              <li>
+                <span className={styles.label}>Category</span>
+                <span className={styles.value}>{item.category}</span>
+              </li>
+            </ul>
           </div>
-          <ul className={styles.meta}>
-            <li>
-              <span className={styles.label}>Name</span>
-              <span className={styles.value}>{item.name}</span>
-            </li>
-            <li>
-              <span className={styles.label}>Birthday</span>
-              <span className={styles.value}>{formatDate(item.birthday)}</span>
-            </li>
-            <li>
-              <span className={styles.label}>Sex</span>
-              <span className={styles.value}>{item.sex}</span>
-            </li>
-            <li>
-              <span className={styles.label}>Species</span>
-              <span className={styles.value}>{item.species}</span>
-            </li>
-            <li>
-              <span className={styles.label}>Category</span>
-              <span className={styles.value}>{item.category}</span>
-            </li>
-          </ul>
           <p className={styles.comment}>{item.comment}</p>
         </div>
 
         <div className={styles.footer}>
-          {price ? <p className={styles.price}>{price}</p> : null}
+          <p className={styles.price}>{price}</p>
           <div className={styles.actions}>
             <button
               type="button"

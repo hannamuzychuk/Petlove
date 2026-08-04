@@ -42,8 +42,8 @@ export default function NoticesPage() {
       dispatch(startLoading());
       try {
         const sortParams = {};
-        if (filters.sort === 'popular') sortParams.byPopularity = true;
-        if (filters.sort === 'unpopular') sortParams.byPopularity = false;
+        if (filters.sort === 'popular') sortParams.byPopularity = false;
+        if (filters.sort === 'unpopular') sortParams.byPopularity = true;
         if (filters.sort === 'cheap') sortParams.byPrice = true;
         if (filters.sort === 'expensive') sortParams.byPrice = false;
 

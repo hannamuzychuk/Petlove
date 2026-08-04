@@ -35,7 +35,7 @@
   font-size: 16px;
   font-weight: 700;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--color-black);
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -61,33 +61,38 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: auto;
   flex-shrink: 0;
 }
 
 .date {
-  font-size: 14px;
+  font-family: var(--font-family);
   font-weight: 500;
-  line-height: 1.29;
+  font-size: 14px;
+  line-height: 129%;
   letter-spacing: -0.02em;
   color: rgba(38, 38, 38, 0.5);
 }
 
 .link {
-  font-size: 14px;
+  font-family: var(--font-family);
   font-weight: 500;
-  line-height: 1.29;
+  font-size: 14px;
+  line-height: 129%;
   letter-spacing: -0.02em;
-  color: var(--accent);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #f6b83d;
 }
 
 .link:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  opacity: 0.85;
 }
 
 @media (min-width: 768px) {
+  .image {
+    height: 226px;
+  }
+
   .body {
     gap: 28px;
     margin-top: 28px;
@@ -100,19 +105,33 @@
   .title {
     font-size: 20px;
     line-height: 1.3;
-    min-height: calc(1.3em * 2);
+    min-height: 52px;
   }
 
   .text {
     font-size: 16px;
     line-height: 1.25;
-    min-height: calc(1.25em * 4);
+    min-height: 80px;
   }
 
-  .date,
-  .link {
+  .date {
+    font-family: var(--font-family);
+    font-weight: 500;
     font-size: 16px;
-    line-height: 1.25;
+    line-height: 125%;
+    letter-spacing: -0.02em;
+    color: rgba(38, 38, 38, 0.5);
+  }
+
+  .link {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 125%;
+    letter-spacing: -0.02em;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    color: #f6b83d;
   }
 }
 
@@ -134,19 +153,31 @@
     font-size: 20px;
     line-height: 1.3;
     min-height: 52px;
-    -webkit-line-clamp: 2;
   }
 
   .text {
     font-size: 16px;
     line-height: 1.25;
     min-height: 80px;
-    -webkit-line-clamp: 4;
   }
 
-  .date,
-  .link {
+  .date {
+    font-family: var(--font-family);
+    font-weight: 500;
     font-size: 16px;
-    line-height: 1.25;
+    line-height: 125%;
+    letter-spacing: -0.02em;
+    color: rgba(38, 38, 38, 0.5);
+  }
+
+  .link {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 125%;
+    letter-spacing: -0.02em;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    color: #f6b83d;
   }
 }

@@ -235,7 +235,7 @@
 @media (min-width: 768px) {
   .filters {
     margin: 44px 0 32px;
-    padding: 40px;
+    padding: 40px 32px;
     gap: 20px;
   }
 
@@ -244,17 +244,20 @@
   }
 
   .search {
-    width: calc(50% - 8px);
+    width: 265px;
   }
 
   .category,
-  .gender,
+  .gender {
+    width: 170px;
+  }
+
   .type {
-    width: calc(50% - 8px);
+    width: 190px;
   }
 
   .location {
-    width: 100%;
+    width: 227px;
   }
 
   .search :global(form) {

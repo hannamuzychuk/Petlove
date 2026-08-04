@@ -68,6 +68,15 @@
   border-color: var(--accent);
 }
 
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #262626;
+  caret-color: #262626;
+  box-shadow: 0 0 0 1000px #fff inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 .inputError {
   border-color: var(--color-error);
 }
@@ -167,8 +176,7 @@
 .hint a {
   color: var(--accent);
   font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration: none;
 }
 
 @media (min-width: 768px) {

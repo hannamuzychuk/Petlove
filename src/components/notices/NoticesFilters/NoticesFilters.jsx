@@ -54,7 +54,7 @@ const LocationClearIndicator = (props) => (
 
 const FilterDropdownIndicator = (props) => (
   <components.DropdownIndicator {...props}>
-    <Icon name="vector" size={18} />
+    <Icon name="chevron-down" width={11} height={6} />
   </components.DropdownIndicator>
 );
 

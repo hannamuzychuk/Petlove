@@ -22,13 +22,13 @@ export default function NewsItem({ item}) {
             />
 
             <div className={styles.body}>
-                <div className={styles.Block}>
+                <div className={styles.textBlock}>
                     <h3 className={styles.title}>{item.title}</h3>
                     <p className={styles.text}>{item.text}</p>
                 </div>
 
                 <div className={styles.footer}>
-                    <time className={styles.data} dateTime={item.date}>
+                    <time className={styles.date} dateTime={item.date}>
                         {formatData(item.date)}
                     </time>
 

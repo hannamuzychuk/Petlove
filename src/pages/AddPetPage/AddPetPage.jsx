@@ -11,12 +11,12 @@ export default function AddPetPage() {
           <div className={styles.petWrap}>
             <PetBlock
               className={styles.petBlock}
-              mobile="/images/auth/mobile_login.webp"
-              mobile2x="/images/auth/mobile_login@2x.webp"
-              tablet="/images/auth/tablet-login.webp"
-              tablet2x="/images/auth/tablet-login@2x.webp"
-              desktop="/images/auth/desktop-login.webp"
-              desktop2x="/images/auth/desktop-login@2x.webp"
+              mobile="/images/mobile_add_pet.jpg"
+              mobile2x="/images/mobile_add_pet@2x.jpg"
+              tablet="/images/tablet_add_pet.jpg"
+              tablet2x="/images/tablet_add_pet@2x.jpg"
+              desktop="/images/desktop_add_pet.jpg"
+              desktop2x="/images/desktop_add_pet@2x.jpg"
               alt="Dog wearing yellow glasses"
             />
           </div>

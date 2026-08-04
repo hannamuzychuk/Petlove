@@ -45,14 +45,8 @@
 }
 
 .closeBtn :global(svg) {
-  width: 24px;
-  height: 24px;
-}
-
-.closeIcon {
-  font-size: 32px;
-  line-height: 1;
-  font-weight: 300;
+  width: 32px;
+  height: 32px;
 }
 
 .desktopNav {
@@ -148,12 +142,12 @@
   color: var(--color-black);
 }
 
-.burgerLight { 
-  color: var(--color-white); 
+.burgerLight {
+  color: var(--color-white);
 }
 
-.burgerDark  { 
-  color: var(--color-black); 
+.burgerDark {
+  color: var(--color-black);
 }
 
 .burgerHidden {
@@ -168,6 +162,11 @@
   .closeBtn {
     top: 39px;
     right: 32px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .closeBtn :global(svg) {
     width: 36px;
     height: 36px;
   }
@@ -190,34 +189,15 @@
   .menu .linkDark.active {
     border-color: var(--accent);
   }
-}
-
-@media (min-width: 769px) {
-  .nav,
-  .desktopNav {
-    display: block;
-  }
 
   .burger {
-    display: none;
+    width: 36px;
+    height: 36px;
   }
 
-  .menuOverlay,
-  .menuPanel,
-  .closeBtn {
-    display: none;
-  }
-
-  .list {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .link {
-    width: auto;
-    height: 50px;
-    font-size: 16px;
-    line-height: 1.25;
+  .burger :global(svg) {
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -227,17 +207,11 @@
     display: block;
   }
 
+  .burger,
   .menuOverlay,
   .menuPanel,
   .closeBtn {
     display: none;
-  }
-
-  .menu {
-    position: static;
-    top: auto;
-    left: auto;
-    transform: none;
   }
 
   .list {
@@ -253,12 +227,12 @@
   }
 
   .linkDark {
-    border-color: transparent;
+    border-color: rgba(38, 38, 38, 0.15);
   }
 
   .linkDark:hover,
   .linkDark.active {
-    border-color: var(--color-black);
+    border-color: var(--accent);
   }
 
   .linkLight {
@@ -268,24 +242,5 @@
   .linkLight:hover,
   .linkLight.active {
     border-color: var(--color-white);
-  }
-
-  .menu .list {
-    flex-direction: column;
-  }
-
-  .menu .link {
-    width: 120px;
-  }
-
-  .menu .linkDark {
-    border-color: rgba(38, 38, 38, 0.4);
-  }
-
-  .menu .linkDark.active {
-    border-color: var(--accent);
-  }
-
-  .burger { display: none; 
   }
 }

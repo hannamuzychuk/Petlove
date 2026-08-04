@@ -1,9 +1,10 @@
 import Title from '../../components/ui/Title/Title';
 import PetBlock from '../../components/ui/PetBlock/PetBlock';
 import RegistrationForm from '../../components/auth/RegistrationForm/RegistrationForm';
-import Icon from '../../components/ui/Icon/Icon';
 import Logo from '../../components/ui/Logo/Logo';
 import Nav from '../../components/layout/Nav/Nav';
+import AuthNav from '../../components/layout/AuthNav/AuthNav';
+import Icon from '../../components/ui/Icon/Icon';
 import styles from './RegisterPage.module.css';
 
 export default function RegisterPage() {
@@ -11,18 +12,23 @@ export default function RegisterPage() {
     <div className={styles.page}>
       <header className={styles.topBar}>
         <Logo />
-        <Nav menuTheme="accent" />
+        <div className={styles.topNav}>
+          <Nav menuTheme="accent" />
+        </div>
+        <div className={styles.topActions}>
+          <AuthNav showFromTablet />
+        </div>
       </header>
 
       <div className={styles.petWrap}>
         <PetBlock
           className={styles.petBlock}
-          mobile="/images/auth/mobile-registration.webp"
-          mobile2x="/images/auth/mobile-registration@2x.webp"
-          tablet="/images/auth/tablet-registration.webp"
-          tablet2x="/images/auth/tablet-registration@2x.webp"
-          desktop="/images/auth/desktop-registration.webp"
-          desktop2x="/images/auth/desktop-registration@2x.webp"
+          mobile="/images/mobile-register.webp"
+          mobile2x="/images/mobile-register@2x.webp"
+          tablet="/images/tablet_register.webp"
+          tablet2x="/images/tablet_register@2x.webp"
+          desktop="/images/desktop_register.webp"
+          desktop2x="/images/desktop_register@2x.webp"
           alt="Cat photo for register page"
         />
         <aside className={styles.petCard} aria-hidden="true">

@@ -5,8 +5,7 @@
   --color-white: #ffffff;
   --color-error: #ef2447;
   --color-success: #08aa83;
-
-
+  --font-family: "Manrope", sans-serif;
 }
 
 * {box-sizing: border-box;}
