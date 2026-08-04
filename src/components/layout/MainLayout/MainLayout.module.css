@@ -7,8 +7,56 @@
   min-height: 100dvh;
 }
 
+.mainAddPet {
+  min-height: 0;
+  height: calc(100dvh - 80px);
+  max-height: calc(100dvh - 80px);
+  overflow: hidden;
+}
+
+.mainNotFound {
+  min-height: 0;
+  height: calc(100dvh - 74px);
+  max-height: calc(100dvh - 74px);
+  overflow: hidden;
+}
+
 @media (min-width: 768px) {
   .main {
     min-height: calc(100dvh - 82px);
+  }
+
+  .mainAddPet {
+    min-height: 0;
+    height: calc(100dvh - 114px);
+    max-height: calc(100dvh - 114px);
+    overflow: hidden;
+  }
+
+  .mainNotFound {
+    min-height: 0;
+    height: calc(100dvh - 114px);
+    max-height: calc(100dvh - 114px);
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1280px) {
+  .main {
+    min-height: calc(100dvh - 114px);
+  }
+
+  .mainAddPet {
+    min-height: 0;
+    height: calc(100dvh - 114px);
+    max-height: calc(100dvh - 114px);
+    overflow: hidden;
+  }
+
+  .mainNotFound {
+    min-height: 0;
+    height: calc(100dvh - 114px);
+    max-height: calc(100dvh - 114px);
+    overflow: hidden;
   }
 }

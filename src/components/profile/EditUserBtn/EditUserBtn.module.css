@@ -18,8 +18,8 @@
 
 .cornerBtn {
   position: absolute;
-  top: 40px;
-  right: 40px;
+  top: 18px;
+  right: 20px;
 }
 
 .avatarBtn {
@@ -30,19 +30,24 @@
 }
 
 .avatarBtn :global(svg) {
+  width: 40px;
+  height: 40px;
   color: var(--accent);
 }
 
-@media (max-width: 767px) {
-  .cornerBtn {
-    top: 20px;
-    right: 20px;
-  }
-}
-
 @media (min-width: 768px) {
+  .cornerBtn {
+    top: 40px;
+    right: 40px;
+  }
+
   .avatarBtn {
     width: 110px;
     height: 110px;
+  }
+
+  .avatarBtn :global(svg) {
+    width: 50px;
+    height: 50px;
   }
 }

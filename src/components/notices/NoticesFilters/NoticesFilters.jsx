@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Select, { components } from 'react-select';
+import AsyncSelect from 'react-select/async';
 import toast from 'react-hot-toast';
 
 import Icon from '../../ui/Icon/Icon';
@@ -8,6 +9,7 @@ import {
   getCategories,
   getSexOptions,
   getSpeciesOptions,
+  getCities,
   getLocationOptions,
 } from '../../../services/noticesApi';
 import styles from './NoticesFilters.module.css';
@@ -34,11 +36,36 @@ const toFilterOptions = (items = []) => [
 
 const mapCity = (city) => ({
   value: city._id,
-  label: [city.stateEn, city.cityEn].filter(Boolean).join(', '),
+  label: [city.cityEn, city.stateEn].filter(Boolean).join(', '),
 });
 
 const findOption = (options, value) =>
   options.find((option) => option.value === value) || null;
+
+const highlightLabel = (label, query) => {
+  if (!query) {
+    return <span className={styles.locationMuted}>{label}</span>;
+  }
+
+  const index = label.toLowerCase().indexOf(query.toLowerCase());
+  if (index === -1) {
+    return <span className={styles.locationMuted}>{label}</span>;
+  }
+
+  return (
+    <>
+      {index > 0 ? (
+        <span className={styles.locationMuted}>{label.slice(0, index)}</span>
+      ) : null}
+      <span className={styles.locationMatch}>
+        {label.slice(index, index + query.length)}
+      </span>
+      <span className={styles.locationMuted}>
+        {label.slice(index + query.length)}
+      </span>
+    </>
+  );
+};
 
 const LocationDropdownIndicator = (props) => (
   <components.DropdownIndicator {...props}>
@@ -46,11 +73,42 @@ const LocationDropdownIndicator = (props) => (
   </components.DropdownIndicator>
 );
 
-const LocationClearIndicator = (props) => (
-  <components.ClearIndicator {...props}>
-    <Icon name="close-menu" size={18} />
-  </components.ClearIndicator>
-);
+const LocationIndicatorsContainer = (props) => {
+  const hasInput = Boolean(props.selectProps.inputValue?.trim());
+  const showClear = props.hasValue || hasInput;
+
+  return (
+    <components.IndicatorsContainer {...props}>
+      {showClear ? (
+        <div
+          role="button"
+          tabIndex={-1}
+          aria-label="Clear"
+          className={styles.locationClear}
+          onMouseDown={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            props.clearValue();
+            props.selectProps.onInputChange('', { action: 'input-change' });
+          }}
+        >
+          <Icon name="close-menu" size={18} />
+        </div>
+      ) : null}
+      <LocationDropdownIndicator {...props} />
+    </components.IndicatorsContainer>
+  );
+};
+
+const LocationOption = (props) => {
+  const query = props.selectProps.inputValue?.trim() || '';
+
+  return (
+    <components.Option {...props}>
+      {highlightLabel(props.data.label, query)}
+    </components.Option>
+  );
+};
 
 const FilterDropdownIndicator = (props) => (
   <components.DropdownIndicator {...props}>
@@ -63,8 +121,9 @@ export default function NoticesFilters({ filters, onChange }) {
   const [categories, setCategories] = useState([]);
   const [sexOptions, setSexOptions] = useState([]);
   const [speciesOptions, setSpeciesOptions] = useState([]);
-  const [locationOptions, setLocationOptions] = useState([]);
   const [locationValue, setLocationValue] = useState(null);
+  const locationSearchTimer = useRef(null);
+  const locationSearchResolve = useRef(null);
 
   const categoryOptions = useMemo(
     () => toFilterOptions(categories),
@@ -79,17 +138,14 @@ export default function NoticesFilters({ filters, onChange }) {
   useEffect(() => {
     const loadOptions = async () => {
       try {
-        const [categoriesData, sexData, speciesData, citiesData] =
-          await Promise.all([
-            getCategories(),
-            getSexOptions(),
-            getSpeciesOptions(),
-            getLocationOptions(),
-          ]);
+        const [categoriesData, sexData, speciesData] = await Promise.all([
+          getCategories(),
+          getSexOptions(),
+          getSpeciesOptions(),
+        ]);
         setCategories(categoriesData ?? []);
         setSexOptions(sexData ?? []);
         setSpeciesOptions(speciesData ?? []);
-        setLocationOptions((citiesData ?? []).map(mapCity));
       } catch (error) {
         const message =
           error.response?.data?.message ||
@@ -107,9 +163,70 @@ export default function NoticesFilters({ filters, onChange }) {
       setLocationValue(null);
       return;
     }
-    const found = locationOptions.find((o) => o.value === filters.locationId);
-    if (found) setLocationValue(found);
-  }, [filters.locationId, locationOptions]);
+
+    let cancelled = false;
+
+    const resolveLocation = async () => {
+      try {
+        const cities = await getLocationOptions();
+        if (cancelled) return;
+        const found = (cities ?? [])
+          .map(mapCity)
+          .find((option) => option.value === filters.locationId);
+        setLocationValue(found || null);
+      } catch {
+        if (!cancelled) setLocationValue(null);
+      }
+    };
+
+    resolveLocation();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [filters.locationId]);
+
+  useEffect(
+    () => () => {
+      if (locationSearchTimer.current) {
+        clearTimeout(locationSearchTimer.current);
+      }
+      if (locationSearchResolve.current) {
+        locationSearchResolve.current([]);
+        locationSearchResolve.current = null;
+      }
+    },
+    [],
+  );
+
+  const loadLocationOptions = (inputValue) => {
+    const keyword = inputValue.trim();
+    if (!keyword) {
+      return Promise.resolve([]);
+    }
+
+    if (locationSearchTimer.current) {
+      clearTimeout(locationSearchTimer.current);
+    }
+    if (locationSearchResolve.current) {
+      locationSearchResolve.current([]);
+      locationSearchResolve.current = null;
+    }
+
+    return new Promise((resolve) => {
+      locationSearchResolve.current = resolve;
+
+      locationSearchTimer.current = setTimeout(async () => {
+        locationSearchResolve.current = null;
+        try {
+          const cities = await getCities(keyword);
+          resolve((cities ?? []).map(mapCity));
+        } catch {
+          resolve([]);
+        }
+      }, 300);
+    });
+  };
 
   const handleSubmit = () => {
     onChange({ keyword: query });
@@ -205,20 +322,28 @@ export default function NoticesFilters({ filters, onChange }) {
         </div>
 
         <div className={styles.location}>
-          <Select
+          <AsyncSelect
             unstyled
             classNamePrefix="location"
             placeholder="Location"
             isClearable
-            options={locationOptions}
+            cacheOptions
+            defaultOptions={false}
+            filterOption={null}
+            loadOptions={loadLocationOptions}
             value={locationValue}
             onChange={(option) => {
               setLocationValue(option);
               onChange({ locationId: option?.value || '' });
             }}
+            noOptionsMessage={({ inputValue }) =>
+              inputValue.trim() ? 'No locations found' : 'Type to search'
+            }
             components={{
-              DropdownIndicator: LocationDropdownIndicator,
-              ClearIndicator: LocationClearIndicator,
+              IndicatorsContainer: LocationIndicatorsContainer,
+              DropdownIndicator: () => null,
+              ClearIndicator: () => null,
+              Option: LocationOption,
             }}
           />
         </div>

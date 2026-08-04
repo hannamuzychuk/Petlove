@@ -1,6 +1,6 @@
 .page {
   min-height: 100%;
-  padding: 20px 0 60px;
+  padding: 8px 0 80px;
   background-color: #f9f9f9;
   overflow-x: clip;
 }
@@ -15,21 +15,34 @@
 
 @media (min-width: 768px) {
   .page {
-    padding: 32px 0 80px;
+    padding: 32px 0 180px;
+  }
+
+  .layout {
+    gap: 32px;
   }
 }
 
 @media (min-width: 1280px) {
+  .page {
+    padding: 0 0 62px;
+  }
+
+  .container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
   .layout {
     flex-direction: row;
     align-items: flex-start;
-    gap: 24px;
+    gap: 32px;
   }
 
   .layout > :first-child {
-    flex: 0 1 480px;
-    width: 100%;
-    max-width: 480px;
+    flex: 0 0 520px;
+    width: 520px;
+    max-width: 520px;
     min-width: 0;
   }
 

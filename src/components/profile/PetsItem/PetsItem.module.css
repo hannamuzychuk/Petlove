@@ -1,11 +1,11 @@
 .item {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
   box-sizing: border-box;
-  min-height: 130px;
-  padding: 20px;
+  min-height: 132px;
+  padding: 16px;
   border: 1px solid rgba(38, 38, 38, 0.1);
   border-radius: 20px;
   background-color: transparent;
@@ -14,8 +14,8 @@
 .image,
 .imagePlaceholder {
   flex-shrink: 0;
-  width: 90px;
-  height: 90px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -27,11 +27,11 @@
 .content {
   flex: 1;
   min-width: 0;
-  padding-right: 40px;
+  padding-right: 28px;
 }
 
 .title {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   font-size: 14px;
   font-weight: 700;
   line-height: 1.29;
@@ -45,7 +45,7 @@
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 25px;
+  gap: 10px;
 }
 
 .meta li {
@@ -53,24 +53,26 @@
   flex-direction: column;
   gap: 4px;
   font-size: 12px;
+  font-weight: 500;
   line-height: 1.17;
   letter-spacing: -0.02em;
   color: var(--color-black);
 }
 
 .label {
+  font-weight: 500;
   color: rgba(38, 38, 38, 0.5);
 }
 
 .removeBtn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 12px;
+  right: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   border: none;
   border-radius: 30px;
@@ -83,22 +85,80 @@
   opacity: 0.9;
 }
 
-@media (max-width: 767px) {
-  .image,
-  .imagePlaceholder {
-    width: 66px;
-    height: 66px;
+@media (min-width: 768px) {
+  .item {
+    align-items: flex-start;
+    min-height: 149px;
+    padding: 22px 16px 16px;
   }
 
-  .item {
-    min-height: auto;
-    padding: 16px;
+  .image,
+  .imagePlaceholder {
+    width: 75px;
+    height: 75px;
+  }
+
+  .content {
+    padding-right: 28px;
+  }
+
+  .title {
+    margin-bottom: 12px;
+  }
+
+  .meta {
+    gap: 10px;
   }
 
   .removeBtn {
     top: 12px;
     right: 12px;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .removeBtn :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .item {
+    align-items: center;
+    gap: 25px;
+    min-height: 130px;
+    padding: 20px;
+  }
+
+  .image,
+  .imagePlaceholder {
+    width: 90px;
+    height: 90px;
+  }
+
+  .content {
+    padding-right: 40px;
+  }
+
+  .title {
+    margin-bottom: 12px;
+  }
+
+  .meta {
+    gap: 8px 25px;
+    flex-wrap: nowrap;
+  }
+
+  .removeBtn {
+    top: 20px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .removeBtn :global(svg) {
+    width: 18px;
+    height: 18px;
   }
 }

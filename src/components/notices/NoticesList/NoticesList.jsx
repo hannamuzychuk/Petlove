@@ -25,6 +25,7 @@ export default function NoticesList({
           onLearnMore={onLearnMore}
           onRequireAuth={onRequireAuth}
           showRemoveFavorite={showRemoveFavorite}
+          variant={variant}
         />
       ))}
     </ul>

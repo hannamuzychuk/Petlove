@@ -7,6 +7,9 @@ import Select, { components } from 'react-select';
 import toast from 'react-hot-toast';
 
 import Icon from '../../ui/Icon/Icon';
+import FormField from '../../ui/FormField/FormField';
+import { isFieldSuccess } from '../../ui/FormField/formFieldUtils';
+import fieldStyles from '../../ui/FormField/FormField.module.css';
 import { addPetSchema } from '../../../validation/profileSchemas';
 import { addPet } from '../../../services/usersApi';
 import { getSpeciesOptions } from '../../../services/noticesApi';
@@ -24,7 +27,7 @@ const capitalize = (value = '') =>
 
 const DropdownIndicator = (props) => (
   <components.DropdownIndicator {...props}>
-    <Icon name="vector" size={18} />
+    <Icon name="chevron-down" width={11} height={6} />
   </components.DropdownIndicator>
 );
 
@@ -40,7 +43,8 @@ export default function AddPetForm() {
     control,
     setValue,
     watch,
-    formState: { errors, isSubmitting },
+    getFieldState,
+    formState,
   } = useForm({
     resolver: yupResolver(addPetSchema),
     mode: 'onBlur',
@@ -54,9 +58,20 @@ export default function AddPetForm() {
     },
   });
 
+  const { errors, isSubmitting } = formState;
   const sex = watch('sex');
   const imgURL = watch('imgURL');
+  const titleValue = watch('title', '');
+  const nameValue = watch('name', '');
   const birthdayValue = watch('birthday');
+  const speciesValue = watch('species', '');
+  const today = useMemo(() => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }, []);
 
   const typeOptions = useMemo(
     () =>
@@ -65,6 +80,15 @@ export default function AddPetForm() {
         label: capitalize(item),
       })),
     [speciesOptions],
+  );
+
+  const birthdaySuccess = isFieldSuccess(
+    getFieldState('birthday', formState),
+    birthdayValue,
+  );
+  const speciesSuccess = isFieldSuccess(
+    getFieldState('species', formState),
+    speciesValue,
   );
 
   useEffect(() => {
@@ -123,34 +147,34 @@ export default function AddPetForm() {
         <span className={styles.subtitle}>Personal details</span>
       </div>
 
-      <div
-        className={styles.sex}
-        role="radiogroup"
-        aria-label="Pet sex"
-      >
-        {SEX_OPTIONS.map((option) => (
-          <button
-            key={option.value}
-            type="button"
-            role="radio"
-            aria-checked={sex === option.value}
-            aria-label={option.value}
-            className={`${styles.sexBtn} ${option.className} ${
-              sex === option.value ? styles.sexActive : ''
-            }`}
-            onClick={() =>
-              setValue('sex', option.value, { shouldValidate: true })
-            }
-          >
-            <Icon name={option.icon} size={20} />
-          </button>
-        ))}
-      </div>
-      {errors.sex ? (
-        <span className={styles.error}>{errors.sex.message}</span>
-      ) : null}
+      <div className={styles.mediaBlock}>
+        <div
+          className={styles.sex}
+          role="radiogroup"
+          aria-label="Pet sex"
+        >
+          {SEX_OPTIONS.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              role="radio"
+              aria-checked={sex === option.value}
+              aria-label={option.value}
+              className={`${styles.sexBtn} ${option.className} ${
+                sex === option.value ? styles.sexActive : ''
+              }`}
+              onClick={() =>
+                setValue('sex', option.value, {
+                  shouldValidate: true,
+                  shouldTouch: true,
+                })
+              }
+            >
+              <Icon name={option.icon} size={20} />
+            </button>
+          ))}
+        </div>
 
-      <div className={styles.photoBlock}>
         <div className={styles.preview}>
           {previewUrl || imgURL ? (
             <img
@@ -165,89 +189,110 @@ export default function AddPetForm() {
             <Icon name="paw" size={34} className={styles.pawIcon} />
           )}
         </div>
+      </div>
+      {errors.sex ? (
+        <span className={fieldStyles.error}>{errors.sex.message}</span>
+      ) : null}
 
-        <div className={styles.urlRow}>
-          <div className={styles.field}>
-            <label className={styles.visuallyHidden} htmlFor="pet-url">
-              Image URL
-            </label>
-            <input
-              id="pet-url"
-              className={styles.urlInput}
-              type="url"
-              placeholder="Enter URL"
-              {...register('imgURL')}
-            />
-            {errors.imgURL ? (
-              <span className={styles.error}>{errors.imgURL.message}</span>
-            ) : null}
-          </div>
+      <div className={styles.urlRow}>
+        <FormField
+          id="pet-url"
+          label="Image URL"
+          type="url"
+          placeholder="Enter URL"
+          size="sm"
+          className={styles.urlField}
+          error={errors.imgURL?.message}
+          success={isFieldSuccess(getFieldState('imgURL', formState), imgURL)}
+          {...register('imgURL')}
+        />
 
-          <button
-            type="button"
-            className={styles.uploadBtn}
-            onClick={handleUploadPhoto}
-          >
-            Upload photo
-            <Icon name="upload" size={18} />
-          </button>
-        </div>
+        <button
+          type="button"
+          className={styles.uploadBtn}
+          onClick={handleUploadPhoto}
+        >
+          Upload photo
+          <Icon name="upload" size={18} />
+        </button>
       </div>
 
       <div className={styles.inputs}>
-        <div className={styles.field}>
-          <label className={styles.visuallyHidden} htmlFor="pet-title">
-            Title
-          </label>
-          <input
-            id="pet-title"
-            className={styles.input}
-            type="text"
-            placeholder="Title"
-            {...register('title')}
-          />
-          {errors.title ? (
-            <span className={styles.error}>{errors.title.message}</span>
-          ) : null}
-        </div>
+        <FormField
+          id="pet-title"
+          label="Title"
+          type="text"
+          placeholder="Title"
+          error={errors.title?.message}
+          success={isFieldSuccess(getFieldState('title', formState), titleValue)}
+          {...register('title')}
+        />
 
-        <div className={styles.field}>
-          <label className={styles.visuallyHidden} htmlFor="pet-name">
-            Pet&apos;s Name
-          </label>
-          <input
-            id="pet-name"
-            className={styles.input}
-            type="text"
-            placeholder="Pet’s Name"
-            {...register('name')}
-          />
-          {errors.name ? (
-            <span className={styles.error}>{errors.name.message}</span>
-          ) : null}
-        </div>
+        <FormField
+          id="pet-name"
+          label="Pet's Name"
+          type="text"
+          placeholder="Pet’s Name"
+          error={errors.name?.message}
+          success={isFieldSuccess(getFieldState('name', formState), nameValue)}
+          {...register('name')}
+        />
 
         <div className={styles.row}>
           <div className={styles.field}>
             <label className={styles.visuallyHidden} htmlFor="pet-birthday">
               Birthday
             </label>
-            <div className={styles.inputWrap}>
+            <div
+              className={[
+                styles.inputWrap,
+                errors.birthday || birthdaySuccess ? styles.inputWrapStatus : '',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
               {!birthdayValue ? (
                 <span className={styles.datePlaceholder}>00.00.0000</span>
               ) : null}
               <input
                 id="pet-birthday"
-                className={`${styles.input} ${!birthdayValue ? styles.inputDateEmpty : ''}`}
+                className={[
+                  styles.input,
+                  !birthdayValue ? styles.inputDateEmpty : '',
+                  errors.birthday ? fieldStyles.inputError : '',
+                  birthdaySuccess ? fieldStyles.inputSuccess : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
                 type="date"
+                max={today}
+                aria-invalid={Boolean(errors.birthday) || undefined}
                 {...register('birthday')}
               />
-              <span className={styles.inputIcon} aria-hidden="true">
-                <Icon name="calendar" size={18} />
-              </span>
+              <div className={styles.inputTrailing}>
+                {errors.birthday ? (
+                  <span
+                    className={`${fieldStyles.statusIcon} ${fieldStyles.statusIconError}`}
+                    aria-hidden="true"
+                  >
+                    <Icon name="cross" size={18} />
+                  </span>
+                ) : null}
+                {birthdaySuccess ? (
+                  <span
+                    className={`${fieldStyles.statusIcon} ${fieldStyles.statusIconSuccess}`}
+                    aria-hidden="true"
+                  >
+                    <Icon name="check" size={18} />
+                  </span>
+                ) : null}
+                <span className={styles.inputIcon} aria-hidden="true">
+                  <Icon name="calendar" size={18} />
+                </span>
+              </div>
             </div>
             {errors.birthday ? (
-              <span className={styles.error}>{errors.birthday.message}</span>
+              <span className={fieldStyles.error}>{errors.birthday.message}</span>
             ) : null}
           </div>
 
@@ -255,29 +300,61 @@ export default function AddPetForm() {
             <label className={styles.visuallyHidden} htmlFor="pet-species">
               Type of pet
             </label>
-            <Controller
-              name="species"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  inputId="pet-species"
-                  className={styles.select}
-                  classNamePrefix="petType"
-                  options={typeOptions}
-                  placeholder="Type of pet"
-                  value={
-                    typeOptions.find((option) => option.value === field.value) ||
-                    null
-                  }
-                  onChange={(option) => field.onChange(option?.value || '')}
-                  onBlur={field.onBlur}
-                  components={{ DropdownIndicator, IndicatorSeparator: null }}
-                  isSearchable={false}
-                />
-              )}
-            />
+            <div
+              className={[
+                styles.selectWrap,
+                errors.species || speciesSuccess ? styles.selectWrapStatus : '',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              <Controller
+                name="species"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    inputId="pet-species"
+                    className={[
+                      styles.select,
+                      errors.species ? styles.selectError : '',
+                      speciesSuccess ? styles.selectSuccess : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                    classNamePrefix="petType"
+                    options={typeOptions}
+                    placeholder="Type of pet"
+                    value={
+                      typeOptions.find(
+                        (option) => option.value === field.value,
+                      ) || null
+                    }
+                    onChange={(option) => field.onChange(option?.value || '')}
+                    onBlur={field.onBlur}
+                    components={{ DropdownIndicator, IndicatorSeparator: null }}
+                    isSearchable={false}
+                  />
+                )}
+              />
+              {errors.species ? (
+                <span
+                  className={`${styles.selectStatus} ${fieldStyles.statusIcon} ${fieldStyles.statusIconError}`}
+                  aria-hidden="true"
+                >
+                  <Icon name="cross" size={18} />
+                </span>
+              ) : null}
+              {speciesSuccess ? (
+                <span
+                  className={`${styles.selectStatus} ${fieldStyles.statusIcon} ${fieldStyles.statusIconSuccess}`}
+                  aria-hidden="true"
+                >
+                  <Icon name="check" size={18} />
+                </span>
+              ) : null}
+            </div>
             {errors.species ? (
-              <span className={styles.error}>{errors.species.message}</span>
+              <span className={fieldStyles.error}>{errors.species.message}</span>
             ) : null}
           </div>
         </div>

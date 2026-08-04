@@ -62,7 +62,7 @@ export default function ProfilePage() {
 
   return (
     <div className={styles.page}>
-      <Container>
+      <Container className={styles.container}>
         <div className={styles.layout}>
           <UserCard
             user={user}

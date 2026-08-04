@@ -176,6 +176,23 @@
   color: #f6b83d;
 }
 
+.profileItem {
+  padding: 14px;
+}
+
+.profileItem .image {
+  height: 162px;
+}
+
+.profileItem .body {
+  margin-top: 14px;
+  gap: 16px;
+}
+
+.profileItem .learnMore {
+  height: 44px;
+}
+
 @media (min-width: 768px) {
   .body {
     gap: 24px;
@@ -195,5 +212,14 @@
   .meta {
     gap: 8px 16px;
     flex-wrap: wrap;
+  }
+
+  .profileItem .body {
+    gap: 16px;
+  }
+
+  .profileItem .learnMore {
+    height: 44px;
+    font-size: 16px;
   }
 }

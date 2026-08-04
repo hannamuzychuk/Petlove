@@ -3,18 +3,30 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  height: 40px;
-  padding: 0 20px;
+  box-sizing: border-box;
+  min-width: 103px;
+  height: 38px;
+  padding: 0 16px;
   border-radius: 30px;
   background-color: var(--accent);
   color: var(--color-white);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.29;
   letter-spacing: -0.03em;
   text-decoration: none;
 }
 
 .addBtn:hover {
   opacity: 0.9;
+}
+
+@media (min-width: 768px) {
+  .addBtn {
+    min-width: 118px;
+    height: 40px;
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 1.25;
+  }
 }

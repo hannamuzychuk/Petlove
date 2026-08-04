@@ -6,6 +6,8 @@ import toast from 'react-hot-toast';
 
 import Modal from '../../ui/Modal/Modal';
 import Icon from '../../ui/Icon/Icon';
+import FormField from '../../ui/FormField/FormField';
+import { isFieldSuccess } from '../../ui/FormField/formFieldUtils';
 import { editUserSchema } from '../../../validation/profileSchemas';
 import { editCurrentUser } from '../../../services/usersApi';
 import { setUser } from '../../../redux/authSlice';
@@ -27,14 +29,19 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
     handleSubmit,
     reset,
     watch,
-    formState: { errors, isSubmitting },
+    getFieldState,
+    formState,
   } = useForm({
     resolver: yupResolver(editUserSchema),
     mode: 'onBlur',
     defaultValues: getDefaults(user),
   });
 
+  const { errors, isSubmitting } = formState;
   const avatar = watch('avatar');
+  const nameValue = watch('name', '');
+  const emailValue = watch('email', '');
+  const phoneValue = watch('phone', '');
 
   useEffect(() => {
     if (!isOpen) return;
@@ -59,10 +66,10 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
         email: values.email.trim(),
       };
 
-      const avatar = values.avatar?.trim();
+      const avatarValue = values.avatar?.trim();
       const phone = values.phone?.trim();
 
-      if (avatar) payload.avatar = avatar;
+      if (avatarValue) payload.avatar = avatarValue;
       if (phone) payload.phone = phone;
 
       const data = await editCurrentUser(payload);
@@ -82,101 +89,94 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} className={styles.editModal}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-        <h2 className={styles.title}>Edit information</h2>
+        <div className={styles.content}>
+          <div className={styles.top}>
+            <h2 className={styles.title}>Edit information</h2>
 
-        <div className={styles.photoBlock}>
-          <div className={styles.preview}>
-            {previewUrl || avatar ? (
-              <img
-                className={styles.previewImage}
-                src={previewUrl || avatar}
-                alt="User avatar"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            ) : (
-              <Icon name="user" size={40} />
-            )}
-          </div>
+            <div className={styles.photoBlock}>
+              <div className={styles.preview}>
+                {previewUrl || avatar ? (
+                  <img
+                    className={styles.previewImage}
+                    src={previewUrl || avatar}
+                    alt="User avatar"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <Icon name="user" size={40} />
+                )}
+              </div>
 
-          <div className={styles.urlRow}>
-            <div className={styles.field}>
-              <label className={styles.visuallyHidden} htmlFor="edit-avatar">
-                Avatar URL
-              </label>
-              <input
-                id="edit-avatar"
-                className={styles.urlInput}
-                type="url"
-                placeholder="https://..."
-                {...register('avatar')}
-              />
-              {errors.avatar ? (
-                <span className={styles.error}>{errors.avatar.message}</span>
-              ) : null}
+              <div className={styles.urlRow}>
+                <FormField
+                  id="edit-avatar"
+                  label="Avatar URL"
+                  type="url"
+                  placeholder="Enter URL"
+                  className={styles.urlField}
+                  error={errors.avatar?.message}
+                  success={isFieldSuccess(
+                    getFieldState('avatar', formState),
+                    avatar,
+                  )}
+                  {...register('avatar')}
+                />
+
+                <button
+                  type="button"
+                  className={styles.uploadBtn}
+                  onClick={handleUploadPhoto}
+                >
+                  Upload photo
+                  <Icon name="upload" size={18} />
+                </button>
+              </div>
             </div>
-
-            <button
-              type="button"
-              className={styles.uploadBtn}
-              onClick={handleUploadPhoto}
-            >
-              Upload photo
-              <Icon name="upload" size={18} />
-            </button>
           </div>
-        </div>
 
-        <div className={styles.inputs}>
-          <div className={styles.field}>
-            <label className={styles.visuallyHidden} htmlFor="edit-name">
-              Name
-            </label>
-            <input
+          <div className={styles.inputs}>
+            <FormField
               id="edit-name"
-              className={styles.input}
+              label="Name"
               type="text"
               placeholder="Name"
+              error={errors.name?.message}
+              success={isFieldSuccess(
+                getFieldState('name', formState),
+                nameValue,
+              )}
               {...register('name')}
             />
-            {errors.name ? (
-              <span className={styles.error}>{errors.name.message}</span>
-            ) : null}
-          </div>
 
-          <div className={styles.field}>
-            <label className={styles.visuallyHidden} htmlFor="edit-email">
-              Email
-            </label>
-            <input
+            <FormField
               id="edit-email"
-              className={styles.input}
+              label="Email"
               type="email"
               placeholder="Email"
+              error={errors.email?.message}
+              success={isFieldSuccess(
+                getFieldState('email', formState),
+                emailValue,
+              )}
               {...register('email')}
             />
-            {errors.email ? (
-              <span className={styles.error}>{errors.email.message}</span>
-            ) : null}
-          </div>
 
-          <div className={styles.field}>
-            <label className={styles.visuallyHidden} htmlFor="edit-phone">
-              Phone
-            </label>
-            <input
+            <FormField
               id="edit-phone"
-              className={styles.input}
+              label="Phone"
               type="tel"
               placeholder="+380XXXXXXXXX"
+              error={errors.phone?.message}
+              success={isFieldSuccess(
+                getFieldState('phone', formState),
+                phoneValue,
+              )}
               {...register('phone')}
             />
-            {errors.phone ? (
-              <span className={styles.error}>{errors.phone.message}</span>
-            ) : null}
           </div>
         </div>
 
@@ -185,7 +185,8 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
           className={styles.saveBtn}
           disabled={isSubmitting}
         >
-          Save
+          <span className={styles.labelMobile}>Go to profile</span>
+          <span className={styles.labelTablet}>Save</span>
         </button>
       </form>
     </Modal>

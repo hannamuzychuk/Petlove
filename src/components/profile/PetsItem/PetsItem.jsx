@@ -58,7 +58,7 @@ export default function PetsItem({ pet, onRemove }) {
         aria-label={`Remove ${pet.name}`}
         onClick={() => onRemove?.(pet._id)}
       >
-        <Icon name="trash" size={18} />
+        <Icon name="trash" size={16} />
       </button>
     </li>
   );

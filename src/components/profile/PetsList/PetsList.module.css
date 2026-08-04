@@ -1,5 +1,5 @@
 .list {
-  margin: 0;
+  margin: 0 0 -20px;
   padding: 0;
   list-style: none;
   display: flex;
@@ -12,4 +12,22 @@
   font-size: 14px;
   line-height: 1.29;
   color: rgba(38, 38, 38, 0.5);
+}
+
+@media (min-width: 768px) {
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: -20px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 0;
+  }
 }

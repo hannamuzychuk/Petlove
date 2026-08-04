@@ -11,97 +11,6 @@
   gap: 10px;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.visuallyHidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.inputWrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input {
-  box-sizing: border-box;
-  width: 100%;
-  height: 42px;
-  padding: 12px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
-  border-radius: 30px;
-  background: transparent;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.29;
-  color: #262626;
-  outline: none;
-}
-
-.inputWrap .input {
-  padding-right: 42px;
-}
-
-.input::placeholder {
-  color: rgba(38, 38, 38, 0.5);
-}
-
-.input:focus {
-  border-color: var(--accent);
-}
-
-.input:-webkit-autofill,
-.input:-webkit-autofill:hover,
-.input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #262626;
-  caret-color: #262626;
-  box-shadow: 0 0 0 1000px #fff inset;
-  transition: background-color 9999s ease-in-out 0s;
-}
-
-.eyeBtn {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--accent);
-  cursor: pointer;
-}
-
-.eyeBtn svg {
-  color: var(--accent);
-}
-
-.error {
-  padding-left: 12px;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  color: var(--color-error);
-}
-
 .actions {
   display: flex;
   flex-direction: column;
@@ -139,32 +48,6 @@
 
   .inputs {
     gap: 16px;
-  }
-
-  .input {
-    height: 52px;
-    padding: 16px;
-    font-size: 16px;
-    line-height: 1.25;
-  }
-
-  .inputWrap .input {
-    padding-right: 52px;
-  }
-
-  .eyeBtn {
-    right: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  .eyeBtn svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .error {
-    font-size: 12px;
   }
 
   .actions {

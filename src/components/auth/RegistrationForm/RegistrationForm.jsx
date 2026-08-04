@@ -7,6 +7,9 @@ import toast from 'react-hot-toast';
 import { registerSchema } from '../../../validation/authSchemas';
 import { registerUser } from '../../../services/authApi';
 import Button from '../../ui/Button/Button';
+import FormField from '../../ui/FormField/FormField';
+import { isFieldSuccess } from '../../ui/FormField/formFieldUtils';
+import fieldStyles from '../../ui/FormField/FormField.module.css';
 import Icon from '../../ui/Icon/Icon';
 import styles from './RegistrationForm.module.css';
 
@@ -20,17 +23,24 @@ export default function RegistrationForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    getFieldState,
+    formState,
   } = useForm({
     resolver: yupResolver(registerSchema),
     mode: 'onBlur',
   });
 
+  const { errors, isSubmitting } = formState;
+  const nameValue = watch('name', '');
+  const emailValue = watch('email', '');
   const passwordValue = watch('password', '');
+  const confirmPasswordValue = watch('confirmPassword', '');
+
   const isPasswordSecure =
     typeof passwordValue === 'string' &&
     passwordValue.length >= 7 &&
-    !errors.password;
+    !errors.password &&
+    getFieldState('password', formState).isTouched;
 
   const onSubmit = async (values) => {
     try {
@@ -48,127 +58,80 @@ export default function RegistrationForm() {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className={styles.inputs}>
-        <div className={styles.field}>
-          <label className={styles.visuallyHidden} htmlFor="register-name">
-            Name
-          </label>
-          <input
-            id="register-name"
-            className={styles.input}
-            type="text"
-            placeholder="Name"
-            autoComplete="name"
-            {...register('name')}
-          />
-          {errors.name && (
-            <span className={styles.error}>{errors.name.message}</span>
-          )}
-        </div>
+        <FormField
+          id="register-name"
+          label="Name"
+          type="text"
+          placeholder="Name"
+          autoComplete="name"
+          error={errors.name?.message}
+          success={isFieldSuccess(getFieldState('name', formState), nameValue)}
+          {...register('name')}
+        />
 
-        <div className={styles.field}>
-          <label className={styles.visuallyHidden} htmlFor="register-email">
-            Email
-          </label>
-          <input
-            id="register-email"
-            className={styles.input}
-            type="email"
-            placeholder="Email"
-            autoComplete="email"
-            {...register('email')}
-          />
-          {errors.email && (
-            <span className={styles.error}>{errors.email.message}</span>
-          )}
-        </div>
+        <FormField
+          id="register-email"
+          label="Email"
+          type="email"
+          placeholder="Email"
+          autoComplete="email"
+          error={errors.email?.message}
+          success={isFieldSuccess(getFieldState('email', formState), emailValue)}
+          {...register('email')}
+        />
 
-        <div className={styles.field}>
-          <label className={styles.visuallyHidden} htmlFor="register-password">
-            Password
-          </label>
-          <div className={styles.inputWrap}>
-            <input
-              id="register-password"
-              className={[
-                styles.input,
-                errors.password ? styles.inputError : '',
-                isPasswordSecure ? styles.inputSuccess : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Password"
-              autoComplete="new-password"
-              {...register('password')}
-            />
-            <div
-              className={`${styles.inputActions} ${isPasswordSecure ? styles.inputActionsWide : ''}`}
+        <FormField
+          id="register-password"
+          label="Password"
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Password"
+          autoComplete="new-password"
+          error={errors.password?.message}
+          success={isPasswordSecure}
+          successMessage="Password is secure"
+          endAdornment={
+            <button
+              type="button"
+              className={fieldStyles.eyeBtn}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
-              {isPasswordSecure && (
-                <span className={styles.checkIcon} aria-hidden="true">
-                  <Icon name="check" size={18} />
-                </span>
-              )}
-              <button
-                type="button"
-                className={styles.eyeBtn}
-                onClick={() => setShowPassword((prev) => !prev)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                <Icon name={showPassword ? 'eye' : 'eye-off'} size={18} />
-              </button>
-            </div>
-          </div>
-          {errors.password && (
-            <span className={styles.error}>{errors.password.message}</span>
-          )}
-          {isPasswordSecure && (
-            <span className={styles.success}>Password is secure</span>
-          )}
-        </div>
+              <Icon name={showPassword ? 'eye' : 'eye-off'} size={18} />
+            </button>
+          }
+          {...register('password')}
+        />
 
-        <div className={styles.field}>
-          <label
-            className={styles.visuallyHidden}
-            htmlFor="register-confirm-password"
-          >
-            Confirm password
-          </label>
-          <div className={styles.inputWrap}>
-            <input
-              id="register-confirm-password"
-              className={[
-                styles.input,
-                errors.confirmPassword ? styles.inputError : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-              type={showConfirmPassword ? 'text' : 'password'}
-              placeholder="Confirm password"
-              autoComplete="new-password"
-              {...register('confirmPassword')}
-            />
-            <div className={styles.inputActions}>
-              <button
-                type="button"
-                className={styles.eyeBtn}
-                onClick={() => setShowConfirmPassword((prev) => !prev)}
-                aria-label={
-                  showConfirmPassword
-                    ? 'Hide confirm password'
-                    : 'Show confirm password'
-                }
-              >
-                <Icon name={showConfirmPassword ? 'eye' : 'eye-off'} size={18} />
-              </button>
-            </div>
-          </div>
-          {errors.confirmPassword && (
-            <span className={styles.error}>
-              {errors.confirmPassword.message}
-            </span>
+        <FormField
+          id="register-confirm-password"
+          label="Confirm password"
+          type={showConfirmPassword ? 'text' : 'password'}
+          placeholder="Confirm password"
+          autoComplete="new-password"
+          error={errors.confirmPassword?.message}
+          success={isFieldSuccess(
+            getFieldState('confirmPassword', formState),
+            confirmPasswordValue,
           )}
-        </div>
+          endAdornment={
+            <button
+              type="button"
+              className={fieldStyles.eyeBtn}
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              aria-label={
+                showConfirmPassword
+                  ? 'Hide confirm password'
+                  : 'Show confirm password'
+              }
+            >
+              <Icon
+                name={showConfirmPassword ? 'eye' : 'eye-off'}
+                size={18}
+              />
+            </button>
+          }
+          {...register('confirmPassword')}
+        />
       </div>
 
       <div className={styles.actions}>

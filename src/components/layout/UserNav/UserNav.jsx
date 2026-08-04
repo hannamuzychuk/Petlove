@@ -21,7 +21,7 @@ export default function UserNav({ variant = 'dark', inDrawer = false, onClose })
     return (
         <div className={styles.userNav}>
             <span className={styles.logout}>
-                {variant !== 'light' ? <LogOutBtn /> : null}
+                <LogOutBtn variant={variant === 'light' ? 'soft' : 'filled'} />
             </span>
             <UserBar variant={variant} />
         </div>

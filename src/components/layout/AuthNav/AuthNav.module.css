@@ -2,10 +2,7 @@
   margin: 0;
 }
 
-.headerOnly {
-  display: none;
-}
-
+.headerOnly,
 .headerFromTablet {
   display: none;
 }
@@ -47,24 +44,23 @@
 }
 
 @media (min-width: 768px) {
+  .headerOnly,
   .headerFromTablet {
     display: block;
   }
 
-  .headerFromTablet .list {
+  .list {
     flex-direction: row;
     gap: 8px;
   }
 
-  .headerFromTablet .headerLogin,
-  .headerOnly .headerLogin {
+  .headerLogin {
     width: 119px;
     height: 50px;
     padding: 0;
   }
 
-  .headerFromTablet .headerRegister,
-  .headerOnly .headerRegister {
+  .headerRegister {
     width: 149px;
     height: 50px;
     padding: 0;
@@ -84,28 +80,5 @@
   .registerBtn {
     width: 149px;
     height: 50px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .headerOnly {
-    display: block;
-  }
-
-  .list {
-    flex-direction: row;
-    gap: 8px;
-  }
-
-  .headerLogin {
-    width: 119px;
-    height: 50px;
-    padding: 0;
-  }
-
-  .headerRegister {
-    width: 149px;
-    height: 50px;
-    padding: 0;
   }
 }

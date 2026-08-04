@@ -103,6 +103,15 @@
   color: #262626;
 }
 
+.locationClear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: #262626;
+  cursor: pointer;
+}
+
 .filterSelect :global(.filter__control--menu-is-open .filter__dropdown-indicator) {
   transform: rotate(180deg);
 }
@@ -149,7 +158,6 @@
 .location :global(.location__option--is-focused),
 .location :global(.location__option:hover) {
   background-color: transparent;
-  color: #262626;
 }
 
 .filterSelect :global(.filter__option):first-child:hover,
@@ -158,7 +166,25 @@
 }
 
 .location :global(.location__menu-list) {
-  max-height: none;
+  max-height: 216px;
+}
+
+.locationMatch {
+  color: #262626;
+}
+
+.locationMuted {
+  color: rgba(38, 38, 38, 0.6);
+}
+
+.location :global(.location__option--is-focused) .locationMatch,
+.location :global(.location__option:hover) .locationMatch {
+  color: #262626;
+}
+
+.location :global(.location__option--is-focused) .locationMuted,
+.location :global(.location__option:hover) .locationMuted {
+  color: rgba(38, 38, 38, 0.6);
 }
 
 .divider {

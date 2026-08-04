@@ -34,6 +34,14 @@ export const addPetSchema = Yup.object({
   species: Yup.string().required('Species is required'),
   birthday: Yup.string()
     .matches(/^\d{4}-\d{2}-\d{2}$/, 'Format: YYYY-MM-DD')
+    .test('not-future', 'Date cannot be in the future', (value) => {
+      if (!value) return true;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const date = new Date(value);
+      date.setHours(0, 0, 0, 0);
+      return date <= today;
+    })
     .required('Birthday is required'),
   sex: Yup.string()
     .oneOf(['female', 'male', 'multiple'])

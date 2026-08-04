@@ -1,7 +1,7 @@
 .block {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 }
 
 .header {
@@ -9,13 +9,34 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: 40px;
+  min-height: 38px;
 }
 
 .title {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  line-height: 1.33;
+  line-height: 1.25;
   color: var(--color-black);
+}
+
+@media (min-width: 768px) {
+  .block {
+    gap: 20px;
+  }
+
+  .header {
+    min-height: 40px;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 1.33;
+  }
+}
+
+@media (min-width: 1280px) {
+  .block {
+    gap: 20px;
+  }
 }

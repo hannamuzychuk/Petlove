@@ -1,8 +1,14 @@
 .page {
-  min-height: calc(100vh - 100px);
-  padding: 20px 0 40px;
+  box-sizing: border-box;
+  height: calc(100dvh - 74px);
+  max-height: calc(100dvh - 74px);
+  padding: 0 0 20px;
   background-color: #f9f9f9;
-  overflow-x: clip;
+  overflow: hidden;
+}
+
+.container {
+  height: 100%;
 }
 
 .panel {
@@ -13,11 +19,13 @@
   gap: 20px;
   box-sizing: border-box;
   width: 100%;
-  min-height: 480px;
-  padding: 60px 20px;
+  height: 100%;
+  min-height: 0;
+  padding: 40px 20px;
   border-radius: 30px;
   background-color: var(--accent);
   text-align: center;
+  overflow: hidden;
 }
 
 .hero {
@@ -26,7 +34,7 @@
   justify-content: center;
   gap: 8px;
   width: 100%;
-  max-width: 560px;
+  max-width: 269px;
 }
 
 .digit {
@@ -40,8 +48,8 @@
 
 .imageWrap {
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
+  width: 109px;
+  height: 109px;
   border-radius: 50%;
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.1);
@@ -64,7 +72,7 @@
 
 .title {
   margin: 0;
-  max-width: 320px;
+  max-width: 215px;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.25;
@@ -72,18 +80,27 @@
   color: var(--color-white);
 }
 
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 48px;
-  padding: 0 30px;
+  box-sizing: border-box;
+  width: 150px;
+  height: 42px;
+  padding: 0;
   border-radius: 30px;
-  background-color: var(--color-white);
+  background-color: #fff4df;
   color: var(--accent);
   font-family: inherit;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.29;
   letter-spacing: -0.03em;
   text-decoration: none;
@@ -95,51 +112,74 @@
 
 @media (min-width: 768px) {
   .page {
-    padding: 32px 0 60px;
+    height: calc(100dvh - 114px);
+    max-height: calc(100dvh - 114px);
+    padding-bottom: 32px;
   }
 
   .panel {
-    gap: 24px;
-    min-height: 640px;
-    padding: 80px 40px;
+    gap: 40px;
+    padding: 40px 32px;
     border-radius: 60px;
   }
 
   .hero {
-    gap: 12px;
-    max-width: 720px;
+    gap: 0;
+    max-width: 640px;
   }
 
   .digit {
-    font-size: 180px;
+    font-size: clamp(120px, 28vw, 300px);
   }
 
   .imageWrap {
-    width: 220px;
-    height: 220px;
+    width: clamp(140px, 28vw, 280px);
+    height: clamp(140px, 28vw, 280px);
   }
 
   .title {
-    max-width: 480px;
+    max-width: 322px;
     font-size: 24px;
     line-height: 1.17;
   }
 
   .btn {
-    height: 50px;
-    padding: 0 36px;
+    width: 162px;
+    min-width: 162px;
+    height: 48px;
+    padding: 0;
     font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
   }
 }
 
 @media (min-width: 1280px) {
+  .page {
+    height: calc(100dvh - 114px);
+    max-height: calc(100dvh - 114px);
+    padding: 0 0 32px;
+  }
+
+  .container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
   .panel {
-    min-height: 680px;
-    padding: 100px 64px;
+    gap: 40px;
+    padding: 0;
+    border-radius: 60px;
+  }
+
+  .hero {
+    gap: 0;
+    max-width: 650px;
   }
 
   .digit {
-    font-size: 220px;
+    font-size: 300px;
+    line-height: 1;
   }
 
   .imageWrap {
@@ -148,6 +188,16 @@
   }
 
   .title {
+    max-width: 322px;
     font-size: 24px;
+    line-height: 1.17;
+  }
+
+  .btn {
+    width: 162px;
+    min-width: 162px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 1.25;
   }
 }

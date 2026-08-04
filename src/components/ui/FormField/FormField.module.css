@@ -1,0 +1,223 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 42px;
+  padding: 12px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.29;
+  color: var(--color-black);
+  outline: none;
+}
+
+.hasActions .input {
+  padding-right: 42px;
+}
+
+.hasActionsWide .input {
+  padding-right: 68px;
+}
+
+.input::placeholder {
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-black);
+  caret-color: var(--color-black);
+  box-shadow: 0 0 0 1000px #fff inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.inputError {
+  border-color: var(--color-error);
+}
+
+.inputError:focus {
+  border-color: var(--color-error);
+}
+
+.inputSuccess {
+  border-color: var(--color-success);
+}
+
+.inputSuccess:focus {
+  border-color: var(--color-success);
+}
+
+.sm .input {
+  height: 36px;
+  padding: 9px 10px;
+  font-size: 14px;
+}
+
+.sm.hasActions .input {
+  padding-right: 36px;
+}
+
+.sm.hasActionsWide .input {
+  padding-right: 60px;
+}
+
+.inputActions {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.inputActions > button {
+  pointer-events: auto;
+}
+
+.eyeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.eyeBtn svg {
+  color: var(--accent);
+}
+
+.statusIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.statusIconError {
+  color: var(--color-error);
+}
+
+.statusIconSuccess {
+  color: var(--color-success);
+}
+
+.error {
+  padding-left: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--color-error);
+}
+
+.success {
+  padding-left: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--color-success);
+}
+
+@media (min-width: 768px) {
+  .input {
+    height: 52px;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  .hasActions .input {
+    padding-right: 52px;
+  }
+
+  .hasActionsWide .input {
+    padding-right: 84px;
+  }
+
+  .sm .input {
+    height: 42px;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .sm.hasActions .input {
+    padding-right: 42px;
+  }
+
+  .sm.hasActionsWide .input {
+    padding-right: 68px;
+  }
+
+  .inputActions {
+    right: 16px;
+    gap: 10px;
+  }
+
+  .sm .inputActions {
+    right: 12px;
+  }
+
+  .statusIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .eyeBtn {
+    width: 22px;
+    height: 22px;
+  }
+
+  .sm .statusIcon,
+  .sm .eyeBtn {
+    width: 18px;
+    height: 18px;
+  }
+
+  .error,
+  .success {
+    font-size: 12px;
+  }
+}

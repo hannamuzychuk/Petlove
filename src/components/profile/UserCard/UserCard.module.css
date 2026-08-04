@@ -14,12 +14,14 @@
 
 .badge {
   position: absolute;
-  top: 40px;
-  left: 40px;
+  top: 18px;
+  left: 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
+  box-sizing: border-box;
+  min-width: 80px;
   height: 38px;
   padding: 0 14px;
   border-radius: 30px;
@@ -35,20 +37,45 @@
   margin-top: auto;
 }
 
-@media (max-width: 767px) {
-  .badge {
-    top: 20px;
-    left: 20px;
-  }
-
-  .card {
-    padding-top: 70px;
-  }
+.logout :global(button) {
+  min-width: 114px;
+  width: auto;
+  height: 42px;
+  padding: 0 28px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 }
 
 @media (min-width: 768px) {
   .card {
-    padding: 54px 40px 40px;
+    min-height: 608px;
+    padding: 40px;
     border-radius: 60px;
+    gap: 40px;
+  }
+
+  .badge {
+    top: 40px;
+    left: 40px;
+  }
+
+  .logout :global(button) {
+    min-width: 136px;
+    width: 136px;
+    height: 50px;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+}
+
+@media (min-width: 1280px) {
+  .card {
+    min-height: 674px;
   }
 }

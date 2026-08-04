@@ -1,3 +1,11 @@
+.modal {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 335px;
+  padding: 40px 28px;
+  border-radius: 30px;
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -9,7 +17,7 @@
   position: relative;
   width: 120px;
   height: 120px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .image {
@@ -23,18 +31,18 @@
 .badge {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -2px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 32px;
-  padding: 8px 14px;
+  height: 32px;
+  padding: 0 14px;
   border-radius: 30px;
   background: #fff4df;
-  color: #f6b83d;
+  color: var(--accent);
   font-size: 12px;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.33;
   letter-spacing: -0.02em;
   text-transform: capitalize;
 }
@@ -44,17 +52,17 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .title {
   margin: 0;
-  max-width: 260px;
+  max-width: 197px;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.03em;
-  color: #2b2b2b;
+  color: #2b2b2a;
 }
 
 .rating {
@@ -64,14 +72,16 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 1.43;
-  color: #2b2b2b;
+  color: #2b2b2a;
 }
 
 .meta {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 12px 20px;
+  gap: 27px;
+  width: 100%;
+  max-width: 243px;
   margin: 0 0 16px;
   padding: 0;
   list-style: none;
@@ -82,6 +92,7 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  min-width: 0;
 }
 
 .label {
@@ -97,18 +108,18 @@
   font-weight: 500;
   line-height: 1.17;
   letter-spacing: -0.02em;
-  color: #262626;
+  color: var(--color-black);
   text-transform: capitalize;
 }
 
 .comment {
-  margin: 0 0 16px;
-  max-width: 295px;
+  margin: 0 0 32px;
+  max-width: 260px;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.29;
   letter-spacing: -0.02em;
-  color: #2b2b2b;
+  color: #2b2b2a;
 }
 
 .price {
@@ -117,15 +128,15 @@
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.03em;
-  color: #2b2b2b;
+  color: #2b2b2a;
 }
 
 .actions {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
   width: 100%;
+  max-width: 279px;
 }
 
 .addBtn,
@@ -134,21 +145,25 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-width: 140px;
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 135px;
   height: 44px;
-  padding: 0 20px;
+  padding: 0 12px;
   border: none;
   border-radius: 30px;
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.43;
   letter-spacing: -0.03em;
   cursor: pointer;
 }
 
 .addBtn {
-  background: #f6b83d;
-  color: #fff;
+  background: var(--accent);
+  color: var(--color-white);
 }
 
 .addBtn:disabled {
@@ -158,15 +173,20 @@
 
 .contactBtn {
   background: #fff4df;
-  color: #f6b83d;
+  color: var(--accent);
 }
 
 .addBtn .heart {
   flex-shrink: 0;
-  color: #fff;
+  color: var(--color-white);
 }
 
 @media (min-width: 768px) {
+  .modal {
+    max-width: 473px;
+    padding: 40px 71px;
+  }
+
   .imageWrap {
     width: 150px;
     height: 150px;
@@ -174,7 +194,9 @@
   }
 
   .badge {
-    min-height: 34px;
+    left: 4px;
+    height: 34px;
+    padding: 0 14px;
     font-size: 14px;
     line-height: 1.29;
   }
@@ -184,28 +206,38 @@
   }
 
   .title {
+    max-width: 221px;
     font-size: 18px;
+    line-height: 1.33;
   }
 
   .meta {
-    gap: 27px;
+    max-width: 243px;
     margin-bottom: 16px;
   }
 
   .comment {
-    margin-bottom: 20px;
+    margin-bottom: 32px;
     max-width: 260px;
   }
 
   .price {
     margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.33;
+  }
+
+  .actions {
+    max-width: 330px;
+    gap: 10px;
   }
 
   .addBtn,
   .contactBtn {
-    width: 160px;
-    min-width: 160px;
+    flex: 0 0 160px;
+    max-width: 160px;
     height: 48px;
     font-size: 16px;
+    line-height: 1.25;
   }
 }

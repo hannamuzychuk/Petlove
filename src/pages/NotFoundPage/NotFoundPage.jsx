@@ -1,11 +1,24 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '../../components/ui/Container/Container';
 import styles from './NotFoundPage.module.css';
 
 export default function NotFoundPage() {
+  useEffect(() => {
+    const previousBody = document.body.style.overflow;
+    const previousHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousBody;
+      document.documentElement.style.overflow = previousHtml;
+    };
+  }, []);
+
   return (
     <div className={styles.page}>
-      <Container>
+      <Container className={styles.container}>
         <section className={styles.panel} aria-labelledby="not-found-title">
           <div className={styles.hero} aria-hidden="true">
             <span className={styles.digit}>4</span>
@@ -30,13 +43,15 @@ export default function NotFoundPage() {
             <span className={styles.digit}>4</span>
           </div>
 
-          <h1 id="not-found-title" className={styles.title}>
-            Ooops! This page not found :(
-          </h1>
+          <div className={styles.copy}>
+            <h1 id="not-found-title" className={styles.title}>
+              Ooops! This page not found :(
+            </h1>
 
-          <Link to="/home" className={styles.btn}>
-            To home page
-          </Link>
+            <Link to="/home" className={styles.btn}>
+              To home page
+            </Link>
+          </div>
         </section>
       </Container>
     </div>

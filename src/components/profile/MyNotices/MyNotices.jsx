@@ -36,9 +36,19 @@ export default function MyNotices({
 
       {items.length === 0 ? (
         <p className={styles.empty}>
-          {isFavorites
-            ? "Oops, looks like there aren't any furries on your favorite list yet. Do not worry! View your pets now and let them fill this space with joy."
-            : "You haven't viewed any notices yet."}
+          {isFavorites ? (
+            <>
+              Oops,{' '}
+              <span className={styles.emptyAccent}>
+                looks like there aren&apos;t any furries
+              </span>{' '}
+              on our adorable page yet. Do not worry! View your pets on the
+              &quot;find your favorite pet&quot; page and add them to your
+              favorites.
+            </>
+          ) : (
+            "You haven't viewed any notices yet."
+          )}
         </p>
       ) : (
         <NoticesList

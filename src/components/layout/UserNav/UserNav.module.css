@@ -27,6 +27,11 @@
 }
 
 @media (min-width: 768px) {
+  .logout {
+    display: flex;
+    align-items: center;
+  }
+
   .userNav {
     gap: 8px;
   }
@@ -38,10 +43,6 @@
 }
 
 @media (min-width: 1280px) {
-  .logout {
-    display: contents;
-  }
-
   .userNav {
     gap: 8px;
   }

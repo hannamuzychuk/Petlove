@@ -29,10 +29,20 @@ export default function UserBlock({ user, onEdit }) {
       <div className={styles.info}>
         <h2 className={styles.title}>My information</h2>
         <ul className={styles.list}>
-          <li className={`${styles.item} ${styles.itemAccent}`}>{user.name}</li>
-          <li className={`${styles.item} ${styles.itemAccent}`}>{user.email}</li>
-          <li className={`${styles.item} ${hasPhone ? styles.itemAccent : ''}`}>
-            {user.phone || '+380'}
+          <li
+            className={`${styles.item} ${user.name ? styles.itemFilled : ''}`}
+          >
+            {user.name || 'Name'}
+          </li>
+          <li
+            className={`${styles.item} ${user.email ? styles.itemFilled : ''}`}
+          >
+            {user.email}
+          </li>
+          <li
+            className={`${styles.item} ${hasPhone ? styles.itemFilled : ''}`}
+          >
+            {hasPhone ? user.phone : '+380'}
           </li>
         </ul>
       </div>

@@ -1,12 +1,26 @@
+import { useEffect } from 'react';
+
 import Container from '../../components/ui/Container/Container';
 import PetBlock from '../../components/ui/PetBlock/PetBlock';
 import AddPetForm from '../../components/pets/AddPetForm/AddPetForm';
 import styles from './AddPetPage.module.css';
 
 export default function AddPetPage() {
+  useEffect(() => {
+    const previousBody = document.body.style.overflow;
+    const previousHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousBody;
+      document.documentElement.style.overflow = previousHtml;
+    };
+  }, []);
+
   return (
     <div className={styles.page}>
-      <Container>
+      <Container className={styles.container}>
         <div className={styles.layout}>
           <div className={styles.petWrap}>
             <PetBlock

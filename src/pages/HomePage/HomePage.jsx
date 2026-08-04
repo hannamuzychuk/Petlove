@@ -21,7 +21,7 @@ export default function HomePage() {
           <div className={styles.heroActions}>
             {isAuthenticated
               ? <UserNav variant="light" />
-              : <AuthNav variant="light" />}
+              : <AuthNav variant="light" showFromTablet />}
           </div>
         </header>
 

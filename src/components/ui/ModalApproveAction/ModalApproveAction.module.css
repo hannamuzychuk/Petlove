@@ -1,6 +1,7 @@
 .modal {
-  max-width: 335px;
-  padding: 40px 28px 40px;
+  max-width: 448px;
+  width: 100%;
+  padding: 40px 24px;
 }
 
 .content {
@@ -32,13 +33,14 @@
   gap: 28px;
   margin-top: 20px;
   width: 100%;
+  max-width: 288px;
 }
 
 .title {
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.17;
   letter-spacing: -0.03em;
   color: var(--color-black);
 }
@@ -55,28 +57,27 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  height: 42px;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 140px;
+  height: 48px;
   border: none;
   border-radius: 30px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
-  line-height: 1.29;
+  line-height: 1.25;
   letter-spacing: -0.03em;
   cursor: pointer;
   transition: opacity 0.2s ease;
 }
 
 .yesBtn {
-  flex: 1 1 137px;
-  min-width: 0;
   background-color: var(--accent);
   color: var(--color-white);
 }
 
 .cancelBtn {
-  flex: 1 1 134px;
-  min-width: 0;
   background-color: rgba(38, 38, 38, 0.05);
   color: var(--color-black);
 }
@@ -88,35 +89,6 @@
 
 @media (min-width: 768px) {
   .modal {
-    max-width: 448px;
-    padding: 80px 70px;
-  }
-
-  .avatar {
-    width: 80px;
-    height: 80px;
-  }
-
-  .body {
-    margin-top: 20px;
-    gap: 40px;
-  }
-
-  .title {
-    font-size: 24px;
-  }
-
-  .actions {
-    gap: 12px;
-    width: auto;
-  }
-
-  .yesBtn,
-  .cancelBtn {
-    flex: 0 0 auto;
-    width: 140px;
-    height: 48px;
-    font-size: 16px;
-    line-height: 1.25;
+    padding: 80px;
   }
 }

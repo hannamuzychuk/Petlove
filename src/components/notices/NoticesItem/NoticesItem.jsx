@@ -38,7 +38,13 @@ function isNoticeFavorite(favorites = [], noticeId) {
 
 const EMPTY_FAVORITES = [];
 
-export default function NoticesItem({ item, onLearnMore, onRequireAuth, showRemoveFavorite = false }) {
+export default function NoticesItem({
+  item,
+  onLearnMore,
+  onRequireAuth,
+  showRemoveFavorite = false,
+  variant = 'default',
+}) {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const favorites = useSelector(
@@ -112,7 +118,11 @@ export default function NoticesItem({ item, onLearnMore, onRequireAuth, showRemo
   };
 
   return (
-    <li className={styles.item}>
+    <li
+      className={`${styles.item} ${
+        variant === 'profile' ? styles.profileItem : ''
+      }`}
+    >
       <img
         className={styles.image}
         src={image}
@@ -175,7 +185,7 @@ export default function NoticesItem({ item, onLearnMore, onRequireAuth, showRemo
               >
                 <Icon name="trash" size={18} />
               </button>
-            ) : (
+            ) : variant === 'profile' ? null : (
               <button
                 type="button"
                 className={`${styles.favorite} ${

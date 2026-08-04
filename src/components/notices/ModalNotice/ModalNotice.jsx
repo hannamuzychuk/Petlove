@@ -150,7 +150,7 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} className={styles.modal}>
       <div className={styles.content}>
         <div className={styles.imageWrap}>
           {image ? (
@@ -192,7 +192,9 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
           </li>
         </ul>
 
-        <p className={styles.comment}>{details?.comment}</p>
+        {details?.comment ? (
+          <p className={styles.comment}>{details.comment}</p>
+        ) : null}
 
         <p className={styles.price}>{price}</p>
 

@@ -18,7 +18,7 @@
   margin: 0;
   font-size: 28px;
   font-weight: 700;
-  line-height: 1.14;
+  line-height: 1;
   letter-spacing: -0.03em;
   color: var(--color-black);
 }
@@ -35,10 +35,18 @@
   color: rgba(38, 38, 38, 0.4);
 }
 
+.mediaBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
 .sex {
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
+  align-self: flex-start;
 }
 
 .sexBtn {
@@ -83,14 +91,6 @@
   color: var(--color-white);
 }
 
-.photoBlock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
 .preview {
   display: flex;
   align-items: center;
@@ -118,6 +118,12 @@
   flex-wrap: nowrap;
   gap: 8px;
   width: 100%;
+  margin-bottom: 10px;
+}
+
+.urlField {
+  flex: 1;
+  min-width: 0;
 }
 
 .field {
@@ -160,7 +166,7 @@
 
 .urlInput {
   height: 36px;
-  padding: 9px 12px;
+  padding: 9px 10px;
 }
 
 .urlInput::placeholder,
@@ -179,6 +185,7 @@
   justify-content: center;
   gap: 5px;
   flex-shrink: 0;
+  width: 117px;
   height: 36px;
   padding: 0 10px;
   border: none;
@@ -204,7 +211,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 31px;
 }
 
 .row {
@@ -219,6 +226,26 @@
 
 .inputWrap .input {
   padding-right: 40px;
+}
+
+.inputWrapStatus .input {
+  padding-right: 64px;
+}
+
+.inputTrailing {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.inputIcon {
+  display: flex;
+  color: var(--color-black);
 }
 
 .inputWrap .input[type='date'] {
@@ -258,18 +285,35 @@
   pointer-events: none;
 }
 
-.inputIcon {
+.selectWrap {
+  position: relative;
+}
+
+.selectWrapStatus :global(.petType__indicator) {
+  padding-right: 28px;
+}
+
+.selectStatus {
   position: absolute;
-  right: 12px;
+  right: 36px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
-  color: var(--color-black);
   pointer-events: none;
 }
 
 .select {
   width: 100%;
+}
+
+.selectError :global(.petType__control),
+.selectError :global(.petType__control--is-focused) {
+  border-color: var(--color-error);
+}
+
+.selectSuccess :global(.petType__control),
+.selectSuccess :global(.petType__control--is-focused) {
+  border-color: var(--color-success);
 }
 
 .select :global(.petType__control) {
@@ -305,7 +349,15 @@
 
 .select :global(.petType__indicator) {
   color: var(--color-black);
-  padding-right: 16px;
+  padding-right: 12px;
+}
+
+.select :global(.petType__indicator-separator) {
+  display: none;
+}
+
+.select :global(.petType__control--menu-is-open .petType__dropdown-indicator) {
+  transform: rotate(180deg);
 }
 
 .select :global(.petType__menu) {
@@ -335,12 +387,6 @@
   color: var(--color-black);
 }
 
-.error {
-  font-size: 12px;
-  line-height: 1.3;
-  color: var(--color-error);
-}
-
 .actions {
   display: flex;
   gap: 8px;
@@ -353,8 +399,8 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  min-width: 0;
-  flex: 1;
+  width: 100px;
+  flex: 0 0 100px;
   height: 42px;
   border-radius: 30px;
   font-size: 14px;
@@ -402,8 +448,18 @@
     line-height: 1.25;
   }
 
-  .sex {
+  .mediaBlock {
+    position: relative;
+    align-items: stretch;
+    min-height: 104px;
     margin-bottom: 12px;
+  }
+
+  .sex {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
   }
 
   .sexBtn {
@@ -411,28 +467,57 @@
     height: 40px;
   }
 
-  .photoBlock {
-    margin-bottom: 18px;
+  .sexBtn :global(svg) {
+    width: 24px;
+    height: 24px;
   }
 
   .preview {
+    position: absolute;
+    top: 18px;
+    left: 50%;
     width: 86px;
     height: 86px;
+    transform: translateX(-50%);
+  }
+
+  .pawIcon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .urlRow {
+    margin-bottom: 18px;
   }
 
   .urlInput {
     height: 42px;
+    min-width: 0;
     padding: 12px;
     font-size: 14px;
   }
 
   .input {
     height: 52px;
+    padding: 16px;
     font-size: 16px;
     line-height: 1.25;
   }
 
+  .inputWrap .input {
+    padding-right: 48px;
+  }
+
+  .inputWrapStatus .input {
+    padding-right: 76px;
+  }
+
+  .inputTrailing {
+    right: 16px;
+  }
+
   .uploadBtn {
+    width: 146px;
     height: 42px;
     padding: 0 16px;
     gap: 8px;
@@ -440,9 +525,14 @@
     line-height: 1.29;
   }
 
+  .uploadBtn :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
   .inputs {
     gap: 18px;
-    margin-bottom: 40px;
+    margin-bottom: 46px;
   }
 
   .row {
@@ -454,16 +544,9 @@
     font-size: 16px;
   }
 
-  .inputIcon {
-    right: 16px;
-  }
-
-  .urlRow {
-    flex-wrap: nowrap;
-  }
-
-  .urlInput {
-    min-width: 0;
+  .inputIcon :global(svg) {
+    width: 20px;
+    height: 20px;
   }
 
   .select :global(.petType__control) {
@@ -471,9 +554,26 @@
     height: 52px;
   }
 
+  .select :global(.petType__value-container) {
+    padding: 0 8px 0 16px;
+  }
+
   .select :global(.petType__placeholder),
   .select :global(.petType__single-value) {
     font-size: 16px;
+  }
+
+  .select :global(.petType__indicator) {
+    padding-right: 16px;
+  }
+
+  .select :global(.petType__menu) {
+    max-height: 142px;
+  }
+
+  .select :global(.petType__menu-list) {
+    max-height: 142px;
+    padding: 14px 0;
   }
 
   .actions {
@@ -485,6 +585,8 @@
   .backBtn,
   .submitBtn {
     flex: 1 1 0;
+    flex-basis: auto;
+    width: auto;
     min-width: 0;
     height: 48px;
     font-size: 16px;

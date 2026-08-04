@@ -24,10 +24,21 @@
   margin-left: auto;
 }
 
+.addPet .inner {
+  height: 80px;
+  padding: 24px 20px 16px;
+}
+
 @media (min-width: 768px) {
   .inner {
     height: auto;
     min-height: 82px;
+    padding: 32px;
+  }
+
+  .addPet .inner {
+    height: auto;
+    min-height: 0;
     padding: 32px;
   }
 
@@ -46,8 +57,9 @@
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
-    height: 82px;
-    padding: 16px 64px;
+    height: auto;
+    min-height: 0;
+    padding: 32px 64px;
   }
 
   .nav {
