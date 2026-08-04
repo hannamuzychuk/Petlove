@@ -79,10 +79,11 @@
   background-color: #fff4df;
   color: var(--accent);
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .removeBtn:hover {
-  opacity: 0.9;
+  background-color: #fbe8c1;
 }
 
 @media (min-width: 768px) {

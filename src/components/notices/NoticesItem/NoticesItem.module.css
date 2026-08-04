@@ -156,6 +156,12 @@
   line-height: 1.29;
   letter-spacing: -0.03em;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.learnMore:hover {
+  background: #fff4df;
+  color: #f6b83d;
 }
 
 .favorite {
@@ -169,6 +175,16 @@
   background: #fff4df;
   color: #f6b83d;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.favorite:hover:not(:disabled) {
+  background: #fbe8c1;
+}
+
+.favorite:disabled {
+  cursor: default;
+  opacity: 0.7;
 }
 
 .favorite .heartIcon,

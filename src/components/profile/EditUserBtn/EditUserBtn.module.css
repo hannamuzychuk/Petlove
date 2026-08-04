@@ -10,10 +10,11 @@
   background-color: #fff4df;
   color: var(--accent);
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .btn:hover {
-  opacity: 0.9;
+  background-color: #fbe8c1;
 }
 
 .cornerBtn {
@@ -27,6 +28,10 @@
   height: 94px;
   border-radius: 50%;
   background-color: #fff4df;
+}
+
+.avatarBtn:hover {
+  background-color: #fbe8c1;
 }
 
 .avatarBtn :global(svg) {

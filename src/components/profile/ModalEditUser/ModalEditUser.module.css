@@ -105,6 +105,11 @@
   letter-spacing: -0.02em;
   white-space: nowrap;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.uploadBtn:hover {
+  background-color: #fbe8c1;
 }
 
 .uploadBtn svg {
@@ -134,6 +139,12 @@
   line-height: 1.29;
   letter-spacing: -0.03em;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background-color: var(--color-light);
+  color: var(--accent);
 }
 
 .saveBtn:disabled {

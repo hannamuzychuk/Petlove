@@ -9,7 +9,6 @@ import {
   getCategories,
   getSexOptions,
   getSpeciesOptions,
-  getCities,
   getLocationOptions,
 } from '../../../services/noticesApi';
 import styles from './NoticesFilters.module.css';
@@ -121,9 +120,11 @@ export default function NoticesFilters({ filters, onChange }) {
   const [categories, setCategories] = useState([]);
   const [sexOptions, setSexOptions] = useState([]);
   const [speciesOptions, setSpeciesOptions] = useState([]);
+  const [locationOptions, setLocationOptions] = useState([]);
   const [locationValue, setLocationValue] = useState(null);
   const locationSearchTimer = useRef(null);
   const locationSearchResolve = useRef(null);
+  const locationOptionsRef = useRef([]);
 
   const categoryOptions = useMemo(
     () => toFilterOptions(categories),
@@ -134,18 +135,26 @@ export default function NoticesFilters({ filters, onChange }) {
     () => toFilterOptions(speciesOptions),
     [speciesOptions],
   );
+  const locationSelectOptions = useMemo(
+    () => locationOptions.map(mapCity),
+    [locationOptions],
+  );
 
   useEffect(() => {
     const loadOptions = async () => {
       try {
-        const [categoriesData, sexData, speciesData] = await Promise.all([
-          getCategories(),
-          getSexOptions(),
-          getSpeciesOptions(),
-        ]);
+        const [categoriesData, sexData, speciesData, locationsData] =
+          await Promise.all([
+            getCategories(),
+            getSexOptions(),
+            getSpeciesOptions(),
+            getLocationOptions(),
+          ]);
         setCategories(categoriesData ?? []);
         setSexOptions(sexData ?? []);
         setSpeciesOptions(speciesData ?? []);
+        setLocationOptions(locationsData ?? []);
+        locationOptionsRef.current = (locationsData ?? []).map(mapCity);
       } catch (error) {
         const message =
           error.response?.data?.message ||
@@ -164,27 +173,11 @@ export default function NoticesFilters({ filters, onChange }) {
       return;
     }
 
-    let cancelled = false;
-
-    const resolveLocation = async () => {
-      try {
-        const cities = await getLocationOptions();
-        if (cancelled) return;
-        const found = (cities ?? [])
-          .map(mapCity)
-          .find((option) => option.value === filters.locationId);
-        setLocationValue(found || null);
-      } catch {
-        if (!cancelled) setLocationValue(null);
-      }
-    };
-
-    resolveLocation();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [filters.locationId]);
+    const found = locationSelectOptions.find(
+      (option) => option.value === filters.locationId,
+    );
+    setLocationValue(found || null);
+  }, [filters.locationId, locationSelectOptions]);
 
   useEffect(
     () => () => {
@@ -200,8 +193,8 @@ export default function NoticesFilters({ filters, onChange }) {
   );
 
   const loadLocationOptions = (inputValue) => {
-    const keyword = inputValue.trim();
-    if (!keyword) {
+    const keyword = inputValue.trim().toLowerCase();
+    if (keyword.length < 1) {
       return Promise.resolve([]);
     }
 
@@ -216,15 +209,14 @@ export default function NoticesFilters({ filters, onChange }) {
     return new Promise((resolve) => {
       locationSearchResolve.current = resolve;
 
-      locationSearchTimer.current = setTimeout(async () => {
+      locationSearchTimer.current = setTimeout(() => {
         locationSearchResolve.current = null;
-        try {
-          const cities = await getCities(keyword);
-          resolve((cities ?? []).map(mapCity));
-        } catch {
-          resolve([]);
-        }
-      }, 300);
+        resolve(
+          locationOptionsRef.current.filter((option) =>
+            option.label.toLowerCase().includes(keyword),
+          ),
+        );
+      }, 200);
     });
   };
 
@@ -327,18 +319,19 @@ export default function NoticesFilters({ filters, onChange }) {
             classNamePrefix="location"
             placeholder="Location"
             isClearable
-            cacheOptions
             defaultOptions={false}
             filterOption={null}
             loadOptions={loadLocationOptions}
             value={locationValue}
             onChange={(option) => {
               setLocationValue(option);
-              onChange({ locationId: option?.value || '' });
+              onChange({ locationId: option?.value || '', page: 1 });
             }}
-            noOptionsMessage={({ inputValue }) =>
-              inputValue.trim() ? 'No locations found' : 'Type to search'
-            }
+            noOptionsMessage={({ inputValue }) => {
+              const value = inputValue.trim();
+              if (!value) return 'Type to search';
+              return 'No locations found';
+            }}
             components={{
               IndicatorsContainer: LocationIndicatorsContainer,
               DropdownIndicator: () => null,

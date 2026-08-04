@@ -26,16 +26,16 @@ export default function NotFoundPage() {
               <picture>
                 <source
                   media="(min-width: 1280px)"
-                  srcSet="/images/desktop_error.jpg 1x, /images/desktop_error@2x.jpg 2x"
+                  srcSet="/images/desktop_error.png 1x, /images/desktop_error@2x.png 2x"
                 />
                 <source
                   media="(min-width: 768px)"
-                  srcSet="/images/tablet_error.jpg 1x, /images/tablet_error@2x.jpg 2x"
+                  srcSet="/images/tablet_error.png 1x, /images/tablet_error@2x.png 2x"
                 />
                 <img
                   className={styles.image}
-                  src="/images/mobile_error.jpg"
-                  srcSet="/images/mobile_error.jpg 1x, /images/mobile_error@2x.jpg 2x"
+                  src="/images/mobile_error.png"
+                  srcSet="/images/mobile_error.png 1x, /images/mobile_error@2x.png 2x"
                   alt=""
                 />
               </picture>

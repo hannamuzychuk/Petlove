@@ -29,11 +29,22 @@
   line-height: 1.29;
   letter-spacing: -0.03em;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tab:hover {
+  background-color: var(--color-light);
+  color: var(--accent);
 }
 
 .active {
   background-color: var(--accent);
   color: var(--color-white);
+}
+
+.active:hover {
+  background-color: var(--color-light);
+  color: var(--accent);
 }
 
 .empty {

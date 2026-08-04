@@ -59,6 +59,7 @@
   border: none;
   border-radius: 30px;
   cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
 .sexFemale {
@@ -74,6 +75,15 @@
 .sexMultiple {
   background-color: #fff4df;
   color: var(--accent);
+}
+
+.sexFemale:hover:not(.sexActive),
+.sexMale:hover:not(.sexActive) {
+  opacity: 0.85;
+}
+
+.sexMultiple:hover:not(.sexActive) {
+  background-color: #fbe8c1;
 }
 
 .sexActive.sexFemale {
@@ -197,6 +207,7 @@
   line-height: 1.33;
   letter-spacing: -0.02em;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .uploadBtn svg {
@@ -204,7 +215,7 @@
 }
 
 .uploadBtn:hover {
-  opacity: 0.9;
+  background-color: #fbe8c1;
 }
 
 .inputs {
@@ -409,6 +420,7 @@
   letter-spacing: -0.03em;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .backBtn {
@@ -428,9 +440,13 @@
   cursor: not-allowed;
 }
 
-.backBtn:hover,
+.backBtn:hover {
+  background-color: rgba(38, 38, 38, 0.1);
+}
+
 .submitBtn:hover:not(:disabled) {
-  opacity: 0.9;
+  background-color: var(--color-light);
+  color: var(--accent);
 }
 
 @media (min-width: 768px) {

@@ -15,10 +15,12 @@
   line-height: 1.29;
   letter-spacing: -0.03em;
   text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .addBtn:hover {
-  opacity: 0.9;
+  background-color: var(--color-light);
+  color: var(--accent);
 }
 
 @media (min-width: 768px) {

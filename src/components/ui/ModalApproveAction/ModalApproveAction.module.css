@@ -69,7 +69,7 @@
   line-height: 1.25;
   letter-spacing: -0.03em;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .yesBtn {
@@ -82,9 +82,15 @@
   color: var(--color-black);
 }
 
-.yesBtn:hover,
+.yesBtn:hover {
+  background-color: var(--color-light);
+  color: var(--accent);
+  opacity: 1;
+}
+
 .cancelBtn:hover {
-  opacity: 0.9;
+  background-color: rgba(38, 38, 38, 0.1);
+  opacity: 1;
 }
 
 @media (min-width: 768px) {

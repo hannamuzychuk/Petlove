@@ -159,11 +159,21 @@
   line-height: 1.43;
   letter-spacing: -0.03em;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .addBtn {
   background: var(--accent);
   color: var(--color-white);
+}
+
+.addBtn:hover:not(:disabled) {
+  background: var(--color-light);
+  color: var(--accent);
+}
+
+.addBtn:hover:not(:disabled) .heart {
+  color: var(--accent);
 }
 
 .addBtn:disabled {
@@ -173,6 +183,11 @@
 
 .contactBtn {
   background: #fff4df;
+  color: var(--accent);
+}
+
+.contactBtn:hover {
+  background: #fbe8c1;
   color: var(--accent);
 }
 

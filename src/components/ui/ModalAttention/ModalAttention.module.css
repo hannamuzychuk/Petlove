@@ -74,10 +74,22 @@
 .login {
   background: #f6b83d;
   color: #fff;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.login:hover {
+  background: #fff4df;
+  color: #f6b83d;
 }
 
 .register {
   background: #fff4df;
+  color: #f6b83d;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.register:hover {
+  background: #fbe8c1;
   color: #f6b83d;
 }
 

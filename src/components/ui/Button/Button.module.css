@@ -34,8 +34,9 @@
 }
 
 .filled:hover {
-  background-color: #f55f4e;
-  border-color: #f55f4e;
+  background-color: var(--color-light);
+  color: var(--accent);
+  border-color: var(--color-light);
 }
 
 .outline {
@@ -56,6 +57,8 @@
 }
 
 .outlineLight:hover {
+  background-color: var(--color-white);
+  color: var(--accent);
   border-color: var(--color-white);
 }
 
@@ -65,8 +68,20 @@
   border-color: transparent;
 }
 
+.filledLight:hover {
+  background-color: var(--color-light);
+  color: var(--accent);
+  border-color: transparent;
+}
+
 .soft {
-  background-color: #fff4df;
+  background-color: var(--color-light);
+  color: var(--accent);
+  border-color: transparent;
+}
+
+.soft:hover {
+  background-color: #fbe8c1;
   color: var(--accent);
   border-color: transparent;
 }

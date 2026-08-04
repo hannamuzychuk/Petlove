@@ -222,11 +222,22 @@
   font-weight: 500;
   letter-spacing: -0.03em;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.chip:hover {
+  background: #fff4df;
+  color: #f6b83d;
 }
 
 .chipActive {
   background: #f6b83d;
   color: #fff;
+}
+
+.chipActive:hover {
+  background: #fff4df;
+  color: #f6b83d;
 }
 
 .chipClear {
@@ -252,10 +263,12 @@
   font-weight: 500;
   letter-spacing: -0.03em;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .reset:hover {
-  background: #f9b020;
+  background: #fff4df;
+  color: #f6b83d;
 }
 
 @media (min-width: 768px) {
