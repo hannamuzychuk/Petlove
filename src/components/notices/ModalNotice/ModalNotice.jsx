@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 
 import Modal from '../../ui/Modal/Modal';
 import Icon from '../../ui/Icon/Icon';
+import ModalCongrats from '../../ui/ModalCongrats/ModalCongrats';
 import {
   getNoticeById,
   addNoticeToFavorites,
@@ -50,26 +51,26 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
   const favorites = useSelector(
     (state) => state.auth.user?.noticesFavorites ?? EMPTY_FAVORITES,
   );
-  const [details, setDetails] = useState(notice);
+  const [fetchedDetails, setFetchedDetails] = useState(null);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [isCongratsOpen, setIsCongratsOpen] = useState(false);
 
+  const details =
+    fetchedDetails?._id === notice?._id ? fetchedDetails : notice;
   const noticeId = details?._id || notice?._id;
   const isFavorite = isNoticeFavorite(favorites, noticeId);
 
   useEffect(() => {
-    if (!isOpen || !notice?._id) return;
-
-    setDetails(notice);
-
-    if (!isAuthenticated) return;
+    if (!isOpen || !notice?._id || !isAuthenticated) return undefined;
 
     let cancelled = false;
 
     const loadDetails = async () => {
       try {
         const data = await getNoticeById(notice._id);
-        if (!cancelled) setDetails(data);
+        if (!cancelled) setFetchedDetails(data);
       } catch {
+        return;
       }
     };
 
@@ -79,8 +80,6 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
       cancelled = true;
     };
   }, [isOpen, notice, isAuthenticated]);
-
-  if (!notice) return null;
 
   const image = details?.imgURL || details?.imgUrl || '';
   const popularity = Number(details?.popularity) || 0;
@@ -110,6 +109,7 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
         );
         toast.success('Removed from favorites');
       } else {
+        const isFirstFavorite = favorites.length === 0;
         const data = await addNoticeToFavorites(noticeId);
         const noticeToStore = details || notice;
         dispatch(
@@ -117,7 +117,12 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
             resolveNoticesFavorites(data, [...favorites, noticeToStore]),
           ),
         );
-        toast.success('Added to favorites');
+        if (isFirstFavorite) {
+          onClose?.();
+          setIsCongratsOpen(true);
+        } else {
+          toast.success('Added to favorites');
+        }
       }
     } catch (error) {
       const message =
@@ -150,78 +155,99 @@ export default function ModalNotice({ isOpen, onClose, notice, onRequireAuth }) 
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className={styles.modal}>
-      <div className={styles.content}>
-        <div className={styles.imageWrap}>
-          {image ? (
-            <img className={styles.image} src={image} alt={details?.title} />
-          ) : null}
-          {category ? <span className={styles.badge}>{category}</span> : null}
-        </div>
+    <>
+      {notice ? (
+        <Modal isOpen={isOpen} onClose={onClose} className={styles.modal}>
+          <div className={styles.content}>
+            <div className={styles.imageWrap}>
+              {image ? (
+                <img
+                  className={styles.image}
+                  src={image}
+                  alt={details?.title}
+                />
+              ) : null}
+              {category ? (
+                <span className={styles.badge}>{category}</span>
+              ) : null}
+            </div>
 
-        <div className={styles.heading}>
-          <h2 className={styles.title}>{details?.title}</h2>
-          <div className={styles.rating}>
-            {Array.from({ length: 5 }, (_, index) => (
-              <Icon
-                key={index}
-                name={index < filledStars ? 'star' : 'star-empty'}
-                size={16}
-              />
-            ))}
-            <span>{popularity}</span>
+            <div className={styles.heading}>
+              <h2 className={styles.title}>{details?.title}</h2>
+              <div className={styles.rating}>
+                {Array.from({ length: 5 }, (_, index) => (
+                  <Icon
+                    key={index}
+                    name={index < filledStars ? 'star' : 'star-empty'}
+                    size={16}
+                  />
+                ))}
+                <span>{popularity}</span>
+              </div>
+            </div>
+
+            <ul className={styles.meta}>
+              <li>
+                <span className={styles.label}>Name</span>
+                <span className={styles.value}>{details?.name}</span>
+              </li>
+              <li>
+                <span className={styles.label}>Birthday</span>
+                <span className={styles.value}>
+                  {formatDate(details?.birthday)}
+                </span>
+              </li>
+              <li>
+                <span className={styles.label}>Sex</span>
+                <span className={styles.value}>
+                  {capitalize(details?.sex)}
+                </span>
+              </li>
+              <li>
+                <span className={styles.label}>Species</span>
+                <span className={styles.value}>
+                  {capitalize(details?.species)}
+                </span>
+              </li>
+            </ul>
+
+            {details?.comment ? (
+              <p className={styles.comment}>{details.comment}</p>
+            ) : null}
+
+            <p className={styles.price}>{price}</p>
+
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.addBtn}
+                onClick={handleFavorite}
+                disabled={favoriteLoading}
+              >
+                {isFavorite ? 'Remove' : 'Add to'}
+                <Icon
+                  name={isFavorite ? 'heart' : 'heart-outline'}
+                  size={18}
+                  className={styles.heart}
+                />
+              </button>
+
+              <button
+                type="button"
+                className={styles.contactBtn}
+                onClick={handleContact}
+              >
+                Contact
+              </button>
+            </div>
           </div>
-        </div>
+        </Modal>
+      ) : null}
 
-        <ul className={styles.meta}>
-          <li>
-            <span className={styles.label}>Name</span>
-            <span className={styles.value}>{details?.name}</span>
-          </li>
-          <li>
-            <span className={styles.label}>Birthday</span>
-            <span className={styles.value}>{formatDate(details?.birthday)}</span>
-          </li>
-          <li>
-            <span className={styles.label}>Sex</span>
-            <span className={styles.value}>{capitalize(details?.sex)}</span>
-          </li>
-          <li>
-            <span className={styles.label}>Species</span>
-            <span className={styles.value}>{capitalize(details?.species)}</span>
-          </li>
-        </ul>
-
-        {details?.comment ? (
-          <p className={styles.comment}>{details.comment}</p>
-        ) : null}
-
-        <p className={styles.price}>{price}</p>
-
-        <div className={styles.actions}>
-          <button
-            type="button"
-            className={styles.addBtn}
-            onClick={handleFavorite}
-            disabled={favoriteLoading}
-          >
-            {isFavorite ? 'Remove' : 'Add to'}
-            <Icon
-              name={isFavorite ? 'heart' : 'heart-outline'}
-              size={18}
-              className={styles.heart}
-            />
-          </button>
-
-          <button
-            type="button"
-            className={styles.contactBtn}
-            onClick={handleContact}
-          >
-            Contact
-          </button>
-        </div>
-      </div>
-    </Modal>
+      <ModalCongrats
+        isOpen={isCongratsOpen}
+        onClose={() => setIsCongratsOpen(false)}
+      />
+    </>
   );
 }

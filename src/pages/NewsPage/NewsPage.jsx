@@ -23,12 +23,14 @@ export default function NewsPage() {
   const page = Number(searchParams.get('page')) || 1;
 
   const [query, setQuery] = useState(keyword);
+  const [prevKeyword, setPrevKeyword] = useState(keyword);
   const [items, setItems] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
 
-  useEffect(() => {
+  if (keyword !== prevKeyword) {
+    setPrevKeyword(keyword);
     setQuery(keyword);
-  }, [keyword]);
+  }
 
   useEffect(() => {
     const loadNews = async () => {

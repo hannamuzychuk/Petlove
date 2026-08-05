@@ -83,12 +83,15 @@
 
 @media (max-width: 767px) {
   .page {
-    max-height: 100dvh;
-    overflow: hidden;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .content {
     min-height: 0;
+    flex: 1 1 auto;
   }
 }
 

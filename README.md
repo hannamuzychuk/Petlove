@@ -2,6 +2,8 @@
 
 Petlove is a responsive React web app for finding pets, reading news, browsing partner organizations, and managing a personal pet profile.
 
+**Live demo:** [https://petlove-goit.vercel.app](https://petlove-goit.vercel.app)
+
 ## Features
 
 - **Home** — branded landing page
@@ -85,17 +87,17 @@ Authenticated routes are protected with a private route. Login and register redi
 
 ```
 src/
-  app/           # Route config
-  components/    # UI, layout, feature components
-  pages/         # Page-level views
-  redux/         # Store and slices (auth, loading)
-  routes/        # Private / public route guards
-  services/      # API clients
-  validation/    # Yup schemas
-  utils/         # Helpers
+  app/
+  components/
+  pages/
+  redux/
+  routes/
+  services/
+  validation/
+  utils/
 public/
-  images/        # Static images (responsive assets)
-  sprite.svg     # Icon sprite
+  images/
+  sprite.svg
 ```
 
 ## Notes

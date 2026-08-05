@@ -18,8 +18,10 @@ export default function Loader() {
     }
 
     if (isLoading) {
-      setVisible(true);
-      setProgress(8);
+      const startId = window.setTimeout(() => {
+        setVisible(true);
+        setProgress(8);
+      }, 0);
 
       const timer = window.setInterval(() => {
         setProgress((current) => {
@@ -29,10 +31,16 @@ export default function Loader() {
         });
       }, 180);
 
-      return () => window.clearInterval(timer);
+      return () => {
+        window.clearTimeout(startId);
+        window.clearInterval(timer);
+      };
     }
 
-    setProgress((current) => (current > 0 ? 100 : 0));
+    const finishId = window.setTimeout(() => {
+      setProgress((current) => (current > 0 ? 100 : 0));
+    }, 0);
+
     hideTimerRef.current = window.setTimeout(() => {
       setVisible(false);
       setProgress(0);
@@ -40,6 +48,7 @@ export default function Loader() {
     }, 280);
 
     return () => {
+      window.clearTimeout(finishId);
       if (hideTimerRef.current) {
         window.clearTimeout(hideTimerRef.current);
         hideTimerRef.current = null;

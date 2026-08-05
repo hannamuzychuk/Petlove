@@ -13,7 +13,11 @@ export default function UserNav({ variant = 'dark', inDrawer = false, onClose })
     if (inDrawer) {
         return (
             <div className={styles.drawerUser}>
-                <LogOutBtn variant="filled" className={styles.drawerLogout} />
+                <LogOutBtn
+                    variant="filled"
+                    className={styles.drawerLogout}
+                    onClick={onClose}
+                />
             </div>
         );
     }

@@ -103,6 +103,15 @@
 
 @media (min-width: 1280px) {
   .item {
+    grid-template-columns: 90px 1fr;
     column-gap: 20px;
+    min-height: 196px;
+    height: 196px;
+    padding: 40px 12px 20px 20px;
+  }
+
+  .logo {
+    width: 90px;
+    height: 90px;
   }
 }

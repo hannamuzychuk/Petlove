@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import Icon from '../../ui/Icon/Icon';
+import ModalCongrats from '../../ui/ModalCongrats/ModalCongrats';
 import {
   addNoticeToFavorites,
   removeNoticeFromFavorites,
@@ -52,6 +53,7 @@ export default function NoticesItem({
   );
   const isFavorite = isNoticeFavorite(favorites, item._id);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [isCongratsOpen, setIsCongratsOpen] = useState(false);
 
   const image = item.imgURL || item.imgUrl || '';
   const price = formatPrice(item.price);
@@ -98,13 +100,18 @@ export default function NoticesItem({
         );
         toast.success('Removed from favorites');
       } else {
+        const isFirstFavorite = favorites.length === 0;
         const data = await addNoticeToFavorites(item._id);
         dispatch(
           setNoticesFavorites(
             resolveNoticesFavorites(data, [...favorites, item]),
           ),
         );
-        toast.success('Added to favorites');
+        if (isFirstFavorite) {
+          setIsCongratsOpen(true);
+        } else {
+          toast.success('Added to favorites');
+        }
       }
     } catch (error) {
       toast.error(
@@ -208,6 +215,11 @@ export default function NoticesItem({
           </div>
         </div>
       </div>
+
+      <ModalCongrats
+        isOpen={isCongratsOpen}
+        onClose={() => setIsCongratsOpen(false)}
+      />
     </li>
   );
 }

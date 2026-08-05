@@ -140,6 +140,22 @@ export default function NoticesFilters({ filters, onChange }) {
     [locationOptions],
   );
 
+  const resolvedFromFilters = filters.locationId
+    ? locationSelectOptions.find(
+        (option) => option.value === filters.locationId,
+      ) || null
+    : null;
+
+  if (!filters.locationId && locationValue !== null) {
+    setLocationValue(null);
+  } else if (
+    filters.locationId &&
+    locationValue?.value !== filters.locationId &&
+    resolvedFromFilters
+  ) {
+    setLocationValue(resolvedFromFilters);
+  }
+
   useEffect(() => {
     const loadOptions = async () => {
       try {
@@ -166,18 +182,6 @@ export default function NoticesFilters({ filters, onChange }) {
 
     loadOptions();
   }, []);
-
-  useEffect(() => {
-    if (!filters.locationId) {
-      setLocationValue(null);
-      return;
-    }
-
-    const found = locationSelectOptions.find(
-      (option) => option.value === filters.locationId,
-    );
-    setLocationValue(found || null);
-  }, [filters.locationId, locationSelectOptions]);
 
   useEffect(
     () => () => {
