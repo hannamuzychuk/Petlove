@@ -52,7 +52,8 @@ export default function HomePage() {
             src="/images/home_mobile@1x.webp"
             srcSet="/images/home_mobile@1x.webp 1x, /images/home_mobile@2x.webp 2x"
             alt="Woman hugging her dog"
-            loading="lazy"
+            fetchPriority="high"
+            decoding="async"
             width={335}
             height={402}
           />
