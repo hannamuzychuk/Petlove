@@ -123,17 +123,25 @@
   color: var(--accent);
 }
 
-.urlRow {
+.uploadRow {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
   width: 100%;
   margin-bottom: 10px;
 }
 
-.urlField {
-  flex: 1;
-  min-width: 0;
+.fileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .field {
@@ -156,7 +164,6 @@
   border: 0;
 }
 
-.urlInput,
 .input {
   box-sizing: border-box;
   width: 100%;
@@ -174,17 +181,10 @@
   outline: none;
 }
 
-.urlInput {
-  height: 36px;
-  padding: 9px 10px;
-}
-
-.urlInput::placeholder,
 .input::placeholder {
   color: rgba(38, 38, 38, 0.5);
 }
 
-.urlInput:focus,
 .input:focus {
   border-color: var(--accent);
 }
@@ -195,17 +195,17 @@
   justify-content: center;
   gap: 5px;
   flex-shrink: 0;
-  width: 117px;
-  height: 36px;
-  padding: 0 10px;
+  min-width: 146px;
+  height: 42px;
+  padding: 0 16px;
   border: none;
   border-radius: 30px;
   background-color: #fff4df;
   color: var(--color-black);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.33;
-  letter-spacing: -0.02em;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -214,8 +214,13 @@
   color: var(--accent);
 }
 
-.uploadBtn:hover {
+.uploadBtn:hover:not(:disabled) {
   background-color: #fbe8c1;
+}
+
+.uploadBtn:disabled {
+  cursor: wait;
+  opacity: 0.8;
 }
 
 .inputs {
@@ -502,15 +507,8 @@
     height: 44px;
   }
 
-  .urlRow {
+  .uploadRow {
     margin-bottom: 18px;
-  }
-
-  .urlInput {
-    height: 42px;
-    min-width: 0;
-    padding: 12px;
-    font-size: 14px;
   }
 
   .input {

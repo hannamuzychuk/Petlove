@@ -59,19 +59,28 @@
   object-fit: cover;
 }
 
-.urlRow {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  width: 100%;
+.fileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.urlField {
-  flex: 1 1 0;
-  min-width: 0;
+.fileError {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--color-error);
+  text-align: center;
 }
 
-.urlField :global(input),
 .inputs :global(input) {
   height: 42px;
   padding: 12px;
@@ -80,7 +89,6 @@
   border-color: var(--accent);
 }
 
-.urlField :global(input[aria-invalid='true']),
 .inputs :global(input[aria-invalid='true']) {
   border-color: var(--color-error);
 }
@@ -93,7 +101,7 @@
   flex-shrink: 0;
   box-sizing: border-box;
   height: 42px;
-  padding: 0 12px;
+  padding: 0 16px;
   border: none;
   border-radius: 30px;
   background-color: #fff4df;
@@ -108,8 +116,13 @@
   transition: background-color 0.2s ease;
 }
 
-.uploadBtn:hover {
+.uploadBtn:hover:not(:disabled) {
   background-color: #fbe8c1;
+}
+
+.uploadBtn:disabled {
+  cursor: wait;
+  opacity: 0.8;
 }
 
 .uploadBtn svg {
@@ -160,16 +173,6 @@
   display: none;
 }
 
-@media (max-width: 374px) {
-  .urlRow {
-    flex-direction: column;
-  }
-
-  .uploadBtn {
-    width: 100%;
-  }
-}
-
 @media (min-width: 768px) {
   .editModal {
     max-width: 480px;
@@ -192,13 +195,6 @@
   .preview {
     width: 86px;
     height: 86px;
-  }
-
-  .urlField :global(input) {
-    height: 42px;
-    padding: 12px;
-    font-size: 14px;
-    line-height: 1.29;
   }
 
   .inputs :global(input) {

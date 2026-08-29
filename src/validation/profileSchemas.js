@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-const avatarRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/i;
+const avatarRegex = /^https:\/\/.+\.(?:png|jpg|jpeg|gif|bmp|webp)$/i;
 const phoneRegex = /^\+38\d{10}$/;
 
 export const editUserSchema = Yup.object({
@@ -13,7 +13,7 @@ export const editUserSchema = Yup.object({
     .transform((value) => (value === '' ? null : value))
     .nullable()
     .matches(avatarRegex, {
-      message: 'Enter a valid image URL (png, jpg, jpeg, gif, bmp, webp)',
+      message: 'Select a valid image (png, jpg, jpeg, gif, bmp, webp)',
       excludeEmptyString: true,
     }),
   phone: Yup.string()
@@ -29,8 +29,11 @@ export const addPetSchema = Yup.object({
   title: Yup.string().required('Title is required'),
   name: Yup.string().required('Name is required'),
   imgURL: Yup.string()
-    .matches(avatarRegex, 'Enter a valid image URL (png, jpg, jpeg, gif, bmp, webp)')
-    .required('Image URL is required'),
+    .matches(
+      avatarRegex,
+      'The imgURL must be in format https://XXXX.png|jpg|jpeg|gif|bmp|webp',
+    )
+    .required('Photo is required'),
   species: Yup.string().required('Species is required'),
   birthday: Yup.string()
     .matches(/^\d{4}-\d{2}-\d{2}$/, 'Format: YYYY-MM-DD')

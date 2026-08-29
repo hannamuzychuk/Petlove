@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
@@ -14,6 +14,7 @@ import { addPetSchema } from '../../../validation/profileSchemas';
 import { addPet } from '../../../services/usersApi';
 import { getSpeciesOptions } from '../../../services/noticesApi';
 import { setUserPets } from '../../../redux/authSlice';
+import { uploadImageFile } from '../../../utils/imageFile';
 import styles from './AddPetForm.module.css';
 
 const SEX_OPTIONS = [
@@ -34,8 +35,10 @@ const DropdownIndicator = (props) => (
 export default function AddPetForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [speciesOptions, setSpeciesOptions] = useState([]);
   const [previewUrl, setPreviewUrl] = useState('');
+  const [isReadingFile, setIsReadingFile] = useState(false);
 
   const {
     register,
@@ -104,12 +107,38 @@ export default function AddPetForm() {
     load();
   }, []);
 
-  const handleUploadPhoto = () => {
-    if (!imgURL || errors.imgURL) {
-      toast.error('Enter a valid image URL first');
-      return;
+  const handlePickPhoto = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsReadingFile(true);
+    const localPreview = URL.createObjectURL(file);
+    setPreviewUrl(localPreview);
+
+    try {
+      const url = await uploadImageFile(file);
+      setValue('imgURL', url, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setPreviewUrl(url);
+    } catch (error) {
+      toast.error(error.message || 'Failed to upload the selected image');
+      setPreviewUrl('');
+      setValue('imgURL', '', {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    } finally {
+      URL.revokeObjectURL(localPreview);
+      setIsReadingFile(false);
+      event.target.value = '';
     }
-    setPreviewUrl(imgURL);
   };
 
   const onSubmit = async (values) => {
@@ -194,27 +223,27 @@ export default function AddPetForm() {
         <span className={fieldStyles.error}>{errors.sex.message}</span>
       ) : null}
 
-      <div className={styles.urlRow}>
-        <FormField
-          id="pet-url"
-          label="Image URL"
-          type="url"
-          placeholder="Enter URL"
-          size="sm"
-          className={styles.urlField}
-          error={errors.imgURL?.message}
-          success={isFieldSuccess(getFieldState('imgURL', formState), imgURL)}
-          {...register('imgURL')}
+      <div className={styles.uploadRow}>
+        <input
+          ref={fileInputRef}
+          className={styles.fileInput}
+          type="file"
+          accept="image/png,image/jpeg,image/jpg,image/gif,image/bmp,image/webp"
+          onChange={handleFileChange}
         />
-
         <button
           type="button"
           className={styles.uploadBtn}
-          onClick={handleUploadPhoto}
+          onClick={handlePickPhoto}
+          disabled={isReadingFile}
         >
-          Upload photo
+          {isReadingFile ? 'Loading...' : 'Upload photo'}
           <Icon name="upload" size={18} />
         </button>
+        {errors.imgURL ? (
+          <span className={fieldStyles.error}>{errors.imgURL.message}</span>
+        ) : null}
+        <input type="hidden" {...register('imgURL')} />
       </div>
 
       <div className={styles.inputs}>
@@ -371,7 +400,7 @@ export default function AddPetForm() {
         <button
           type="submit"
           className={styles.submitBtn}
-          disabled={isSubmitting}
+          disabled={isSubmitting || isReadingFile}
         >
           Submit
         </button>

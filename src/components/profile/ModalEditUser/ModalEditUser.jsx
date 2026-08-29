@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,6 +11,7 @@ import { isFieldSuccess } from '../../ui/FormField/formFieldUtils';
 import { editUserSchema } from '../../../validation/profileSchemas';
 import { editCurrentUser } from '../../../services/usersApi';
 import { setUser } from '../../../redux/authSlice';
+import { uploadImageFile } from '../../../utils/imageFile';
 import styles from './ModalEditUser.module.css';
 
 const getDefaults = (user) => ({
@@ -22,12 +23,15 @@ const getDefaults = (user) => ({
 
 export default function ModalEditUser({ isOpen, onClose, user }) {
   const dispatch = useDispatch();
+  const fileInputRef = useRef(null);
   const [previewUrl, setPreviewUrl] = useState('');
+  const [isReadingFile, setIsReadingFile] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     watch,
     getFieldState,
     formState,
@@ -49,14 +53,43 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
     const defaults = getDefaults(user);
     reset(defaults);
     setPreviewUrl(defaults.avatar || '');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   }, [isOpen, user, reset]);
 
-  const handleUploadPhoto = () => {
-    if (!avatar || errors.avatar) {
-      toast.error('Enter a valid image URL first');
-      return;
+  const handlePickPhoto = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsReadingFile(true);
+    const localPreview = URL.createObjectURL(file);
+    setPreviewUrl(localPreview);
+
+    try {
+      const url = await uploadImageFile(file);
+      setValue('avatar', url, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setPreviewUrl(url);
+    } catch (error) {
+      toast.error(error.message || 'Failed to upload the selected image');
+      setPreviewUrl('');
+      setValue('avatar', '', {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    } finally {
+      URL.revokeObjectURL(localPreview);
+      setIsReadingFile(false);
+      event.target.value = '';
     }
-    setPreviewUrl(avatar);
   };
 
   const onSubmit = async (values) => {
@@ -111,30 +144,29 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
                 )}
               </div>
 
-              <div className={styles.urlRow}>
-                <FormField
-                  id="edit-avatar"
-                  label="Avatar URL"
-                  type="url"
-                  placeholder="Enter URL"
-                  className={styles.urlField}
-                  error={errors.avatar?.message}
-                  success={isFieldSuccess(
-                    getFieldState('avatar', formState),
-                    avatar,
-                  )}
-                  {...register('avatar')}
-                />
+              <input
+                ref={fileInputRef}
+                className={styles.fileInput}
+                type="file"
+                accept="image/png,image/jpeg,image/jpg,image/gif,image/bmp,image/webp"
+                onChange={handleFileChange}
+              />
 
-                <button
-                  type="button"
-                  className={styles.uploadBtn}
-                  onClick={handleUploadPhoto}
-                >
-                  Upload photo
-                  <Icon name="upload" size={18} />
-                </button>
-              </div>
+              <button
+                type="button"
+                className={styles.uploadBtn}
+                onClick={handlePickPhoto}
+                disabled={isReadingFile}
+              >
+                {isReadingFile ? 'Loading...' : 'Upload photo'}
+                <Icon name="upload" size={18} />
+              </button>
+
+              {errors.avatar ? (
+                <span className={styles.fileError}>{errors.avatar.message}</span>
+              ) : null}
+
+              <input type="hidden" {...register('avatar')} />
             </div>
           </div>
 
@@ -183,7 +215,7 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
         <button
           type="submit"
           className={styles.saveBtn}
-          disabled={isSubmitting}
+          disabled={isSubmitting || isReadingFile}
         >
           <span className={styles.labelMobile}>Go to profile</span>
           <span className={styles.labelTablet}>Save</span>
