@@ -102,7 +102,15 @@ export default function ModalEditUser({ isOpen, onClose, user }) {
       const avatarValue = values.avatar?.trim();
       const phone = values.phone?.trim();
 
-      if (avatarValue) payload.avatar = avatarValue;
+      if (avatarValue) {
+        if (
+          !/^https:\/\/.+\.(?:png|jpg|jpeg|gif|bmp|webp)$/i.test(avatarValue)
+        ) {
+          toast.error('Please upload a photo from your device first');
+          return;
+        }
+        payload.avatar = avatarValue;
+      }
       if (phone) payload.phone = phone;
 
       const data = await editCurrentUser(payload);

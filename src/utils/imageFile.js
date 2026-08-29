@@ -8,8 +8,8 @@ const ACCEPTED_TYPES = new Set([
 ]);
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const MAX_DIMENSION = 1200;
-const JPEG_QUALITY = 0.85;
+const MAX_DIMENSION = 1000;
+const JPEG_QUALITY = 0.75;
 
 const IMAGE_URL_RE =
   /^https:\/\/.+\.(?:png|jpg|jpeg|gif|bmp|webp)$/i;
@@ -61,15 +61,7 @@ export async function fileToImageDataUrl(file) {
 
   context.drawImage(image, 0, 0, width, height);
 
-  const outputType =
-    file.type === 'image/png' || file.type === 'image/webp'
-      ? file.type
-      : 'image/jpeg';
-
-  return canvas.toDataURL(
-    outputType,
-    outputType === 'image/jpeg' ? JPEG_QUALITY : undefined,
-  );
+  return canvas.toDataURL('image/jpeg', JPEG_QUALITY);
 }
 
 export async function uploadImageFile(file) {
@@ -82,9 +74,16 @@ export async function uploadImageFile(file) {
     },
     body: JSON.stringify({
       image: dataUrl,
-      name: file.name || 'photo.jpg',
+      name: (file.name || 'photo').replace(/\.[^.]+$/, '') + '.jpg',
     }),
   });
+
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error(
+      'Upload API is unavailable on this deployment. Redeploy with /api/upload-image.',
+    );
+  }
 
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {

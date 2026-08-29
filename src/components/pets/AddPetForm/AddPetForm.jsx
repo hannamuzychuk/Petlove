@@ -143,6 +143,15 @@ export default function AddPetForm() {
 
   const onSubmit = async (values) => {
     try {
+      if (
+        !/^https:\/\/.+\.(?:png|jpg|jpeg|gif|bmp|webp)$/i.test(
+          values.imgURL || '',
+        )
+      ) {
+        toast.error('Please upload a photo from your device first');
+        return;
+      }
+
       const data = await addPet({
         title: values.title,
         name: values.name,
